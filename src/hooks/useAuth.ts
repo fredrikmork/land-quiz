@@ -64,6 +64,7 @@ export function useAuth() {
       email,
       password,
       options: {
+        emailRedirectTo: window.location.origin,
         data: {
           username,
           display_name: username,
