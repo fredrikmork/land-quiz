@@ -1,0 +1,52 @@
+.map-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  background: #f0f4f8;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.map-container svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.country {
+  fill: #d1d5db;
+  stroke: #9ca3af;
+  stroke-width: 0.5;
+  outline: none;
+  transition: fill 0.2s;
+}
+
+.country:hover {
+  fill: #b8bfc9;
+}
+
+.country.highlighted {
+  fill: #3b82f6;
+  stroke: #1e40af;
+  stroke-width: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  .map-container {
+    background: #1f2937;
+  }
+
+  .country {
+    fill: #4b5563;
+    stroke: #6b7280;
+  }
+
+  .country:hover {
+    fill: #6b7280;
+  }
+
+  .country.highlighted {
+    fill: #3b82f6;
+    stroke: #60a5fa;
+  }
+}
