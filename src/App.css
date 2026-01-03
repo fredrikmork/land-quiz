@@ -106,6 +106,76 @@ h2 {
   padding: 2rem;
 }
 
+/* Profile Section */
+.profile-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.profile-card {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.profile-card.logged-out {
+  background: #eff6ff;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.profile-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #374151;
+}
+
+.profile-email {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.profile-button {
+  padding: 0.6rem 1.25rem;
+  font-size: 0.95rem;
+  background: #3b82f6;
+}
+
+.profile-button.secondary {
+  background: transparent;
+  border: 2px solid #e5e7eb;
+  color: #6b7280;
+}
+
+.profile-button.secondary:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.login-prompt {
+  color: #1e40af;
+  font-size: 0.95rem;
+  margin: 0;
+  text-align: center;
+}
+
 @media (prefers-color-scheme: dark) {
   .subtitle {
     color: #aaa;
@@ -129,6 +199,36 @@ h2 {
   }
 
   .login-prompt {
+    color: #93c5fd;
+  }
+
+  .profile-section {
+    border-color: #374151;
+  }
+
+  .profile-card {
+    background: #1f2937;
+  }
+
+  .profile-card.logged-out {
+    background: #1e3a5f;
+  }
+
+  .profile-name {
+    color: #f9fafb;
+  }
+
+  .profile-email {
     color: #9ca3af;
+  }
+
+  .profile-button.secondary {
+    border-color: #374151;
+    color: #9ca3af;
+  }
+
+  .profile-button.secondary:hover {
+    background: #374151;
+    border-color: #4b5563;
   }
 }

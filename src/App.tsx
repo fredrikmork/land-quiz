@@ -3,7 +3,6 @@ import { Quiz } from './components/Quiz'
 import { Auth } from './components/Auth'
 import { Statistics } from './components/Statistics'
 import { useAuth } from './hooks/useAuth'
-import { isSupabaseConfigured } from './lib/supabase'
 import type { QuizMode } from './hooks/useQuiz'
 import './App.css'
 
@@ -12,7 +11,6 @@ type AppMode = 'menu' | 'auth' | 'stats' | QuizMode
 function App() {
   const [mode, setMode] = useState<AppMode>('menu')
   const { profile, loading, signOut, isAuthenticated } = useAuth()
-  const supabaseEnabled = isSupabaseConfigured()
 
   if (loading) {
     return (
@@ -55,37 +53,8 @@ function App() {
   // Main menu
   return (
     <div className="app">
-      {/* Header with user info */}
-      {supabaseEnabled && (
-        <div className="header">
-          {isAuthenticated ? (
-            <div className="user-info">
-              <span className="user-name">
-                Hei, {profile?.display_name || profile?.username || 'bruker'}!
-              </span>
-              <button className="header-button" onClick={() => setMode('stats')}>
-                Statistikk
-              </button>
-              <button className="header-button secondary" onClick={signOut}>
-                Logg ut
-              </button>
-            </div>
-          ) : (
-            <button className="header-button" onClick={() => setMode('auth')}>
-              Logg inn
-            </button>
-          )}
-        </div>
-      )}
-
       <h1>Land Quiz</h1>
       <p className="subtitle">Test kunnskapen din om land, hovedsteder, flagg og geografi</p>
-
-      {!isAuthenticated && supabaseEnabled && (
-        <p className="login-prompt">
-          Logg inn for a lagre statistikk og folge fremgangen din!
-        </p>
-      )}
 
       <div className="menu">
         <button onClick={() => setMode('capital-to-country')}>
@@ -100,6 +69,34 @@ function App() {
         <button onClick={() => setMode('map-to-country')}>
           Kart → Land
         </button>
+      </div>
+
+      <div className="profile-section">
+        {isAuthenticated ? (
+          <div className="profile-card">
+            <div className="profile-info">
+              <span className="profile-name">
+                {profile?.display_name || profile?.username || 'Bruker'}
+              </span>
+              <span className="profile-email">{profile?.username}</span>
+            </div>
+            <div className="profile-actions">
+              <button className="profile-button" onClick={() => setMode('stats')}>
+                Statistikk
+              </button>
+              <button className="profile-button secondary" onClick={signOut}>
+                Logg ut
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="profile-card logged-out">
+            <p className="login-prompt">Logg inn for å lagre statistikk og følge fremgangen din!</p>
+            <button className="profile-button" onClick={() => setMode('auth')}>
+              Logg inn / Registrer
+            </button>
+          </div>
+        )}
       </div>
 
       <p className="country-count">197 land fra hele verden</p>
