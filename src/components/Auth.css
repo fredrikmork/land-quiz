@@ -1,0 +1,130 @@
+.auth {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.auth h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.form-group input {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.auth-error {
+  color: #ef4444;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0.5rem;
+  background: #fef2f2;
+  border-radius: 8px;
+}
+
+.auth-message {
+  color: #22c55e;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0.5rem;
+  background: #f0fdf4;
+  border-radius: 8px;
+}
+
+.auth-button {
+  padding: 0.75rem 1.5rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
+}
+
+.auth-button:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.auth-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.auth-switch button {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.auth-switch button:hover {
+  color: #2563eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  .form-group label {
+    color: #e5e7eb;
+  }
+
+  .form-group input {
+    background: #1f2937;
+    border-color: #374151;
+    color: #f9fafb;
+  }
+
+  .form-group input:focus {
+    border-color: #3b82f6;
+  }
+
+  .auth-error {
+    background: #450a0a;
+  }
+
+  .auth-message {
+    background: #052e16;
+  }
+
+  .auth-switch {
+    color: #9ca3af;
+  }
+}

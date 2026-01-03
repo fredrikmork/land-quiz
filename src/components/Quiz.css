@@ -189,6 +189,12 @@
 .score-message {
   font-size: 1.1rem;
   color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.score-saved {
+  font-size: 0.9rem;
+  color: #22c55e;
   margin-bottom: 2rem;
 }
 
