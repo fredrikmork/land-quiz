@@ -49,14 +49,14 @@ function generateQuestions(mode: QuizMode, count: number = 10): QuizQuestion[] {
 
       case 'flag-to-country':
         prompt = 'Hvilket land har dette flagget?'
-        displayValue = country.flag
+        displayValue = country.code // Brukes til å generere flagg-URL
         correctAnswer = country.name
         options = shuffleArray([country.name, ...wrongAnswers.map(c => c.name)])
         break
 
       case 'map-to-country':
         prompt = 'Hvilket land er dette?'
-        displayValue = country.flag // Using flag as placeholder for map
+        displayValue = country.code // Brukes til kart-visning
         correctAnswer = country.name
         options = shuffleArray([country.name, ...wrongAnswers.map(c => c.name)])
         break

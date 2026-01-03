@@ -1,5 +1,6 @@
 import { useQuiz, QuizMode } from '../hooks/useQuiz'
 import { MapDisplay } from './MapDisplay'
+import { getFlagUrl } from '../data/countries'
 import './Quiz.css'
 
 interface QuizProps {
@@ -68,8 +69,16 @@ export function Quiz({ mode, onBack }: QuizProps) {
         <p className="quiz-prompt">{currentQuestion.prompt}</p>
         {isMap ? (
           <MapDisplay countryCode={currentQuestion.country.code} />
+        ) : isFlag ? (
+          <div className="quiz-display flag">
+            <img
+              src={getFlagUrl(currentQuestion.country.code, 'large')}
+              alt="Flagg"
+              className="flag-image"
+            />
+          </div>
         ) : (
-          <div className={`quiz-display ${isFlag ? 'flag' : ''}`}>
+          <div className="quiz-display">
             {currentQuestion.displayValue}
           </div>
         )}

@@ -1,12 +1,13 @@
 import { z } from 'zod'
 
 // Database types (matches Supabase schema)
+// Flagg-URL genereres fra landkode: https://flagcdn.com/w{size}/{code}.png
 export const CountrySchema = z.object({
   id: z.number(),
   name: z.string(),
   capital: z.string(),
-  flag: z.string(),
   code: z.string(),
+  continent: z.string(),
   created_at: z.string().optional(),
 })
 

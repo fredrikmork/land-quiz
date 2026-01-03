@@ -73,8 +73,17 @@
 }
 
 .quiz-display.flag {
-  font-size: 6rem;
   padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flag-image {
+  max-width: 200px;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .quiz-options {
@@ -244,7 +253,7 @@
     grid-template-columns: 1fr;
   }
 
-  .quiz-display.flag {
-    font-size: 4rem;
+  .flag-image {
+    max-width: 150px;
   }
 }
