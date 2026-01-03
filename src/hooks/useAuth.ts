@@ -47,16 +47,23 @@ export function useAuth() {
   }, [])
 
   const fetchProfile = async (userId: string) => {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single()
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single()
 
-    if (!error && data) {
-      setProfile(data)
+      if (error) {
+        console.error('Error fetching profile:', error.message)
+      } else if (data) {
+        setProfile(data)
+      }
+    } catch (err) {
+      console.error('Failed to fetch profile:', err)
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   const signUp = useCallback(async (email: string, password: string, username: string) => {
