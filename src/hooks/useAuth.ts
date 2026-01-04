@@ -15,19 +15,28 @@ export function useAuth() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    console.log('useAuth: Starting, supabase configured:', isSupabaseConfigured())
+
     if (!isSupabaseConfigured()) {
+      console.log('useAuth: Supabase not configured, setting loading false')
       setLoading(false)
       return
     }
 
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('useAuth: Got session:', session ? 'yes' : 'no')
       setUser(session?.user ?? null)
       if (session?.user) {
+        console.log('useAuth: Fetching profile for user:', session.user.id)
         fetchProfile(session.user.id)
       } else {
+        console.log('useAuth: No user, setting loading false')
         setLoading(false)
       }
+    }).catch(err => {
+      console.error('useAuth: getSession error:', err)
+      setLoading(false)
     })
 
     // Listen for auth changes
@@ -47,12 +56,15 @@ export function useAuth() {
   }, [])
 
   const fetchProfile = async (userId: string) => {
+    console.log('fetchProfile: Starting for user:', userId)
     try {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
         .single()
+
+      console.log('fetchProfile: Result:', { data, error: error?.message })
 
       if (error) {
         console.error('Error fetching profile:', error.message)
@@ -62,6 +74,7 @@ export function useAuth() {
     } catch (err) {
       console.error('Failed to fetch profile:', err)
     } finally {
+      console.log('fetchProfile: Done, setting loading false')
       setLoading(false)
     }
   }
