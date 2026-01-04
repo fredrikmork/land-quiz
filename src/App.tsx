@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Menu } from './components/Menu'
 import { Quiz } from './components/Quiz'
+import { QuizModeSelector } from './components/QuizModeSelector'
 import { Auth } from './components/Auth'
 import { Statistics } from './components/Statistics'
 import { Header } from './components/Header'
@@ -33,7 +34,16 @@ function AppContent() {
           <Route path="/" element={<Menu />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/stats" element={<Statistics />} />
-          <Route path="/quiz/:mode" element={<Quiz />} />
+
+          {/* Quiz mode selectors */}
+          <Route path="/quiz/continent/:continent" element={<QuizModeSelector />} />
+          <Route path="/quiz/all" element={<QuizModeSelector />} />
+          <Route path="/quiz/practice" element={<QuizModeSelector />} />
+
+          {/* Quiz routes */}
+          <Route path="/quiz/continent/:scopeValue/:mode" element={<Quiz />} />
+          <Route path="/quiz/all/:mode" element={<Quiz />} />
+          <Route path="/quiz/practice/:mode" element={<Quiz />} />
         </Routes>
       </main>
     </div>

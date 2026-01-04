@@ -1,7 +1,12 @@
 import { useState, useCallback, useMemo } from 'react'
-import { countries, shuffleArray, getRandomCountries, Country } from '../data/countries'
+import { countries, shuffleArray, Country, Continent, getCountriesByContinent } from '../data/countries'
 
 export type QuizMode = 'capital-to-country' | 'country-to-capital' | 'flag-to-country' | 'map-to-country'
+
+export type QuizScope =
+  | { type: 'continent'; continent: Continent }
+  | { type: 'all' }
+  | { type: 'practice'; countryCodes: string[] }
 
 export interface QuizQuestion {
   prompt: string
@@ -21,11 +26,29 @@ export interface QuizState {
   isComplete: boolean
 }
 
-function generateQuestions(mode: QuizMode, count: number = 10): QuizQuestion[] {
-  const shuffledCountries = shuffleArray(countries).slice(0, count)
+function getCountriesForScope(scope: QuizScope): Country[] {
+  switch (scope.type) {
+    case 'continent':
+      return getCountriesByContinent(scope.continent)
+    case 'all':
+      return countries
+    case 'practice':
+      return countries.filter(c => scope.countryCodes.includes(c.code))
+  }
+}
+
+function getRandomFromPool(pool: Country[], count: number, exclude: Country): Country[] {
+  const available = pool.filter(c => c.code !== exclude.code)
+  return shuffleArray(available).slice(0, count)
+}
+
+function generateQuestions(mode: QuizMode, scope: QuizScope): QuizQuestion[] {
+  const scopeCountries = getCountriesForScope(scope)
+  const shuffledCountries = shuffleArray(scopeCountries)
 
   return shuffledCountries.map(country => {
-    const wrongAnswers = getRandomCountries(3, country)
+    // Get wrong answers from the same scope (same continent/pool)
+    const wrongAnswers = getRandomFromPool(scopeCountries, 3, country)
 
     let prompt: string
     let displayValue: string
@@ -49,14 +72,14 @@ function generateQuestions(mode: QuizMode, count: number = 10): QuizQuestion[] {
 
       case 'flag-to-country':
         prompt = 'Hvilket land har dette flagget?'
-        displayValue = country.code // Brukes til å generere flagg-URL
+        displayValue = country.code
         correctAnswer = country.name
         options = shuffleArray([country.name, ...wrongAnswers.map(c => c.name)])
         break
 
       case 'map-to-country':
         prompt = 'Hvilket land er dette?'
-        displayValue = country.code // Brukes til kart-visning
+        displayValue = country.code
         correctAnswer = country.name
         options = shuffleArray([country.name, ...wrongAnswers.map(c => c.name)])
         break
@@ -66,14 +89,14 @@ function generateQuestions(mode: QuizMode, count: number = 10): QuizQuestion[] {
   })
 }
 
-export function useQuiz(mode: QuizMode) {
+export function useQuiz(mode: QuizMode, scope: QuizScope) {
   const [state, setState] = useState<QuizState>(() => ({
     currentQuestion: 0,
     score: 0,
     answered: false,
     selectedAnswer: null,
     isCorrect: null,
-    questions: generateQuestions(mode),
+    questions: generateQuestions(mode, scope),
     isComplete: false,
   }))
 
@@ -119,10 +142,10 @@ export function useQuiz(mode: QuizMode) {
       answered: false,
       selectedAnswer: null,
       isCorrect: null,
-      questions: generateQuestions(mode),
+      questions: generateQuestions(mode, scope),
       isComplete: false,
     })
-  }, [mode])
+  }, [mode, scope])
 
   return {
     ...state,

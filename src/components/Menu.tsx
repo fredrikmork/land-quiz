@@ -1,79 +1,136 @@
 import { Link } from 'react-router-dom'
-import { Landmark, Building2, Flag, Map, ChevronRight } from 'lucide-react'
+import { Globe, BookOpen } from 'lucide-react'
+import { useAuth } from '../hooks/useAuth'
+import { useEffect, useState } from 'react'
+import { getUserStatistics } from '../lib/quizApi'
+import { getCountriesByContinent, countries, type Continent } from '../data/countries'
+import { getContinentIcon } from './ContinentIcons'
 import './Menu.css'
 
-const quizModes = [
-  {
-    path: '/quiz/capital-to-country',
-    title: 'Hovedsteder',
-    description: 'Gjett landet fra hovedstaden',
-    icon: Landmark,
-    gradient: 'var(--gradient-card-1)',
-  },
-  {
-    path: '/quiz/country-to-capital',
-    title: 'Land',
-    description: 'Gjett hovedstaden fra landet',
-    icon: Building2,
-    gradient: 'var(--gradient-card-2)',
-  },
-  {
-    path: '/quiz/flag-to-country',
-    title: 'Flagg',
-    description: 'Gjett landet fra flagget',
-    icon: Flag,
-    gradient: 'var(--gradient-card-3)',
-  },
-  {
-    path: '/quiz/map-to-country',
-    title: 'Kart',
-    description: 'Gjett landet på kartet',
-    icon: Map,
-    gradient: 'var(--gradient-card-4)',
-  },
+const continents: { name: Continent; gradient: string }[] = [
+  { name: 'Europa', gradient: 'var(--gradient-card-1)' },
+  { name: 'Asia', gradient: 'var(--gradient-card-2)' },
+  { name: 'Afrika', gradient: 'var(--gradient-card-3)' },
+  { name: 'Nord-Amerika', gradient: 'var(--gradient-card-4)' },
+  { name: 'Sør-Amerika', gradient: 'var(--gradient-card-1)' },
+  { name: 'Oseania', gradient: 'var(--gradient-card-2)' },
 ]
 
 export function Menu() {
+  const { user, isAuthenticated } = useAuth()
+  const [practiceCount, setPracticeCount] = useState<number | null>(null)
+
+  useEffect(() => {
+    async function loadPracticeCount() {
+      if (user) {
+        const stats = await getUserStatistics(user.id)
+        if (stats?.country_progress) {
+          const notMastered = stats.country_progress.filter(c => !c.is_mastered).length
+          setPracticeCount(notMastered)
+        }
+      }
+    }
+    loadPracticeCount()
+  }, [user])
+
   return (
     <div className="menu-page">
       <div className="menu-hero">
-        <h1 className="menu-title">
-          Lær verdens land
-        </h1>
+        <h1 className="menu-title">Lær verdens land</h1>
         <p className="menu-subtitle">
-          Test kunnskapen din om hovedsteder, flagg og geografi
+          Velg et kontinent eller test deg på alle land
         </p>
       </div>
 
-      <div className="quiz-grid">
-        {quizModes.map((mode) => {
-          const Icon = mode.icon
-          return (
-            <Link key={mode.path} to={mode.path} className="quiz-card">
-              <div className="quiz-card-bg" style={{ background: mode.gradient }} />
-              <div className="quiz-card-content">
-                <div className="quiz-card-icon">
-                  <Icon size={32} strokeWidth={1.5} />
+      <section className="scope-section">
+        <h2 className="section-title">Kontinenter</h2>
+        <div className="continent-grid">
+          {continents.map((continent) => {
+            const count = getCountriesByContinent(continent.name).length
+            const ContinentIcon = getContinentIcon(continent.name)
+            return (
+              <Link
+                key={continent.name}
+                to={`/quiz/continent/${continent.name}`}
+                className="continent-card"
+              >
+                <div className="continent-card-bg" style={{ background: continent.gradient }} />
+                <div className="continent-card-content">
+                  <div className="continent-icon">
+                    <ContinentIcon />
+                  </div>
+                  <div className="continent-info">
+                    <span className="continent-name">{continent.name}</span>
+                    <span className="continent-count">{count} land</span>
+                  </div>
                 </div>
-                <div className="quiz-card-text">
-                  <h3>{mode.title}</h3>
-                  <p>{mode.description}</p>
+              </Link>
+            )
+          })}
+        </div>
+      </section>
+
+      <section className="scope-section">
+        <h2 className="section-title">Utfordringer</h2>
+        <div className="challenge-grid">
+          <Link to="/quiz/all" className="challenge-card">
+            <div className="challenge-card-bg" style={{ background: 'var(--gradient-card-3)' }} />
+            <div className="challenge-card-content">
+              <div className="challenge-icon">
+                <Globe size={28} strokeWidth={1.5} />
+              </div>
+              <div className="challenge-info">
+                <span className="challenge-name">Alle land</span>
+                <span className="challenge-count">{countries.length} land</span>
+              </div>
+            </div>
+          </Link>
+
+          {isAuthenticated ? (
+            <Link
+              to="/quiz/practice"
+              className={`challenge-card practice-card ${practiceCount === 0 ? 'disabled' : ''}`}
+              onClick={(e) => practiceCount === 0 && e.preventDefault()}
+            >
+              <div className="challenge-card-bg" style={{ background: 'var(--gradient-card-4)' }} />
+              <div className="challenge-card-content">
+                <div className="challenge-icon">
+                  <BookOpen size={28} strokeWidth={1.5} />
                 </div>
-                <div className="quiz-card-arrow">
-                  <ChevronRight size={24} />
+                <div className="challenge-info">
+                  <span className="challenge-name">Umestrede land</span>
+                  <span className="challenge-description">
+                    Øv på landene du ikke ennå har mestret
+                  </span>
+                  <span className="challenge-count">
+                    {practiceCount === null
+                      ? 'Laster...'
+                      : practiceCount === 0
+                      ? 'Alle mestret!'
+                      : `${practiceCount} land`}
+                  </span>
                 </div>
               </div>
             </Link>
-          )
-        })}
-      </div>
-
-      <div className="menu-footer">
-        <div className="country-badge">
-          <span className="country-count">197</span>
-          <span className="country-label">land fra hele verden</span>
+          ) : (
+            <div className="challenge-card practice-card disabled">
+              <div className="challenge-card-bg" style={{ background: 'var(--gradient-card-4)' }} />
+              <div className="challenge-card-content">
+                <div className="challenge-icon">
+                  <BookOpen size={28} strokeWidth={1.5} />
+                </div>
+                <div className="challenge-info">
+                  <span className="challenge-name">Umestrede land</span>
+                  <span className="challenge-description">
+                    Øv på landene du ikke ennå har mestret
+                  </span>
+                  <span className="challenge-count">Logg inn for å bruke</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-      </div>
+      </section>
     </div>
   )
 }

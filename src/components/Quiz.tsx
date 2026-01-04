@@ -1,21 +1,59 @@
-import { useState, useEffect, useRef } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useState, useEffect, useRef, useMemo } from 'react'
+import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import { ArrowLeft, RotateCcw, Home, Trophy, Check, X } from 'lucide-react'
-import { useQuiz, QuizMode } from '../hooks/useQuiz'
+import { useQuiz, QuizMode, QuizScope } from '../hooks/useQuiz'
 import { useAuth } from '../hooks/useAuth'
 import { MapDisplay } from './MapDisplay'
-import { getFlagUrl } from '../data/countries'
+import { getFlagUrl, type Continent } from '../data/countries'
 import { createQuizSession, saveQuizAttempt, completeQuizSession } from '../lib/quizApi'
 import './Quiz.css'
 
 export function Quiz() {
   const navigate = useNavigate()
-  const { mode } = useParams<{ mode: QuizMode }>()
+  const location = useLocation()
+  const { scopeValue, mode } = useParams<{
+    scopeValue?: string
+    mode: QuizMode
+  }>()
+
   const quizMode = mode as QuizMode
-  const quiz = useQuiz(quizMode)
+
+  // Determine scope type from URL path
+  const scopeType = useMemo(() => {
+    if (location.pathname.startsWith('/quiz/continent/')) return 'continent'
+    if (location.pathname.startsWith('/quiz/practice/')) return 'practice'
+    return 'all'
+  }, [location.pathname])
+
+  // Build scope from URL parameters
+  const scope: QuizScope = useMemo(() => {
+    if (scopeType === 'continent' && scopeValue) {
+      return { type: 'continent', continent: scopeValue as Continent }
+    } else if (scopeType === 'practice') {
+      // Get practice country codes from sessionStorage
+      const stored = sessionStorage.getItem('practiceCountryCodes')
+      const countryCodes = stored ? JSON.parse(stored) : []
+      return { type: 'practice', countryCodes }
+    }
+    return { type: 'all' }
+  }, [scopeType, scopeValue])
+
+  const quiz = useQuiz(quizMode, scope)
   const { user } = useAuth()
   const [sessionId, setSessionId] = useState<string | null>(null)
   const sessionCreated = useRef(false)
+
+  // Build back URL based on scope
+  const backUrl = useMemo(() => {
+    if (scopeType === 'continent' && scopeValue) {
+      return `/quiz/continent/${scopeValue}`
+    } else if (scopeType === 'all') {
+      return '/quiz/all'
+    } else if (scopeType === 'practice') {
+      return '/quiz/practice'
+    }
+    return '/'
+  }, [scopeType, scopeValue])
 
   // Create session when quiz starts
   useEffect(() => {
@@ -58,6 +96,27 @@ export function Quiz() {
       completeQuizSession(sessionId, quiz.score)
     }
   }, [quiz.isComplete, sessionId, quiz.score, user])
+
+  // Handle empty practice mode
+  if (scope.type === 'practice' && scope.countryCodes.length === 0) {
+    return (
+      <div className="quiz">
+        <div className="quiz-complete">
+          <div className="complete-icon">
+            <Trophy size={48} />
+          </div>
+          <h2>Ingen land å øve på!</h2>
+          <p className="score-message">Du har mestret alle landene. Bra jobba!</p>
+          <div className="quiz-actions">
+            <button className="btn-action primary" onClick={() => navigate('/')}>
+              <Home size={18} />
+              Til meny
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   if (quiz.isComplete) {
     const percentage = Math.round((quiz.score / quiz.totalQuestions) * 100)
@@ -104,7 +163,7 @@ export function Quiz() {
   return (
     <div className="quiz">
       <div className="quiz-header">
-        <button className="back-button" onClick={() => navigate('/')}>
+        <button className="back-button" onClick={() => navigate(backUrl)}>
           <ArrowLeft size={18} />
           Tilbake
         </button>
