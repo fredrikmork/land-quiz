@@ -1,4 +1,4 @@
-export type Continent = 'Europa' | 'Asia' | 'Afrika' | 'Nord-Amerika' | 'Sor-Amerika' | 'Oseania'
+export type Continent = 'Europa' | 'Asia' | 'Afrika' | 'Nord-Amerika' | 'Sør-Amerika' | 'Oseania'
 
 export interface Country {
   name: string
@@ -31,7 +31,7 @@ export const countries: Country[] = [
   { name: 'Finland', capital: 'Helsinki', code: 'FI', continent: 'Europa' },
   { name: 'Frankrike', capital: 'Paris', code: 'FR', continent: 'Europa' },
   { name: 'Hellas', capital: 'Athen', code: 'GR', continent: 'Europa' },
-  { name: 'Hviterussland', capital: 'Minsk', code: 'BY', continent: 'Europa' },
+  { name: 'Belarus', capital: 'Minsk', code: 'BY', continent: 'Europa' },
   { name: 'Irland', capital: 'Dublin', code: 'IE', continent: 'Europa' },
   { name: 'Island', capital: 'Reykjavik', code: 'IS', continent: 'Europa' },
   { name: 'Italia', capital: 'Roma', code: 'IT', continent: 'Europa' },
@@ -116,7 +116,7 @@ export const countries: Country[] = [
   { name: 'Thailand', capital: 'Bangkok', code: 'TH', continent: 'Asia' },
   { name: 'Timor-Leste', capital: 'Dili', code: 'TL', continent: 'Asia' },
   { name: 'Turkmenistan', capital: 'Asjkhabad', code: 'TM', continent: 'Asia' },
-  { name: 'Tyrkia', capital: 'Ankara', code: 'TR', continent: 'Asia' },
+  { name: 'Tyrkia', capital: 'Ankara', code: 'TR', continent: 'Europa' },
   { name: 'Usbekistan', capital: 'Tasjkent', code: 'UZ', continent: 'Asia' },
   { name: 'Vietnam', capital: 'Hanoi', code: 'VN', continent: 'Asia' },
 
@@ -134,8 +134,8 @@ export const countries: Country[] = [
   { name: 'Den sentralafrikanske republikk', capital: 'Bangui', code: 'CF', continent: 'Afrika' },
   { name: 'Tsjad', capital: "N'Djamena", code: 'TD', continent: 'Afrika' },
   { name: 'Komorene', capital: 'Moroni', code: 'KM', continent: 'Afrika' },
-  { name: 'Kongo-Brazzaville', capital: 'Brazzaville', code: 'CG', continent: 'Afrika' },
-  { name: 'Kongo-Kinshasa', capital: 'Kinshasa', code: 'CD', continent: 'Afrika' },
+  { name: 'Republikken Kongo', capital: 'Brazzaville', code: 'CG', continent: 'Afrika' },
+  { name: 'Den demokratiske republikken Kongo', capital: 'Kinshasa', code: 'CD', continent: 'Afrika' },
   { name: 'Elfenbenskysten', capital: 'Yamoussoukro', code: 'CI', continent: 'Afrika' },
   { name: 'Djibouti', capital: 'Djibouti', code: 'DJ', continent: 'Afrika' },
   { name: 'Egypt', capital: 'Kairo', code: 'EG', continent: 'Afrika' },
@@ -208,18 +208,18 @@ export const countries: Country[] = [
   // ============================================
   // SØR-AMERIKA (12 land)
   // ============================================
-  { name: 'Argentina', capital: 'Buenos Aires', code: 'AR', continent: 'Sor-Amerika' },
-  { name: 'Bolivia', capital: 'Sucre', code: 'BO', continent: 'Sor-Amerika' },
-  { name: 'Brasil', capital: 'Brasília', code: 'BR', continent: 'Sor-Amerika' },
-  { name: 'Chile', capital: 'Santiago', code: 'CL', continent: 'Sor-Amerika' },
-  { name: 'Colombia', capital: 'Bogotá', code: 'CO', continent: 'Sor-Amerika' },
-  { name: 'Ecuador', capital: 'Quito', code: 'EC', continent: 'Sor-Amerika' },
-  { name: 'Guyana', capital: 'Georgetown', code: 'GY', continent: 'Sor-Amerika' },
-  { name: 'Paraguay', capital: 'Asunción', code: 'PY', continent: 'Sor-Amerika' },
-  { name: 'Peru', capital: 'Lima', code: 'PE', continent: 'Sor-Amerika' },
-  { name: 'Surinam', capital: 'Paramaribo', code: 'SR', continent: 'Sor-Amerika' },
-  { name: 'Uruguay', capital: 'Montevideo', code: 'UY', continent: 'Sor-Amerika' },
-  { name: 'Venezuela', capital: 'Caracas', code: 'VE', continent: 'Sor-Amerika' },
+  { name: 'Argentina', capital: 'Buenos Aires', code: 'AR', continent: 'Sør-Amerika' },
+  { name: 'Bolivia', capital: 'Sucre', code: 'BO', continent: 'Sør-Amerika' },
+  { name: 'Brasil', capital: 'Brasília', code: 'BR', continent: 'Sør-Amerika' },
+  { name: 'Chile', capital: 'Santiago', code: 'CL', continent: 'Sør-Amerika' },
+  { name: 'Colombia', capital: 'Bogotá', code: 'CO', continent: 'Sør-Amerika' },
+  { name: 'Ecuador', capital: 'Quito', code: 'EC', continent: 'Sør-Amerika' },
+  { name: 'Guyana', capital: 'Georgetown', code: 'GY', continent: 'Sør-Amerika' },
+  { name: 'Paraguay', capital: 'Asunción', code: 'PY', continent: 'Sør-Amerika' },
+  { name: 'Peru', capital: 'Lima', code: 'PE', continent: 'Sør-Amerika' },
+  { name: 'Surinam', capital: 'Paramaribo', code: 'SR', continent: 'Sør-Amerika' },
+  { name: 'Uruguay', capital: 'Montevideo', code: 'UY', continent: 'Sør-Amerika' },
+  { name: 'Venezuela', capital: 'Caracas', code: 'VE', continent: 'Sør-Amerika' },
 
   // ============================================
   // OSEANIA (14 land)
@@ -261,4 +261,4 @@ export function getCountriesByContinent(continent: Continent): Country[] {
   return countries.filter(c => c.continent === continent)
 }
 
-export const continents: Continent[] = ['Europa', 'Asia', 'Afrika', 'Nord-Amerika', 'Sor-Amerika', 'Oseania']
+export const continents: Continent[] = ['Europa', 'Asia', 'Afrika', 'Nord-Amerika', 'Sør-Amerika', 'Oseania']

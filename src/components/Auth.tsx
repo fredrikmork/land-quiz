@@ -1,12 +1,10 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import './Auth.css'
 
-interface AuthProps {
-  onSuccess?: () => void
-}
-
-export function Auth({ onSuccess }: AuthProps) {
+export function Auth() {
+  const navigate = useNavigate()
   const [mode, setMode] = useState<'login' | 'signup'>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -28,7 +26,7 @@ export function Auth({ onSuccess }: AuthProps) {
       if (error) {
         setError(error.message)
       } else {
-        onSuccess?.()
+        navigate('/')
       }
     } else {
       if (!username.trim()) {
@@ -48,8 +46,12 @@ export function Auth({ onSuccess }: AuthProps) {
   }
 
   return (
-    <div className="auth">
-      <h2>{mode === 'login' ? 'Logg inn' : 'Opprett konto'}</h2>
+    <div className="app">
+      <button className="back-button" onClick={() => navigate('/')}>
+        ← Tilbake
+      </button>
+      <div className="auth">
+        <h2>{mode === 'login' ? 'Logg inn' : 'Opprett konto'}</h2>
 
       <form onSubmit={handleSubmit} className="auth-form">
         {mode === 'signup' && (
@@ -116,6 +118,7 @@ export function Auth({ onSuccess }: AuthProps) {
           </>
         )}
       </p>
+      </div>
     </div>
   )
 }

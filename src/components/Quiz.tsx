@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useQuiz, QuizMode } from '../hooks/useQuiz'
 import { useAuth } from '../hooks/useAuth'
 import { MapDisplay } from './MapDisplay'
@@ -6,13 +7,11 @@ import { getFlagUrl } from '../data/countries'
 import { createQuizSession, saveQuizAttempt, completeQuizSession } from '../lib/quizApi'
 import './Quiz.css'
 
-interface QuizProps {
-  mode: QuizMode
-  onBack: () => void
-}
-
-export function Quiz({ mode, onBack }: QuizProps) {
-  const quiz = useQuiz(mode)
+export function Quiz() {
+  const navigate = useNavigate()
+  const { mode } = useParams<{ mode: QuizMode }>()
+  const quizMode = mode as QuizMode
+  const quiz = useQuiz(quizMode)
   const { user } = useAuth()
   const [sessionId, setSessionId] = useState<string | null>(null)
   const sessionCreated = useRef(false)
@@ -21,15 +20,15 @@ export function Quiz({ mode, onBack }: QuizProps) {
   useEffect(() => {
     if (user && !sessionCreated.current) {
       sessionCreated.current = true
-      createQuizSession(user.id, mode, quiz.totalQuestions).then((session) => {
+      createQuizSession(user.id, quizMode, quiz.totalQuestions).then((session) => {
         if (session) {
           setSessionId(session.id)
         }
       })
     }
-  }, [user, mode, quiz.totalQuestions])
+  }, [user, quizMode, quiz.totalQuestions])
 
-  // Save attempt when user answers
+  // Save attempt when user answers and auto-advance
   const handleAnswer = async (selected: string) => {
     const isCorrect = selected === quiz.currentQuestion.correctAnswer
 
@@ -39,12 +38,17 @@ export function Quiz({ mode, onBack }: QuizProps) {
         user.id,
         sessionId,
         quiz.currentQuestion.country.code,
-        mode,
+        quizMode,
         isCorrect
       )
     }
 
     quiz.answer(selected)
+
+    // Auto-advance after a short delay
+    setTimeout(() => {
+      quiz.nextQuestion()
+    }, 1200)
   }
 
   // Complete session when quiz is done
@@ -76,7 +80,7 @@ export function Quiz({ mode, onBack }: QuizProps) {
           {user && <p className="score-saved">Resultatet er lagret!</p>}
           <div className="quiz-actions">
             <button onClick={quiz.restart}>Spill igjen</button>
-            <button onClick={onBack} className="secondary">Tilbake til meny</button>
+            <button onClick={() => navigate('/')} className="secondary">Tilbake til meny</button>
           </div>
         </div>
       </div>
@@ -84,13 +88,13 @@ export function Quiz({ mode, onBack }: QuizProps) {
   }
 
   const { currentQuestion } = quiz
-  const isFlag = mode === 'flag-to-country'
-  const isMap = mode === 'map-to-country'
+  const isFlag = quizMode === 'flag-to-country'
+  const isMap = quizMode === 'map-to-country'
 
   return (
     <div className="quiz">
       <div className="quiz-header">
-        <button className="back-button" onClick={onBack}>
+        <button className="back-button" onClick={() => navigate('/')}>
           ← Tilbake
         </button>
         <div className="progress">
@@ -152,17 +156,8 @@ export function Quiz({ mode, onBack }: QuizProps) {
         </div>
 
         {quiz.answered && (
-          <div className="quiz-feedback">
-            {quiz.isCorrect ? (
-              <p className="feedback correct">Riktig!</p>
-            ) : (
-              <p className="feedback wrong">
-                Feil! Riktig svar: {currentQuestion.correctAnswer}
-              </p>
-            )}
-            <button className="next-button" onClick={quiz.nextQuestion}>
-              {quiz.questionNumber === quiz.totalQuestions ? 'Se resultat' : 'Neste sporsmal'}
-            </button>
+          <div className={`quiz-feedback-toast ${quiz.isCorrect ? 'correct' : 'wrong'}`}>
+            {quiz.isCorrect ? 'Riktig!' : `Feil! ${currentQuestion.correctAnswer}`}
           </div>
         )}
       </div>
