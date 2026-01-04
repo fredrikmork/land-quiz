@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Landmark, Building2, Flag, Map } from 'lucide-react'
+import { Landmark, Building2, Flag, Map, ArrowLeft, Trophy, Target, Calendar, CheckCircle2, ChevronRight } from 'lucide-react'
 import { getUserStatistics, UserStatistics } from '../lib/quizApi'
 import { useAuth } from '../hooks/useAuth'
 import { getCountriesByContinent, countries, type Continent } from '../data/countries'
@@ -44,7 +44,10 @@ export function Statistics() {
   if (loading) {
     return (
       <div className="statistics">
-        <p className="loading">Laster statistikk...</p>
+        <div className="loading-container">
+          <div className="loading-spinner" />
+          <p>Laster statistikk...</p>
+        </div>
       </div>
     )
   }
@@ -53,10 +56,16 @@ export function Statistics() {
     return (
       <div className="statistics">
         <button className="back-button" onClick={() => navigate('/')}>
-          ← Tilbake
+          <ArrowLeft size={18} />
+          Tilbake
         </button>
-        <h2>Statistikk</h2>
-        <p className="no-data">Du har ikke spilt noen quizer enda. Start en quiz for å se statistikk!</p>
+        <div className="empty-state">
+          <div className="empty-icon">
+            <Trophy size={48} />
+          </div>
+          <h2>Ingen statistikk enda</h2>
+          <p>Du har ikke spilt noen quizer enda. Start en quiz for å se statistikk!</p>
+        </div>
       </div>
     )
   }
@@ -64,25 +73,38 @@ export function Statistics() {
   return (
     <div className="statistics">
       <button className="back-button" onClick={() => navigate('/')}>
-        ← Tilbake
+        <ArrowLeft size={18} />
+        Tilbake
       </button>
-      <h2>Din statistikk</h2>
+      <h2 className="stats-title">Din statistikk</h2>
 
       {/* Overview Cards */}
       <div className="stats-cards">
         <div className="stat-card">
+          <div className="stat-icon">
+            <Trophy size={20} />
+          </div>
           <span className="stat-value">{stats.historical?.lifetime_correct || 0}</span>
           <span className="stat-label">Totalt riktige</span>
         </div>
         <div className="stat-card">
+          <div className="stat-icon">
+            <Target size={20} />
+          </div>
           <span className="stat-value">{stats.overall.overall_accuracy}%</span>
           <span className="stat-label">Treffsikkerhet</span>
         </div>
         <div className="stat-card">
+          <div className="stat-icon">
+            <CheckCircle2 size={20} />
+          </div>
           <span className="stat-value">{stats.mastered_countries?.length || 0}</span>
           <span className="stat-label">Mestrede land</span>
         </div>
         <div className="stat-card">
+          <div className="stat-icon">
+            <Calendar size={20} />
+          </div>
           <span className="stat-value">{stats.historical?.days_played || 0}</span>
           <span className="stat-label">Dager spilt</span>
         </div>
@@ -155,7 +177,8 @@ export function Statistics() {
             {selectedContinent ? (
               <div className="continent-detail">
                 <button className="back-link" onClick={() => setSelectedContinent(null)}>
-                  ← Alle kontinenter
+                  <ArrowLeft size={16} />
+                  Alle kontinenter
                 </button>
                 <h3>{selectedContinent}</h3>
                 {stats.country_progress && (
@@ -212,19 +235,24 @@ export function Statistics() {
                       className="continent-item clickable"
                       onClick={() => setSelectedContinent(continentName)}
                     >
-                      <div className="continent-header">
-                        <span className="continent-name">{continentName}</span>
-                        <span className="continent-count">{masteredCountries}/{totalCountries}</span>
+                      <div className="continent-main">
+                        <div className="continent-info">
+                          <div className="continent-header">
+                            <span className="continent-name">{continentName}</span>
+                            <span className="continent-count">{masteredCountries}/{totalCountries}</span>
+                          </div>
+                          <div className="continent-bar">
+                            <div
+                              className="continent-fill"
+                              style={{ width: `${progressPercent}%` }}
+                            />
+                          </div>
+                          <span className="continent-details">
+                            {masteredCountries} land mestret · {countriesWithProgress} påbegynt
+                          </span>
+                        </div>
+                        <ChevronRight size={20} className="continent-arrow" />
                       </div>
-                      <div className="continent-bar">
-                        <div
-                          className="continent-fill"
-                          style={{ width: `${progressPercent}%` }}
-                        />
-                      </div>
-                      <span className="continent-details">
-                        {masteredCountries} land mestret · {countriesWithProgress} påbegynt
-                      </span>
                     </div>
                   )
                 })}

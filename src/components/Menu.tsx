@@ -1,58 +1,79 @@
 import { Link } from 'react-router-dom'
-import { useAuth } from '../hooks/useAuth'
+import { Landmark, Building2, Flag, Map, ChevronRight } from 'lucide-react'
+import './Menu.css'
+
+const quizModes = [
+  {
+    path: '/quiz/capital-to-country',
+    title: 'Hovedsteder',
+    description: 'Gjett landet fra hovedstaden',
+    icon: Landmark,
+    gradient: 'var(--gradient-card-1)',
+  },
+  {
+    path: '/quiz/country-to-capital',
+    title: 'Land',
+    description: 'Gjett hovedstaden fra landet',
+    icon: Building2,
+    gradient: 'var(--gradient-card-2)',
+  },
+  {
+    path: '/quiz/flag-to-country',
+    title: 'Flagg',
+    description: 'Gjett landet fra flagget',
+    icon: Flag,
+    gradient: 'var(--gradient-card-3)',
+  },
+  {
+    path: '/quiz/map-to-country',
+    title: 'Kart',
+    description: 'Gjett landet på kartet',
+    icon: Map,
+    gradient: 'var(--gradient-card-4)',
+  },
+]
 
 export function Menu() {
-  const { profile, signOut, isAuthenticated } = useAuth()
-
   return (
-    <div className="app">
-      <h1>Land Quiz</h1>
-      <p className="subtitle">Test kunnskapen din om land, hovedsteder, flagg og geografi</p>
-
-      <div className="menu">
-        <Link to="/quiz/capital-to-country">
-          <button>Hovedsteder</button>
-        </Link>
-        <Link to="/quiz/country-to-capital">
-          <button>Land</button>
-        </Link>
-        <Link to="/quiz/flag-to-country">
-          <button>Flagg</button>
-        </Link>
-        <Link to="/quiz/map-to-country">
-          <button>Kart</button>
-        </Link>
+    <div className="menu-page">
+      <div className="menu-hero">
+        <h1 className="menu-title">
+          Lær verdens land
+        </h1>
+        <p className="menu-subtitle">
+          Test kunnskapen din om hovedsteder, flagg og geografi
+        </p>
       </div>
 
-      <div className="profile-section">
-        {isAuthenticated ? (
-          <div className="profile-card">
-            <div className="profile-info">
-              <span className="profile-name">
-                {profile?.display_name || profile?.username || 'Bruker'}
-              </span>
-              <span className="profile-email">{profile?.username}</span>
-            </div>
-            <div className="profile-actions">
-              <Link to="/stats">
-                <button className="profile-button">Statistikk</button>
-              </Link>
-              <button className="profile-button secondary" onClick={signOut}>
-                Logg ut
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="profile-card logged-out">
-            <p className="login-prompt">Logg inn for å lagre statistikk og følge fremgangen din!</p>
-            <Link to="/auth">
-              <button className="profile-button">Logg inn / Registrer</button>
+      <div className="quiz-grid">
+        {quizModes.map((mode) => {
+          const Icon = mode.icon
+          return (
+            <Link key={mode.path} to={mode.path} className="quiz-card">
+              <div className="quiz-card-bg" style={{ background: mode.gradient }} />
+              <div className="quiz-card-content">
+                <div className="quiz-card-icon">
+                  <Icon size={32} strokeWidth={1.5} />
+                </div>
+                <div className="quiz-card-text">
+                  <h3>{mode.title}</h3>
+                  <p>{mode.description}</p>
+                </div>
+                <div className="quiz-card-arrow">
+                  <ChevronRight size={24} />
+                </div>
+              </div>
             </Link>
-          </div>
-        )}
+          )
+        })}
       </div>
 
-      <p className="country-count">197 land fra hele verden</p>
+      <div className="menu-footer">
+        <div className="country-badge">
+          <span className="country-count">197</span>
+          <span className="country-label">land fra hele verden</span>
+        </div>
+      </div>
     </div>
   )
 }

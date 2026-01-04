@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { ArrowLeft, RotateCcw, Home, Trophy, Check, X } from 'lucide-react'
 import { useQuiz, QuizMode } from '../hooks/useQuiz'
 import { useAuth } from '../hooks/useAuth'
 import { MapDisplay } from './MapDisplay'
@@ -63,7 +64,10 @@ export function Quiz() {
     return (
       <div className="quiz">
         <div className="quiz-complete">
-          <h2>Quiz fullfort!</h2>
+          <div className="complete-icon">
+            <Trophy size={48} />
+          </div>
+          <h2>Quiz fullført!</h2>
           <div className="final-score">
             <span className="score-number">{quiz.score}</span>
             <span className="score-divider">/</span>
@@ -74,13 +78,19 @@ export function Quiz() {
             {percentage === 100 && 'Perfekt! Du er en mester!'}
             {percentage >= 80 && percentage < 100 && 'Veldig bra!'}
             {percentage >= 60 && percentage < 80 && 'Bra jobbet!'}
-            {percentage >= 40 && percentage < 60 && 'Ikke verst, fortsett a ove!'}
-            {percentage < 40 && 'Ov mer, du blir bedre!'}
+            {percentage >= 40 && percentage < 60 && 'Ikke verst, fortsett å øve!'}
+            {percentage < 40 && 'Øv mer, du blir bedre!'}
           </p>
-          {user && <p className="score-saved">Resultatet er lagret!</p>}
+          {user && <p className="score-saved"><Check size={16} /> Resultatet er lagret</p>}
           <div className="quiz-actions">
-            <button onClick={quiz.restart}>Spill igjen</button>
-            <button onClick={() => navigate('/')} className="secondary">Tilbake til meny</button>
+            <button className="btn-action primary" onClick={quiz.restart}>
+              <RotateCcw size={18} />
+              Spill igjen
+            </button>
+            <button className="btn-action secondary" onClick={() => navigate('/')}>
+              <Home size={18} />
+              Til meny
+            </button>
           </div>
         </div>
       </div>
@@ -95,7 +105,8 @@ export function Quiz() {
     <div className="quiz">
       <div className="quiz-header">
         <button className="back-button" onClick={() => navigate('/')}>
-          ← Tilbake
+          <ArrowLeft size={18} />
+          Tilbake
         </button>
         <div className="progress">
           <span className="progress-text">
@@ -109,7 +120,8 @@ export function Quiz() {
           </div>
         </div>
         <div className="score">
-          Poeng: {quiz.score}
+          <Trophy size={16} />
+          {quiz.score}
         </div>
       </div>
 
@@ -157,7 +169,11 @@ export function Quiz() {
 
         {quiz.answered && (
           <div className={`quiz-feedback-toast ${quiz.isCorrect ? 'correct' : 'wrong'}`}>
-            {quiz.isCorrect ? 'Riktig!' : `Feil! ${currentQuestion.correctAnswer}`}
+            {quiz.isCorrect ? (
+              <><Check size={24} /> Riktig!</>
+            ) : (
+              <><X size={24} /> {currentQuestion.correctAnswer}</>
+            )}
           </div>
         )}
       </div>

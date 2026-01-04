@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="globe-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6b6b"/>
+      <stop offset="50%" stop-color="#feca57"/>
+      <stop offset="100%" stop-color="#ff9ff3"/>
+    </linearGradient>
+    <linearGradient id="land-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="45" fill="url(#globe-gradient)"/>
+
+  <!-- Globe lines -->
+  <g fill="none" stroke="url(#land-gradient)" stroke-width="2" opacity="0.6">
+    <!-- Horizontal lines -->
+    <ellipse cx="50" cy="50" rx="40" ry="15"/>
+    <ellipse cx="50" cy="50" rx="40" ry="30"/>
+    <!-- Vertical lines -->
+    <ellipse cx="50" cy="50" rx="15" ry="40"/>
+    <ellipse cx="50" cy="50" rx="30" ry="40"/>
+    <!-- Center line -->
+    <line x1="10" y1="50" x2="90" y2="50"/>
+    <line x1="50" y1="10" x2="50" y2="90"/>
+  </g>
+
+  <!-- Stylized continents -->
+  <g fill="url(#land-gradient)">
+    <!-- North America shape -->
+    <path d="M25 30 Q30 25 40 28 Q45 32 42 40 Q38 45 30 42 Q22 38 25 30Z"/>
+    <!-- Europe/Africa shape -->
+    <path d="M55 25 Q62 22 68 28 Q72 35 70 45 Q65 55 58 58 Q52 55 50 45 Q48 35 55 25Z"/>
+    <!-- South America shape -->
+    <path d="M32 55 Q38 52 42 58 Q44 65 40 72 Q35 76 30 70 Q28 62 32 55Z"/>
+    <!-- Asia/Australia shape -->
+    <path d="M72 40 Q80 38 82 45 Q83 52 78 55 Q72 54 70 48 Q69 43 72 40Z"/>
+    <path d="M68 65 Q74 62 78 68 Q76 74 70 73 Q66 70 68 65Z"/>
+  </g>
+</svg>

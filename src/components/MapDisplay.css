@@ -2,8 +2,9 @@
   width: 100%;
   max-width: 500px;
   margin: 0 auto 2rem;
-  background: #f0f4f8;
-  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
   overflow: hidden;
 }
 
@@ -14,39 +15,19 @@
 }
 
 .country {
-  fill: #d1d5db;
-  stroke: #9ca3af;
+  fill: var(--border-light);
+  stroke: var(--text-muted);
   stroke-width: 0.5;
   outline: none;
-  transition: fill 0.2s;
+  transition: fill var(--transition-fast);
 }
 
 .country:hover {
-  fill: #b8bfc9;
+  fill: var(--text-muted);
 }
 
 .country.highlighted {
-  fill: #3b82f6;
-  stroke: #1e40af;
+  fill: var(--accent-primary);
+  stroke: var(--accent-secondary);
   stroke-width: 1;
-}
-
-@media (prefers-color-scheme: dark) {
-  .map-container {
-    background: #1f2937;
-  }
-
-  .country {
-    fill: #4b5563;
-    stroke: #6b7280;
-  }
-
-  .country:hover {
-    fill: #6b7280;
-  }
-
-  .country.highlighted {
-    fill: #3b82f6;
-    stroke: #60a5fa;
-  }
 }
