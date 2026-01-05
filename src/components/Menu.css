@@ -62,6 +62,7 @@
 
 .continent-card:hover {
   transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 32px var(--glow-color), 0 0 20px var(--glow-color);
 }
 
 .continent-card:hover .continent-card-bg {
@@ -124,6 +125,7 @@
   padding: 0.25rem 0.6rem;
   border-radius: 6px;
   width: fit-content;
+  color: var(--accent-light);
 }
 
 /* Challenge Grid */
@@ -146,6 +148,7 @@
 
 .challenge-card:hover {
   transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 32px var(--glow-color), 0 0 20px var(--glow-color);
 }
 
 .challenge-card:hover .challenge-card-bg {
@@ -218,6 +221,7 @@
   border-radius: 6px;
   width: fit-content;
   margin-top: 0.25rem;
+  color: var(--accent-light);
 }
 
 /* Responsive */

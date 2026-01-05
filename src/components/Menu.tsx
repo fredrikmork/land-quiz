@@ -7,13 +7,13 @@ import { getCountriesByContinent, countries, type Continent } from '../data/coun
 import { getContinentIcon } from './ContinentIcons'
 import './Menu.css'
 
-const continents: { name: Continent; gradient: string }[] = [
-  { name: 'Europa', gradient: 'var(--gradient-card-1)' },
-  { name: 'Asia', gradient: 'var(--gradient-card-2)' },
-  { name: 'Afrika', gradient: 'var(--gradient-card-3)' },
-  { name: 'Nord-Amerika', gradient: 'var(--gradient-card-4)' },
-  { name: 'Sør-Amerika', gradient: 'var(--gradient-card-1)' },
-  { name: 'Oseania', gradient: 'var(--gradient-card-2)' },
+const continents: { name: Continent; gradient: string; glowColor: string }[] = [
+  { name: 'Europa', gradient: 'var(--gradient-card-1)', glowColor: 'var(--glow-card-1)' },
+  { name: 'Asia', gradient: 'var(--gradient-card-2)', glowColor: 'var(--glow-card-2)' },
+  { name: 'Afrika', gradient: 'var(--gradient-card-3)', glowColor: 'var(--glow-card-3)' },
+  { name: 'Nord-Amerika', gradient: 'var(--gradient-card-4)', glowColor: 'var(--glow-card-4)' },
+  { name: 'Sør-Amerika', gradient: 'var(--gradient-card-1)', glowColor: 'var(--glow-card-1)' },
+  { name: 'Oseania', gradient: 'var(--gradient-card-2)', glowColor: 'var(--glow-card-2)' },
 ]
 
 export function Menu() {
@@ -53,6 +53,7 @@ export function Menu() {
                 key={continent.name}
                 to={`/quiz/continent/${continent.name}`}
                 className="continent-card"
+                style={{ '--glow-color': continent.glowColor } as React.CSSProperties}
               >
                 <div className="continent-card-bg" style={{ background: continent.gradient }} />
                 <div className="continent-card-content">
@@ -73,7 +74,7 @@ export function Menu() {
       <section className="scope-section">
         <h2 className="section-title">Utfordringer</h2>
         <div className="challenge-grid">
-          <Link to="/quiz/all" className="challenge-card">
+          <Link to="/quiz/all" className="challenge-card" style={{ '--glow-color': 'var(--glow-card-3)' } as React.CSSProperties}>
             <div className="challenge-card-bg" style={{ background: 'var(--gradient-card-3)' }} />
             <div className="challenge-card-content">
               <div className="challenge-icon">
@@ -91,6 +92,7 @@ export function Menu() {
               to="/quiz/practice"
               className={`challenge-card practice-card ${practiceCount === 0 ? 'disabled' : ''}`}
               onClick={(e) => practiceCount === 0 && e.preventDefault()}
+              style={{ '--glow-color': 'var(--glow-card-4)' } as React.CSSProperties}
             >
               <div className="challenge-card-bg" style={{ background: 'var(--gradient-card-4)' }} />
               <div className="challenge-card-content">
@@ -113,7 +115,7 @@ export function Menu() {
               </div>
             </Link>
           ) : (
-            <div className="challenge-card practice-card disabled">
+            <div className="challenge-card practice-card disabled" style={{ '--glow-color': 'var(--glow-card-4)' } as React.CSSProperties}>
               <div className="challenge-card-bg" style={{ background: 'var(--gradient-card-4)' }} />
               <div className="challenge-card-content">
                 <div className="challenge-icon">
