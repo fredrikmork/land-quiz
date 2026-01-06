@@ -52,6 +52,8 @@ export async function saveQuizAttempt(
 ) {
   if (!isSupabaseConfigured()) return null
 
+  console.log('Saving quiz attempt:', { userId, sessionId, countryCode, quizMode, isCorrect })
+
   const { data, error } = await supabase
     .from('quiz_attempts')
     .insert({
@@ -69,6 +71,7 @@ export async function saveQuizAttempt(
     return null
   }
 
+  console.log('Quiz attempt saved successfully:', data)
   return data as QuizAttempt
 }
 

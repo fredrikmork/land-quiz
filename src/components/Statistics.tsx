@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Landmark, Building2, Flag, Map, ArrowLeft, Trophy, Target, Calendar, CheckCircle2, ChevronRight } from 'lucide-react'
+import { Landmark, Building2, Flag, Map, ArrowLeft, Trophy, Target, Calendar, CheckCircle2, ChevronRight, RefreshCw } from 'lucide-react'
 import { getUserStatistics, UserStatistics } from '../lib/quizApi'
 import { useAuth } from '../hooks/useAuth'
 import { getCountriesByContinent, countries, type Continent } from '../data/countries'
@@ -81,14 +81,26 @@ export function Statistics() {
 
   return (
     <div className="max-w-6xl mx-auto w-full p-8">
-      <Button
-        variant="ghost"
-        onClick={() => navigate('/')}
-        className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-sm text-muted-foreground hover:text-foreground transition-all"
-      >
-        <ArrowLeft size={18} />
-        Tilbake
-      </Button>
+      <div className="flex items-center justify-between mb-8">
+        <Button
+          variant="ghost"
+          onClick={() => navigate('/')}
+          className="inline-flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-all"
+        >
+          <ArrowLeft size={18} />
+          Tilbake
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={loadStats}
+          disabled={loading}
+          className="inline-flex items-center gap-2"
+        >
+          <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
+          Oppdater
+        </Button>
+      </div>
       <h2 className="text-4xl font-extrabold bg-gradient-main bg-clip-text text-transparent mb-8 text-center">Din statistikk</h2>
 
       {/* Overview Cards */}
