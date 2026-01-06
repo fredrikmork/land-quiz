@@ -153,6 +153,27 @@ export interface UserStatistics {
 export async function getUserStatistics(userId: string): Promise<UserStatistics | null> {
   if (!isSupabaseConfigured()) return null
 
+  console.log('Fetching user statistics for:', userId)
+
+  // Debug: Check raw quiz attempts
+  const { data: attempts } = await supabase
+    .from('quiz_attempts')
+    .select('country_code, quiz_mode, is_correct')
+    .eq('user_id', userId)
+    .eq('is_correct', true)
+    .order('answered_at', { ascending: false })
+    .limit(20)
+
+  if (attempts) {
+    console.log('Recent correct attempts:', attempts)
+    const modeCount = attempts.reduce((acc: any, attempt: any) => {
+      const key = `${attempt.country_code}-${attempt.quiz_mode}`
+      acc[key] = (acc[key] || 0) + 1
+      return acc
+    }, {})
+    console.log('Mode count by country:', modeCount)
+  }
+
   const { data, error } = await supabase.rpc('get_user_statistics', {
     p_user_id: userId,
   })
@@ -160,6 +181,14 @@ export async function getUserStatistics(userId: string): Promise<UserStatistics 
   if (error) {
     console.error('Error fetching user statistics:', error)
     return null
+  }
+
+  console.log('User statistics received:', data)
+
+  // Log country progress for debugging
+  if (data?.country_progress) {
+    const progressWithModes = data.country_progress.filter((c: any) => c.modes_correct > 0)
+    console.log(`Countries with progress: ${progressWithModes.length}`, progressWithModes.map((c: any) => `${c.name}: ${c.modes_correct}/4`))
   }
 
   return data as UserStatistics
