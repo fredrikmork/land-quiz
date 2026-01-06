@@ -4,7 +4,9 @@ import { ArrowLeft, Landmark, Building2, Flag, Map } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { getUserStatistics } from '../lib/quizApi'
 import { getCountriesByContinent, countries, type Continent } from '../data/countries'
-import './QuizModeSelector.css'
+import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 const quizModes = [
   {
@@ -13,6 +15,7 @@ const quizModes = [
     description: 'Gjett landet fra hovedstaden',
     icon: Landmark,
     gradient: 'var(--gradient-card-1)',
+    glowColor: 'var(--glow-card-1)',
   },
   {
     key: 'country-to-capital',
@@ -20,6 +23,7 @@ const quizModes = [
     description: 'Gjett hovedstaden fra landet',
     icon: Building2,
     gradient: 'var(--gradient-card-2)',
+    glowColor: 'var(--glow-card-2)',
   },
   {
     key: 'flag-to-country',
@@ -27,6 +31,7 @@ const quizModes = [
     description: 'Gjett landet fra flagget',
     icon: Flag,
     gradient: 'var(--gradient-card-3)',
+    glowColor: 'var(--glow-card-3)',
   },
   {
     key: 'map-to-country',
@@ -34,6 +39,7 @@ const quizModes = [
     description: 'Finn landet på kartet',
     icon: Map,
     gradient: 'var(--gradient-card-4)',
+    glowColor: 'var(--glow-card-4)',
   },
 ]
 
@@ -102,46 +108,65 @@ export function QuizModeSelector() {
 
   if (loading) {
     return (
-      <div className="quiz-mode-selector">
-        <div className="loading-container">
-          <div className="loading-spinner" />
-          <p>Laster...</p>
+      <div className="max-w-4xl mx-auto w-full p-8">
+        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+          <p className="text-muted-foreground">Laster...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="quiz-mode-selector">
-      <button className="back-button" onClick={() => navigate('/')}>
+    <div className="max-w-4xl mx-auto w-full p-8">
+      <Button
+        variant="ghost"
+        onClick={() => navigate('/')}
+        className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-sm text-muted-foreground hover:text-foreground"
+      >
         <ArrowLeft size={18} />
         Tilbake
-      </button>
+      </Button>
 
-      <div className="selector-header">
-        <h1 className="selector-title">{scopeTitle}</h1>
-        <p className="selector-subtitle">{countryCount} land - velg quiz-type</p>
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-bold bg-gradient-main bg-clip-text text-transparent mb-2">
+          {scopeTitle}
+        </h1>
+        <p className="text-lg text-muted-foreground">
+          {countryCount} land - velg quiz-type
+        </p>
       </div>
 
-      <div className="mode-grid">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {quizModes.map((mode) => {
           const Icon = mode.icon
           return (
-            <Link
-              key={mode.key}
-              to={getQuizUrl(mode.key)}
-              className="mode-card"
-            >
-              <div className="mode-card-bg" style={{ background: mode.gradient }} />
-              <div className="mode-card-content">
-                <div className="mode-icon">
-                  <Icon size={32} strokeWidth={1.5} />
-                </div>
-                <div className="mode-text">
-                  <h3>{mode.title}</h3>
-                  <p>{mode.description}</p>
-                </div>
-              </div>
+            <Link key={mode.key} to={getQuizUrl(mode.key)}>
+              <Card
+                className={cn(
+                  "relative overflow-hidden border-0 transition-all duration-normal",
+                  "hover:-translate-y-1 hover:scale-[1.02]"
+                )}
+                style={{
+                  background: mode.gradient,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 8px 32px ${mode.glowColor}, 0 0 20px ${mode.glowColor}`
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = 'none'
+                }}
+              >
+                <CardContent className="relative z-10 flex items-center gap-4 p-6 text-white">
+                  <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
+                    <Icon size={32} strokeWidth={1.5} />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <h3 className="text-xl font-bold">{mode.title}</h3>
+                    <p className="text-sm opacity-90">{mode.description}</p>
+                  </div>
+                </CardContent>
+              </Card>
             </Link>
           )
         })}

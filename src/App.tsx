@@ -7,19 +7,18 @@ import { Statistics } from './components/Statistics'
 import { Header } from './components/Header'
 import { useAuth } from './hooks/useAuth'
 import { ThemeProvider } from './hooks/useTheme'
-import './App.css'
 
 function AppContent() {
   const { loading } = useAuth()
 
   if (loading) {
     return (
-      <div className="app-layout">
+      <div className="min-h-screen flex flex-col">
         <Header />
-        <main className="main-content">
-          <div className="loading-container">
-            <div className="loading-spinner" />
-            <p>Laster...</p>
+        <main className="flex-1 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+            <p className="text-muted-foreground">Laster...</p>
           </div>
         </main>
       </div>
@@ -27,9 +26,9 @@ function AppContent() {
   }
 
   return (
-    <div className="app-layout">
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="main-content">
+      <main className="flex-1">
         <Routes>
           <Route path="/" element={<Menu />} />
           <Route path="/auth" element={<Auth />} />

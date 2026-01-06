@@ -1,9 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Globe, User, LogOut, BarChart3, Palette } from 'lucide-react'
+import { Globe, User, LogOut, BarChart3, Palette, Check } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { useTheme, ThemeColor } from '../hooks/useTheme'
-import { useState, useRef, useEffect } from 'react'
-import './Header.css'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Button } from '@/components/ui/button'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 
 const themes: { key: ThemeColor; label: string; colors: string[] }[] = [
   { key: 'sunset', label: 'Solnedgang', colors: ['#ff6b6b', '#feca57', '#ff9ff3'] },
@@ -16,120 +23,103 @@ export function Header() {
   const navigate = useNavigate()
   const { profile, signOut, isAuthenticated } = useAuth()
   const { theme, setTheme } = useTheme()
-  const [showThemeMenu, setShowThemeMenu] = useState(false)
-  const [showProfileMenu, setShowProfileMenu] = useState(false)
-  const themeMenuRef = useRef<HTMLDivElement>(null)
-  const profileMenuRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (themeMenuRef.current && !themeMenuRef.current.contains(event.target as Node)) {
-        setShowThemeMenu(false)
-      }
-      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target as Node)) {
-        setShowProfileMenu(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
 
   const handleSignOut = async () => {
     await signOut()
-    setShowProfileMenu(false)
     navigate('/')
   }
 
   return (
-    <header className="header">
-      <Link to="/" className="logo">
-        <div className="logo-icon">
-          <Globe size={24} />
-        </div>
-        <span className="logo-text">LandQuiz</span>
-      </Link>
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="max-w-7xl mx-auto flex h-16 items-center px-8 justify-between">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="w-10 h-10 flex items-center justify-center bg-gradient-main rounded-md text-white transition-transform group-hover:scale-105">
+            <Globe size={24} />
+          </div>
+          <span className="text-xl font-bold bg-gradient-main bg-clip-text text-transparent">
+            LandQuiz
+          </span>
+        </Link>
 
-      <div className="header-actions">
-        {/* Theme Selector */}
-        <div className="theme-selector" ref={themeMenuRef}>
-          <button
-            className="header-btn theme-btn"
-            onClick={() => setShowThemeMenu(!showThemeMenu)}
-            aria-label="Velg tema"
-          >
-            <Palette size={20} />
-            <div className="theme-preview">
-              {themes.find(t => t.key === theme)?.colors.map((color, i) => (
-                <span key={i} style={{ background: color }} />
-              ))}
-            </div>
-          </button>
-          {showThemeMenu && (
-            <div className="dropdown-menu theme-menu">
+        {/* Actions */}
+        <div className="flex items-center gap-2">
+          {/* Theme Selector */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Palette
+                  size={20}
+                  style={{ color: themes.find(t => t.key === theme)?.colors[0] }}
+                />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
               {themes.map((t) => (
-                <button
+                <DropdownMenuItem
                   key={t.key}
-                  className={`theme-option ${theme === t.key ? 'active' : ''}`}
-                  onClick={() => {
-                    setTheme(t.key)
-                    setShowThemeMenu(false)
-                  }}
+                  onClick={() => setTheme(t.key)}
+                  className="flex items-center justify-between cursor-pointer"
                 >
-                  <div className="theme-colors">
-                    {t.colors.map((color, i) => (
-                      <span key={i} style={{ background: color }} />
-                    ))}
+                  <div className="flex items-center gap-3">
+                    <div className="flex gap-1">
+                      {t.colors.map((color, i) => (
+                        <span
+                          key={i}
+                          className="w-4 h-4 rounded-full"
+                          style={{ background: color }}
+                        />
+                      ))}
+                    </div>
+                    <span>{t.label}</span>
                   </div>
-                  <span className="theme-label">{t.label}</span>
-                  {theme === t.key && <span className="check-mark">✓</span>}
-                </button>
+                  {theme === t.key && <Check size={16} className="text-primary" />}
+                </DropdownMenuItem>
               ))}
-            </div>
-          )}
-        </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-        {/* Profile */}
-        {isAuthenticated ? (
-          <div className="profile-dropdown" ref={profileMenuRef}>
-            <button
-              className="header-btn profile-btn"
-              onClick={() => setShowProfileMenu(!showProfileMenu)}
-            >
-              <User size={20} />
-              <span className="profile-name-short">
-                {profile?.display_name?.charAt(0) || profile?.username?.charAt(0) || 'B'}
-              </span>
-            </button>
-            {showProfileMenu && (
-              <div className="dropdown-menu profile-menu">
-                <div className="profile-header">
-                  <span className="profile-display-name">
+          {/* Profile / Login */}
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Avatar className="h-8 w-8">
+                    <AvatarFallback className="bg-gradient-main text-white text-sm">
+                      {profile?.display_name?.charAt(0) || profile?.username?.charAt(0) || 'B'}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-52">
+                <div className="px-3 py-2 flex flex-col gap-1">
+                  <span className="font-semibold text-foreground">
                     {profile?.display_name || profile?.username || 'Bruker'}
                   </span>
-                  <span className="profile-email">{profile?.username}</span>
+                  <span className="text-xs text-muted-foreground">{profile?.username}</span>
                 </div>
-                <div className="menu-divider" />
-                <Link
-                  to="/stats"
-                  className="menu-item"
-                  onClick={() => setShowProfileMenu(false)}
-                >
-                  <BarChart3 size={18} />
-                  Statistikk
-                </Link>
-                <button className="menu-item" onClick={handleSignOut}>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/stats" className="flex items-center gap-3 cursor-pointer">
+                    <BarChart3 size={18} />
+                    Statistikk
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
                   <LogOut size={18} />
                   Logg ut
-                </button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <Link to="/auth" className="header-btn login-btn">
-            <User size={20} />
-            <span>Logg inn</span>
-          </Link>
-        )}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button variant="ghost" asChild>
+              <Link to="/auth" className="flex items-center gap-2">
+                <User size={20} />
+                <span>Logg inn</span>
+              </Link>
+            </Button>
+          )}
+        </div>
       </div>
     </header>
   )
