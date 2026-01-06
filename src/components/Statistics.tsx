@@ -47,11 +47,13 @@ export function Statistics() {
     setStats(data)
 
     // Fetch which specific modes are completed for each country
-    const { data: attempts } = await supabase
+    const { data: attempts, error: attemptsError } = await supabase
       .from('quiz_attempts')
       .select('country_code, quiz_mode')
       .eq('user_id', user.id)
       .eq('is_correct', true)
+
+    console.log('Quiz attempts for modes:', attempts, 'Error:', attemptsError)
 
     if (attempts) {
       const modesByCountry: Record<string, string[]> = {}
@@ -63,6 +65,7 @@ export function Statistics() {
           modesByCountry[attempt.country_code].push(attempt.quiz_mode)
         }
       })
+      console.log('Completed modes by country:', modesByCountry)
       setCompletedModes(modesByCountry)
     }
 
@@ -258,7 +261,14 @@ export function Statistics() {
                           <div className="grid grid-cols-2 gap-2">
                             {quizModes.map((mode) => {
                               const Icon = mode.icon
-                              const isCompleted = completedModes[country.code]?.includes(mode.key) || false
+                              const countryModes = completedModes[country.code] || []
+                              const isCompleted = countryModes.includes(mode.key)
+
+                              // Debug logging for first country only
+                              if (country.code === 'BR') {
+                                console.log(`Brasil - Mode: ${mode.key}, Country modes:`, countryModes, 'Is completed:', isCompleted)
+                              }
+
                               return (
                                 <div
                                   key={mode.key}
