@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react'
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom'
-import { ArrowLeft, Landmark, Building2, Flag, Map } from 'lucide-react'
+import { ArrowLeft, Landmark, Building2, Flag, Map, BookOpen } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { getUserStatistics } from '../lib/quizApi'
 import { getCountriesByContinent, countries, type Continent } from '../data/countries'
@@ -40,6 +40,14 @@ const quizModes = [
     icon: Map,
     gradient: 'var(--gradient-card-4)',
     glowColor: 'var(--glow-card-4)',
+  },
+  {
+    key: 'learn-everything',
+    title: 'Lær deg alt',
+    description: 'Se kart, flagg og hovedstad',
+    icon: BookOpen,
+    gradient: 'var(--gradient-card-1)',
+    glowColor: 'var(--glow-card-1)',
   },
 ]
 

@@ -4,6 +4,7 @@ import { ArrowLeft, RotateCcw, Home, Trophy, Check, X } from 'lucide-react'
 import { useQuiz, QuizMode, QuizScope } from '../hooks/useQuiz'
 import { useAuth } from '../hooks/useAuth'
 import { MapDisplay } from './MapDisplay'
+import { LearnEverythingMap } from './LearnEverythingMap'
 import { getFlagUrl, type Continent } from '../data/countries'
 import { createQuizSession, saveQuizAttempt, completeQuizSession } from '../lib/quizApi'
 import { Button } from '@/components/ui/button'
@@ -57,9 +58,9 @@ export function Quiz() {
     return '/'
   }, [scopeType, scopeValue])
 
-  // Create session when quiz starts
+  // Create session when quiz starts (skip for learn-everything mode)
   useEffect(() => {
-    if (user && !sessionCreated.current) {
+    if (user && !sessionCreated.current && quizMode !== 'learn-everything') {
       sessionCreated.current = true
       createQuizSession(user.id, quizMode, quiz.totalQuestions).then((session) => {
         if (session) {
@@ -73,8 +74,8 @@ export function Quiz() {
   const handleAnswer = async (selected: string) => {
     const isCorrect = selected === quiz.currentQuestion.correctAnswer
 
-    // Save to database if logged in
-    if (user) {
+    // Save to database if logged in (skip for learn-everything mode)
+    if (user && quizMode !== 'learn-everything') {
       await saveQuizAttempt(
         user.id,
         sessionId,
@@ -92,12 +93,12 @@ export function Quiz() {
     }, 1200)
   }
 
-  // Complete session when quiz is done
+  // Complete session when quiz is done (skip for learn-everything mode)
   useEffect(() => {
-    if (quiz.isComplete && sessionId && user) {
+    if (quiz.isComplete && sessionId && user && quizMode !== 'learn-everything') {
       completeQuizSession(sessionId, quiz.score)
     }
-  }, [quiz.isComplete, sessionId, quiz.score, user])
+  }, [quiz.isComplete, sessionId, quiz.score, user, quizMode])
 
   // Handle empty practice mode
   if (scope.type === 'practice' && scope.countryCodes.length === 0) {
@@ -165,6 +166,7 @@ export function Quiz() {
   const { currentQuestion } = quiz
   const isFlag = quizMode === 'flag-to-country'
   const isMap = quizMode === 'map-to-country'
+  const isLearnEverything = quizMode === 'learn-everything'
 
   return (
     <div className="max-w-4xl mx-auto w-full p-8">
@@ -199,7 +201,9 @@ export function Quiz() {
           {currentQuestion.prompt}
         </p>
 
-        {isMap ? (
+        {isLearnEverything ? (
+          <LearnEverythingMap countryCode={currentQuestion.country.code} />
+        ) : isMap ? (
           <MapDisplay countryCode={currentQuestion.country.code} />
         ) : isFlag ? (
           <div className="flex justify-center items-center p-8 bg-card rounded-lg border border-border min-h-[300px]">

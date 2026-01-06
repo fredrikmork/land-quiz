@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from 'react'
 import { countries, shuffleArray, Country, Continent, getCountriesByContinent } from '../data/countries'
 
-export type QuizMode = 'capital-to-country' | 'country-to-capital' | 'flag-to-country' | 'map-to-country'
+export type QuizMode = 'capital-to-country' | 'country-to-capital' | 'flag-to-country' | 'map-to-country' | 'learn-everything'
 
 export type QuizScope =
   | { type: 'continent'; continent: Continent }
@@ -78,6 +78,13 @@ function generateQuestions(mode: QuizMode, scope: QuizScope): QuizQuestion[] {
         break
 
       case 'map-to-country':
+        prompt = 'Hvilket land er dette?'
+        displayValue = country.code
+        correctAnswer = country.name
+        options = shuffleArray([country.name, ...wrongAnswers.map(c => c.name)])
+        break
+
+      case 'learn-everything':
         prompt = 'Hvilket land er dette?'
         displayValue = country.code
         correctAnswer = country.name
