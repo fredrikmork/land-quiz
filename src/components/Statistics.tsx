@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Landmark, Building2, Flag, Map, ArrowLeft, Trophy, Target, Calendar, CheckCircle2, ChevronRight, RefreshCw } from 'lucide-react'
 import { getUserStatistics, UserStatistics } from '../lib/quizApi'
 import { useAuth } from '../hooks/useAuth'
+import { supabase } from '../lib/supabase'
 import { getCountriesByContinent, countries, type Continent } from '../data/countries'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardContent } from '@/components/ui/card'
@@ -31,6 +32,7 @@ export function Statistics() {
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<'overview' | 'continents' | 'countries'>('overview')
   const [selectedContinent, setSelectedContinent] = useState<string | null>(null)
+  const [completedModes, setCompletedModes] = useState<Record<string, string[]>>({})
 
   useEffect(() => {
     if (user) {
@@ -43,6 +45,27 @@ export function Statistics() {
     setLoading(true)
     const data = await getUserStatistics(user.id)
     setStats(data)
+
+    // Fetch which specific modes are completed for each country
+    const { data: attempts } = await supabase
+      .from('quiz_attempts')
+      .select('country_code, quiz_mode')
+      .eq('user_id', user.id)
+      .eq('is_correct', true)
+
+    if (attempts) {
+      const modesByCountry: Record<string, string[]> = {}
+      attempts.forEach((attempt: any) => {
+        if (!modesByCountry[attempt.country_code]) {
+          modesByCountry[attempt.country_code] = []
+        }
+        if (!modesByCountry[attempt.country_code].includes(attempt.quiz_mode)) {
+          modesByCountry[attempt.country_code].push(attempt.quiz_mode)
+        }
+      })
+      setCompletedModes(modesByCountry)
+    }
+
     setLoading(false)
   }
 
@@ -233,9 +256,9 @@ export function Statistics() {
                             {country.is_mastered && <Badge className="bg-green-500 hover:bg-green-600">✓</Badge>}
                           </div>
                           <div className="grid grid-cols-2 gap-2">
-                            {quizModes.map((mode, index) => {
+                            {quizModes.map((mode) => {
                               const Icon = mode.icon
-                              const isCompleted = index < country.modes_correct
+                              const isCompleted = completedModes[country.code]?.includes(mode.key) || false
                               return (
                                 <div
                                   key={mode.key}
