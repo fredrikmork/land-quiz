@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { ComposableMap, Geographies, Geography, ZoomableGroup, Marker } from 'react-simple-maps'
 import countries from 'i18n-iso-countries'
 import { countries as countriesData, getFlagUrl } from '../data/countries'
-import { Progress } from '@/components/ui/progress'
 import './MapDisplay.css'
 
 // Use 50m for more detail (includes more small countries)
