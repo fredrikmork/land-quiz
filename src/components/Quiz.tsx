@@ -210,7 +210,7 @@ export function Quiz() {
             <img
               src={getFlagUrl(currentQuestion.country.code, 'large')}
               alt="Flagg"
-              className="max-w-full max-h-[250px] rounded shadow-lg"
+              className="max-w-full max-h-[250px] object-contain rounded shadow-lg"
             />
           </div>
         ) : (

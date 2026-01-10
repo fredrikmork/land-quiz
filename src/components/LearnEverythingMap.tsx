@@ -36,7 +36,7 @@ const alpha3ToNumeric: Record<string, string> = {
   FSM: '583', MDA: '498', MCO: '492', MNG: '496', MNE: '499', MAR: '504', MOZ: '508',
   MMR: '104', NAM: '516', NRU: '520', NPL: '524', NLD: '528', NZL: '554', NIC: '558',
   NER: '562', NGA: '566', MKD: '807', NOR: '578', OMN: '512', PAK: '586', PLW: '585',
-  PAN: '591', PNG: '598', PRY: '600', PER: '604', PHL: '608', POL: '616', PRT: '620',
+  PAN: '591', PNG: '598', PRY: '600', PER: '604', PHL: '608', POL: '616', PRT: '620', PSE: '275',
   QAT: '634', ROU: '642', RUS: '643', RWA: '646', KNA: '659', LCA: '662', VCT: '670',
   WSM: '882', SMR: '674', STP: '678', SAU: '682', SEN: '686', SRB: '688', SYC: '690',
   SLE: '694', SGP: '702', SVK: '703', SVN: '705', SLB: '090', SOM: '706', ZAF: '710',
@@ -127,6 +127,7 @@ const zoomConfig: Record<string, { center: [number, number]; zoom: number }> = {
   IRQ: { center: [44, 33], zoom: 5 },
   ISR: { center: [35, 31], zoom: 6 },
   JOR: { center: [36, 31], zoom: 6 },
+  PSE: { center: [35.2, 31.9], zoom: 8 },
   JPN: { center: [138, 36], zoom: 4 },
   KAZ: { center: [67, 48], zoom: 3 },
   KGZ: { center: [74, 41], zoom: 5 },
@@ -159,6 +160,7 @@ const zoomConfig: Record<string, { center: [number, number]; zoom: number }> = {
   YEM: { center: [48, 15.5], zoom: 5 },
   // Americas
   ARG: { center: [-64, -35], zoom: 2.5 },
+  ATG: { center: [-61.8, 17.1], zoom: 10 },
   BHS: { center: [-77, 24], zoom: 6 },
   BLZ: { center: [-88.5, 17], zoom: 7 },
   BOL: { center: [-64, -17], zoom: 4 },
@@ -186,6 +188,7 @@ const zoomConfig: Record<string, { center: [number, number]; zoom: number }> = {
   TTO: { center: [-61, 10.5], zoom: 8 },
   URY: { center: [-56, -33], zoom: 5 },
   USA: { center: [-98, 39], zoom: 2.5 },
+  VCT: { center: [-61.2, 13.2], zoom: 10 },
   VEN: { center: [-66, 8], zoom: 4 },
   // Africa
   AGO: { center: [17.5, -12.5], zoom: 4 },
@@ -230,6 +233,7 @@ const zoomConfig: Record<string, { center: [number, number]; zoom: number }> = {
   SEN: { center: [-14.5, 14.5], zoom: 5 },
   SLE: { center: [-11.8, 8.5], zoom: 6 },
   SOM: { center: [46, 5], zoom: 4 },
+  SYC: { center: [55.5, -4.7], zoom: 8 },
   SSD: { center: [30, 7], zoom: 4 },
   STP: { center: [6.7, 0.3], zoom: 9 },
   SWZ: { center: [31.5, -26.5], zoom: 7 },
@@ -275,6 +279,9 @@ export function LearnEverythingMap({ countryCode }: LearnEverythingMapProps) {
   // Very small countries that don't need a capital dot (country itself is tiny)
   // Countries under 1000 km² are too small for a visible capital dot
   const isVerySmallCountry = (country?.area && country.area < 1000) || smallCountryCoords[alpha3] !== undefined
+
+  // Marker for small countries not in GeoJSON data
+  const smallCountryMarker = smallCountryCoords[alpha3]
 
   // Track zoom level
   const minZoom = 1
@@ -400,6 +407,13 @@ export function LearnEverythingMap({ countryCode }: LearnEverythingMapProps) {
                 })
               }
             </Geographies>
+
+            {/* Red marker for small countries not in GeoJSON */}
+            {smallCountryMarker && (
+              <Marker coordinates={smallCountryMarker}>
+                <circle r={0.1} fill="#ef4444" />
+              </Marker>
+            )}
 
             {/* White dot marker at capital location - only for larger countries */}
             {country?.capitalCoordinates && !isVerySmallCountry && (
