@@ -309,28 +309,28 @@ export function LearnEverythingMap({ countryCode }: LearnEverythingMapProps) {
             </div>
           </div>
 
-          {/* Country information - hidden on mobile, shown on desktop */}
-          <div className="hidden md:block w-full border-t border-gray-200 pt-3 mt-3 space-y-2">
+          {/* Country information */}
+          <div className="w-full border-t border-gray-200 pt-2 md:pt-3 mt-2 md:mt-3 grid grid-cols-3 md:grid-cols-1 gap-2 md:space-y-2">
             {country.population && (
               <div className="flex flex-col">
-                <p className="text-xs text-gray-500 uppercase tracking-wide">Befolkning</p>
-                <p className="text-sm font-semibold text-gray-900">
+                <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wide">Befolkning</p>
+                <p className="text-xs md:text-sm font-semibold text-gray-900">
                   {country.population.toLocaleString('nb-NO')}
                 </p>
               </div>
             )}
             {country.area && (
               <div className="flex flex-col">
-                <p className="text-xs text-gray-500 uppercase tracking-wide">Areal</p>
-                <p className="text-sm font-semibold text-gray-900">
+                <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wide">Areal</p>
+                <p className="text-xs md:text-sm font-semibold text-gray-900">
                   {country.area.toLocaleString('nb-NO')} km²
                 </p>
               </div>
             )}
             {country.government && (
               <div className="flex flex-col">
-                <p className="text-xs text-gray-500 uppercase tracking-wide">Styresett</p>
-                <p className="text-sm font-semibold text-gray-900">
+                <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wide">Styresett</p>
+                <p className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                   {country.government}
                 </p>
               </div>
