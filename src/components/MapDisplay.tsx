@@ -7,8 +7,9 @@ const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json'
 
 // Convert alpha-2 to alpha-3 using i18n-iso-countries
 function getAlpha3(alpha2: string): string {
-  // Special case for Kosovo (not in standard ISO)
+  // Special cases for countries not in standard ISO
   if (alpha2 === 'XK') return 'XKX'
+  if (alpha2 === 'SM') return 'SMR'
   return countries.alpha2ToAlpha3(alpha2) || alpha2
 }
 
@@ -33,7 +34,7 @@ const alpha3ToNumeric: Record<string, string> = {
   FSM: '583', MDA: '498', MCO: '492', MNG: '496', MNE: '499', MAR: '504', MOZ: '508',
   MMR: '104', NAM: '516', NRU: '520', NPL: '524', NLD: '528', NZL: '554', NIC: '558',
   NER: '562', NGA: '566', MKD: '807', NOR: '578', OMN: '512', PAK: '586', PLW: '585',
-  PAN: '591', PNG: '598', PRY: '600', PER: '604', PHL: '608', POL: '616', PRT: '620',
+  PAN: '591', PNG: '598', PRY: '600', PER: '604', PHL: '608', POL: '616', PRT: '620', PSE: '275',
   QAT: '634', ROU: '642', RUS: '643', RWA: '646', KNA: '659', LCA: '662', VCT: '670',
   WSM: '882', SMR: '674', STP: '678', SAU: '682', SEN: '686', SRB: '688', SYC: '690',
   SLE: '694', SGP: '702', SVK: '703', SVN: '705', SLB: '090', SOM: '706', ZAF: '710',
@@ -48,7 +49,7 @@ const alpha3ToNumeric: Record<string, string> = {
 // Only truly tiny countries that are missing from world-atlas 50m
 const smallCountryCoords: Record<string, [number, number]> = {
   AND: [1.5, 42.5], MCO: [7.4, 43.7], VAT: [12.45, 41.9], LIE: [9.5, 47.2],
-  SGP: [103.8, 1.35], BHR: [50.5, 26], MDV: [73, 3.2], SYC: [55.5, -4.7],
+  SMR: [12.45, 43.94], SGP: [103.8, 1.35], BHR: [50.5, 26], MDV: [73, 3.2], SYC: [55.5, -4.7],
   MUS: [57.5, -20.3], COM: [43.3, -11.8], STP: [6.7, 0.3], BRB: [-59.5, 13.2],
   ATG: [-61.8, 17.1], KNA: [-62.7, 17.3], LCA: [-61, 13.9], VCT: [-61.2, 13.2],
   GRD: [-61.7, 12.1], DMA: [-61.4, 15.4], NRU: [166.9, -0.5], TUV: [179, -8],
@@ -123,6 +124,7 @@ const zoomConfig: Record<string, { center: [number, number]; zoom: number }> = {
   IRQ: { center: [44, 33], zoom: 5 },
   ISR: { center: [35, 31], zoom: 6 },
   JOR: { center: [36, 31], zoom: 6 },
+  PSE: { center: [35.2, 31.9], zoom: 8 },
   JPN: { center: [138, 36], zoom: 4 },
   KAZ: { center: [67, 48], zoom: 3 },
   KGZ: { center: [74, 41], zoom: 5 },
@@ -155,6 +157,7 @@ const zoomConfig: Record<string, { center: [number, number]; zoom: number }> = {
   YEM: { center: [48, 15.5], zoom: 5 },
   // Americas
   ARG: { center: [-64, -35], zoom: 2.5 },
+  ATG: { center: [-61.8, 17.1], zoom: 10 },
   BHS: { center: [-77, 24], zoom: 6 },
   BLZ: { center: [-88.5, 17], zoom: 7 },
   BOL: { center: [-64, -17], zoom: 4 },
@@ -182,6 +185,7 @@ const zoomConfig: Record<string, { center: [number, number]; zoom: number }> = {
   TTO: { center: [-61, 10.5], zoom: 8 },
   URY: { center: [-56, -33], zoom: 5 },
   USA: { center: [-98, 39], zoom: 2.5 },
+  VCT: { center: [-61.2, 13.2], zoom: 10 },
   VEN: { center: [-66, 8], zoom: 4 },
   // Africa
   AGO: { center: [17.5, -12.5], zoom: 4 },
@@ -226,6 +230,7 @@ const zoomConfig: Record<string, { center: [number, number]; zoom: number }> = {
   SEN: { center: [-14.5, 14.5], zoom: 5 },
   SLE: { center: [-11.8, 8.5], zoom: 6 },
   SOM: { center: [46, 5], zoom: 4 },
+  SYC: { center: [55.5, -4.7], zoom: 8 },
   SSD: { center: [30, 7], zoom: 4 },
   STP: { center: [6.7, 0.3], zoom: 9 },
   SWZ: { center: [31.5, -26.5], zoom: 7 },
@@ -265,7 +270,7 @@ export function MapDisplay({ countryCode }: MapDisplayProps) {
   const smallCountryMarker = smallCountryCoords[alpha3]
 
   return (
-    <div className="map-container">
+    <div className="w-full bg-card rounded-lg border border-border overflow-hidden" style={{ minHeight: '500px' }}>
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{
@@ -286,18 +291,19 @@ export function MapDisplay({ countryCode }: MapDisplayProps) {
                     style={{
                       default: {
                         fill: isHighlighted ? '#ef4444' : '#d1d5db',
-                        stroke: '#9ca3af',
+                        stroke: isHighlighted ? '#ef4444' : '#9ca3af',
                         strokeWidth: 0.5,
                         outline: 'none',
                       },
                       hover: {
                         fill: isHighlighted ? '#ef4444' : '#b8bfc9',
-                        stroke: '#9ca3af',
+                        stroke: isHighlighted ? '#ef4444' : '#9ca3af',
                         strokeWidth: 0.5,
                         outline: 'none',
                       },
                       pressed: {
                         fill: isHighlighted ? '#ef4444' : '#b8bfc9',
+                        stroke: isHighlighted ? '#ef4444' : '#9ca3af',
                         outline: 'none',
                       },
                     }}
@@ -308,7 +314,7 @@ export function MapDisplay({ countryCode }: MapDisplayProps) {
           </Geographies>
           {smallCountryMarker && (
             <Marker coordinates={smallCountryMarker}>
-              <circle r={6} fill="#ef4444" />
+              <circle r={0.1} fill="#ef4444" />
             </Marker>
           )}
         </ZoomableGroup>
