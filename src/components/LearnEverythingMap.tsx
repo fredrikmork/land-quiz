@@ -294,47 +294,51 @@ export function LearnEverythingMap({ countryCode }: LearnEverythingMapProps) {
     <div className="relative w-full max-w-4xl mx-auto">
       {/* Info card - absolute on desktop, relative on mobile */}
       {country && (
-        <div className="md:absolute md:top-4 md:right-4 md:z-20 mb-4 md:mb-0 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-2xl border border-gray-200 p-3 md:p-4 backdrop-blur-sm">
-          <div className="flex md:flex-col items-center md:items-center gap-3">
+        <div className="md:absolute md:top-4 md:left-1/2 md:-translate-x-1/2 md:z-20 mb-4 md:mb-0 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-2xl border border-gray-200 p-3 md:px-6 md:py-3 backdrop-blur-sm">
+          <div className="flex items-center gap-3 md:gap-6">
             <img
               src={getFlagUrl(countryCode, 'large')}
               alt=""
-              className="w-16 h-10 md:w-24 md:h-16 object-cover rounded-lg shadow-md border border-gray-200"
+              className="w-16 h-10 md:w-20 md:h-12 object-cover rounded-lg shadow-md border border-gray-200"
             />
-            <div className="flex flex-col md:items-center gap-0.5 md:gap-1">
-              <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">Hovedstad</p>
-              <p className="text-sm md:text-base font-bold text-gray-900">
-                {country.capital}
-              </p>
+            <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
+              {/* Capital and population side by side on mobile */}
+              <div className="flex items-center gap-4">
+                <div className="flex flex-col">
+                  <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">Hovedstad</p>
+                  <p className="text-sm md:text-base font-bold text-gray-900">
+                    {country.capital}
+                  </p>
+                </div>
+                {country.population && (
+                  <div className="flex flex-col">
+                    <p className="text-xs text-gray-500 uppercase tracking-wide">Befolkning</p>
+                    <p className="text-sm font-semibold text-gray-900">
+                      {country.population.toLocaleString('nb-NO')}
+                    </p>
+                  </div>
+                )}
+              </div>
+              {/* Area and government - below on mobile, inline on desktop */}
+              <div className="flex items-center gap-4 border-t md:border-t-0 md:border-l border-gray-200 pt-2 md:pt-0 md:pl-6">
+                {country.area && (
+                  <div className="flex flex-col">
+                    <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wide">Areal</p>
+                    <p className="text-xs md:text-sm font-semibold text-gray-900">
+                      {country.area.toLocaleString('nb-NO')} km²
+                    </p>
+                  </div>
+                )}
+                {country.government && (
+                  <div className="flex flex-col">
+                    <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wide">Styresett</p>
+                    <p className="text-xs md:text-sm font-semibold text-gray-900">
+                      {country.government}
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-
-          {/* Country information */}
-          <div className="w-full border-t border-gray-200 pt-2 md:pt-3 mt-2 md:mt-3 grid grid-cols-3 md:grid-cols-1 gap-2 md:space-y-2">
-            {country.population && (
-              <div className="flex flex-col">
-                <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wide">Befolkning</p>
-                <p className="text-xs md:text-sm font-semibold text-gray-900">
-                  {country.population.toLocaleString('nb-NO')}
-                </p>
-              </div>
-            )}
-            {country.area && (
-              <div className="flex flex-col">
-                <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wide">Areal</p>
-                <p className="text-xs md:text-sm font-semibold text-gray-900">
-                  {country.area.toLocaleString('nb-NO')} km²
-                </p>
-              </div>
-            )}
-            {country.government && (
-              <div className="flex flex-col">
-                <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wide">Styresett</p>
-                <p className="text-xs md:text-sm font-semibold text-gray-900 truncate">
-                  {country.government}
-                </p>
-              </div>
-            )}
           </div>
         </div>
       )}
