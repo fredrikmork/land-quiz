@@ -74,10 +74,10 @@ export function Menu() {
   }, [user])
 
   return (
-    <div className="max-w-6xl mx-auto w-full p-8">
+    <div className="max-w-6xl mx-auto w-full p-4 md:p-8">
       {/* Hero Section */}
       <div className="text-center mb-12">
-        <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-main bg-clip-text text-transparent mb-4">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-main bg-clip-text text-transparent mb-4">
           Lær verdens land
         </h1>
         <p className="text-lg text-muted-foreground">
@@ -105,6 +105,12 @@ export function Menu() {
                     e.currentTarget.style.boxShadow = `0 8px 32px ${continent.glowColor}, 0 0 20px ${continent.glowColor}`
                   }}
                   onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = 'none'
+                  }}
+                  onTouchStart={(e) => {
+                    e.currentTarget.style.boxShadow = `0 8px 32px ${continent.glowColor}, 0 0 20px ${continent.glowColor}`
+                  }}
+                  onTouchEnd={(e) => {
                     e.currentTarget.style.boxShadow = 'none'
                   }}
                 >
@@ -153,10 +159,16 @@ export function Menu() {
               onMouseLeave={(e) => {
                 e.currentTarget.style.boxShadow = 'none'
               }}
+              onTouchStart={(e) => {
+                e.currentTarget.style.boxShadow = "0 8px 32px var(--glow-card-3), 0 0 20px var(--glow-card-3)"
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.boxShadow = 'none'
+              }}
             >
-              <CardContent className="relative z-10 flex items-center gap-4 p-6 text-white">
-                <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
-                  <Globe size={28} strokeWidth={1.5} />
+              <CardContent className="relative z-10 flex items-center gap-4 p-4 md:p-6 text-white">
+                <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
+                  <Globe className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />
                 </div>
                 <div className="flex flex-col gap-1">
                   <span className="font-bold text-lg">Alle land</span>
@@ -195,10 +207,18 @@ export function Menu() {
                 onMouseLeave={(e) => {
                   e.currentTarget.style.boxShadow = 'none'
                 }}
+                onTouchStart={(e) => {
+                  if (practiceCount !== 0) {
+                    e.currentTarget.style.boxShadow = "0 8px 32px var(--glow-card-4), 0 0 20px var(--glow-card-4)"
+                  }
+                }}
+                onTouchEnd={(e) => {
+                  e.currentTarget.style.boxShadow = 'none'
+                }}
               >
-                <CardContent className="relative z-10 flex items-center gap-4 p-6 text-white">
-                  <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
-                    <BookOpen size={28} strokeWidth={1.5} />
+                <CardContent className="relative z-10 flex items-center gap-4 p-4 md:p-6 text-white">
+                  <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
+                    <BookOpen className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />
                   </div>
                   <div className="flex flex-col gap-1">
                     <span className="font-bold text-lg">Umestrede land</span>
@@ -227,9 +247,9 @@ export function Menu() {
                   background: "var(--gradient-card-4)",
                 }}
               >
-                <CardContent className="relative z-10 flex items-center gap-4 p-6 text-white">
-                  <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
-                    <BookOpen size={28} strokeWidth={1.5} />
+                <CardContent className="relative z-10 flex items-center gap-4 p-4 md:p-6 text-white">
+                  <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
+                    <BookOpen className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />
                   </div>
                   <div className="flex flex-col gap-1">
                     <span className="font-bold text-lg">Umestrede land</span>

@@ -169,19 +169,19 @@ export function Quiz() {
   const isLearnEverything = quizMode === 'learn-everything'
 
   return (
-    <div className="max-w-4xl mx-auto w-full p-8">
+    <div className="max-w-4xl mx-auto w-full p-4 md:p-8">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6 md:mb-8">
         <Button
           variant="ghost"
           onClick={() => navigate(backUrl)}
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft size={18} />
-          Tilbake
+          <span className="hidden sm:inline">Tilbake</span>
         </Button>
-        <div className="flex-1 mx-4 min-w-[150px] max-w-[300px]">
-          <span className="text-sm text-muted-foreground block mb-2 text-center font-medium">
+        <div className="flex-1 min-w-[100px] max-w-[200px] md:max-w-[300px] order-last sm:order-none w-full sm:w-auto mt-2 sm:mt-0">
+          <span className="text-xs md:text-sm text-muted-foreground block mb-1 md:mb-2 text-center font-medium">
             {quiz.questionNumber} / {quiz.totalQuestions}
           </span>
           <Progress
@@ -189,15 +189,15 @@ export function Quiz() {
             className="h-1.5"
           />
         </div>
-        <div className="flex items-center gap-2 px-4 py-2 bg-card rounded-lg border border-border">
+        <div className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-card rounded-lg border border-border">
           <Trophy size={16} className="text-primary" />
           <span className="font-bold text-foreground">{quiz.score}</span>
         </div>
       </div>
 
       {/* Content */}
-      <div className="space-y-8">
-        <p className="text-2xl font-semibold text-center text-foreground mb-8">
+      <div className="space-y-6 md:space-y-8">
+        <p className="text-xl md:text-2xl font-semibold text-center text-foreground mb-6 md:mb-8">
           {currentQuestion.prompt}
         </p>
 
@@ -206,16 +206,16 @@ export function Quiz() {
         ) : isMap ? (
           <MapDisplay countryCode={currentQuestion.country.code} />
         ) : isFlag ? (
-          <div className="flex justify-center items-center p-8 bg-card rounded-lg border border-border min-h-[300px]">
+          <div className="flex justify-center items-center p-4 md:p-8 bg-card rounded-lg border border-border min-h-[200px] md:min-h-[300px]">
             <img
               src={getFlagUrl(currentQuestion.country.code, 'large')}
               alt="Flagg"
-              className="max-w-full max-h-[250px] object-contain rounded shadow-lg"
+              className="max-w-full max-h-[180px] md:max-h-[250px] object-contain rounded shadow-lg"
             />
           </div>
         ) : (
-          <div className="flex justify-center items-center p-12 bg-card rounded-lg border border-border min-h-[200px]">
-            <span className="text-4xl font-bold bg-gradient-main bg-clip-text text-transparent">
+          <div className="flex justify-center items-center p-6 md:p-12 bg-card rounded-lg border border-border min-h-[150px] md:min-h-[200px]">
+            <span className="text-2xl md:text-4xl font-bold bg-gradient-main bg-clip-text text-transparent">
               {currentQuestion.displayValue}
             </span>
           </div>
@@ -253,18 +253,18 @@ export function Quiz() {
           <div
             className={cn(
               "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50",
-              "flex items-center gap-3 px-8 py-6 rounded-xl shadow-2xl text-white text-2xl font-bold",
-              "animate-in fade-in zoom-in duration-300",
+              "flex items-center gap-2 md:gap-3 px-4 py-3 md:px-8 md:py-6 rounded-xl shadow-2xl text-white text-lg md:text-2xl font-bold",
+              "animate-in fade-in zoom-in duration-300 max-w-[90vw] text-center",
               quiz.isCorrect ? "bg-green-500" : "bg-red-500"
             )}
           >
             {quiz.isCorrect ? (
               <>
-                <Check size={32} /> Riktig!
+                <Check className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0" /> Riktig!
               </>
             ) : (
               <>
-                <X size={32} /> {currentQuestion.correctAnswer}
+                <X className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0" /> {currentQuestion.correctAnswer}
               </>
             )}
           </div>

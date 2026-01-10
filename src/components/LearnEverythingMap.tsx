@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { ComposableMap, Geographies, Geography, ZoomableGroup, Marker } from 'react-simple-maps'
 import countries from 'i18n-iso-countries'
 import { countries as countriesData, getFlagUrl } from '../data/countries'
-import './MapDisplay.css'
 
 // Use 50m for more detail (includes more small countries)
 const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json'
@@ -293,25 +292,25 @@ export function LearnEverythingMap({ countryCode }: LearnEverythingMapProps) {
 
   return (
     <div className="relative w-full max-w-4xl mx-auto">
-      {/* Fixed flag and capital card in top right corner */}
+      {/* Info card - absolute on desktop, relative on mobile */}
       {country && (
-        <div className="absolute top-4 right-4 z-20 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-2xl border border-gray-200 p-4 flex flex-col items-center gap-3 backdrop-blur-sm">
-          <div className="relative">
+        <div className="md:absolute md:top-4 md:right-4 md:z-20 mb-4 md:mb-0 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-2xl border border-gray-200 p-3 md:p-4 backdrop-blur-sm">
+          <div className="flex md:flex-col items-center md:items-center gap-3">
             <img
               src={getFlagUrl(countryCode, 'large')}
               alt=""
-              className="w-24 h-16 object-cover rounded-lg shadow-md border border-gray-200"
+              className="w-16 h-10 md:w-24 md:h-16 object-cover rounded-lg shadow-md border border-gray-200"
             />
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">Hovedstad</p>
-            <p className="text-base font-bold text-gray-900">
-              {country.capital}
-            </p>
+            <div className="flex flex-col md:items-center gap-0.5 md:gap-1">
+              <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">Hovedstad</p>
+              <p className="text-sm md:text-base font-bold text-gray-900">
+                {country.capital}
+              </p>
+            </div>
           </div>
 
-          {/* Country information */}
-          <div className="w-full border-t border-gray-200 pt-3 mt-1 space-y-2">
+          {/* Country information - hidden on mobile, shown on desktop */}
+          <div className="hidden md:block w-full border-t border-gray-200 pt-3 mt-3 space-y-2">
             {country.population && (
               <div className="flex flex-col">
                 <p className="text-xs text-gray-500 uppercase tracking-wide">Befolkning</p>
@@ -340,8 +339,8 @@ export function LearnEverythingMap({ countryCode }: LearnEverythingMapProps) {
         </div>
       )}
 
-      {/* Zoom indicator - vertical bar on left side */}
-      <div className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 p-3 flex flex-col items-center gap-3">
+      {/* Zoom indicator - hidden on mobile */}
+      <div className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 p-3 flex-col items-center gap-3">
         <span className="text-xs font-bold text-gray-600 uppercase tracking-wider">Zoom</span>
         <div className="relative h-40 w-4 bg-muted/30 rounded-full overflow-hidden">
           <div
@@ -354,8 +353,8 @@ export function LearnEverythingMap({ countryCode }: LearnEverythingMapProps) {
         </span>
       </div>
 
-      {/* Map container - much larger */}
-      <div className="w-full bg-card rounded-lg border border-border overflow-hidden" style={{ minHeight: '500px' }}>
+      {/* Map container */}
+      <div className="w-full bg-card rounded-lg border border-border overflow-hidden min-h-[250px] md:min-h-[400px] lg:min-h-[500px] touch-manipulation">
         <ComposableMap
           projection="geoMercator"
           projectionConfig={{

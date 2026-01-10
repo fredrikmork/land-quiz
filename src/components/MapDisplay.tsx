@@ -1,6 +1,5 @@
 import { ComposableMap, Geographies, Geography, ZoomableGroup, Marker } from 'react-simple-maps'
 import countries from 'i18n-iso-countries'
-import './MapDisplay.css'
 
 // Use 50m for more detail (includes more small countries)
 const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json'
@@ -270,7 +269,7 @@ export function MapDisplay({ countryCode }: MapDisplayProps) {
   const smallCountryMarker = smallCountryCoords[alpha3]
 
   return (
-    <div className="w-full bg-card rounded-lg border border-border overflow-hidden" style={{ minHeight: '500px' }}>
+    <div className="w-full bg-card rounded-lg border border-border overflow-hidden min-h-[250px] md:min-h-[400px] lg:min-h-[500px] touch-manipulation">
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{
