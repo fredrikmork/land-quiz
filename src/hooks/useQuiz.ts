@@ -37,9 +37,40 @@ function getCountriesForScope(scope: QuizScope): Country[] {
   }
 }
 
-function getRandomFromPool(pool: Country[], count: number, exclude: Country): Country[] {
-  const available = pool.filter(c => c.code !== exclude.code)
-  return shuffleArray(available).slice(0, count)
+// Haversine-formel for å beregne avstand mellom to koordinater (i km)
+function calculateDistance(coord1: [number, number], coord2: [number, number]): number {
+  const [lon1, lat1] = coord1
+  const [lon2, lat2] = coord2
+  const R = 6371 // Jordens radius i km
+  const dLat = (lat2 - lat1) * Math.PI / 180
+  const dLon = (lon2 - lon1) * Math.PI / 180
+  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2)
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+  return R * c
+}
+
+// Finn nærliggende land basert på geografisk avstand
+function getNearbyCountries(pool: Country[], target: Country, count: number): Country[] {
+  if (!target.capitalCoordinates) {
+    // Fallback til tilfeldig hvis koordinater mangler
+    const available = pool.filter(c => c.code !== target.code)
+    return shuffleArray(available).slice(0, count)
+  }
+
+  // Beregn avstand til alle andre land
+  const withDistance = pool
+    .filter(c => c.code !== target.code && c.capitalCoordinates)
+    .map(c => ({
+      country: c,
+      distance: calculateDistance(target.capitalCoordinates!, c.capitalCoordinates!)
+    }))
+    .sort((a, b) => a.distance - b.distance)
+
+  // Velg fra de 10 nærmeste for variasjon
+  const nearestPool = withDistance.slice(0, Math.min(10, withDistance.length))
+  return shuffleArray(nearestPool).slice(0, count).map(c => c.country)
 }
 
 function generateQuestions(mode: QuizMode, scope: QuizScope): QuizQuestion[] {
@@ -47,8 +78,8 @@ function generateQuestions(mode: QuizMode, scope: QuizScope): QuizQuestion[] {
   const shuffledCountries = shuffleArray(scopeCountries)
 
   return shuffledCountries.map(country => {
-    // Get wrong answers from the same scope (same continent/pool)
-    const wrongAnswers = getRandomFromPool(scopeCountries, 3, country)
+    // Get wrong answers from nearby countries for increased difficulty
+    const wrongAnswers = getNearbyCountries(scopeCountries, country, 3)
 
     let prompt: string
     let displayValue: string
