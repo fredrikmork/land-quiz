@@ -87,7 +87,7 @@ export function Menu() {
 
       {/* Continents Section */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-foreground mb-6">Kontinenter</h2>
+        <h2 className="text-2xl font-bold text-muted-foreground mb-6">Kontinenter</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {continents.map((continent) => {
             const count = getCountriesByContinent(continent.name).length
@@ -126,7 +126,7 @@ export function Menu() {
                       <span className="font-semibold text-base">{continent.name}</span>
                       <Badge
                         variant="secondary"
-                        className="w-fit bg-black/50 text-white hover:bg-black/60"
+                        className="w-fit bg-white/20 text-white hover:bg-white/30 border-0"
                       >
                         {count} land
                       </Badge>
@@ -141,7 +141,7 @@ export function Menu() {
 
       {/* Challenges Section */}
       <section>
-        <h2 className="text-2xl font-bold text-foreground mb-6">Utfordringer</h2>
+        <h2 className="text-2xl font-bold text-muted-foreground mb-6">Utfordringer</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* All Countries */}
           <Link to="/quiz/all" className="h-full">
@@ -172,9 +172,12 @@ export function Menu() {
                 </div>
                 <div className="flex flex-col gap-1">
                   <span className="font-bold text-lg">Alle land</span>
+                  <span className="text-sm opacity-90">
+                    193 FN-medlemmer + 4 anerkjente stater
+                  </span>
                   <Badge
                     variant="secondary"
-                    className="w-fit bg-black/50 text-white hover:bg-black/60"
+                    className="w-fit bg-white/20 text-white hover:bg-white/30 border-0 mt-1"
                   >
                     {countries.length} land
                   </Badge>
@@ -227,7 +230,7 @@ export function Menu() {
                     </span>
                     <Badge
                       variant="secondary"
-                      className="w-fit bg-black/50 text-white hover:bg-black/60 mt-1"
+                      className="w-fit bg-white/20 text-white hover:bg-white/30 border-0 mt-1"
                     >
                       {practiceCount === null
                         ? "Laster..."
@@ -258,7 +261,7 @@ export function Menu() {
                     </span>
                     <Badge
                       variant="secondary"
-                      className="w-fit bg-black/50 text-white hover:bg-black/60 mt-1"
+                      className="w-fit bg-white/20 text-white hover:bg-white/30 border-0 mt-1"
                     >
                       Logg inn for å bruke
                     </Badge>
