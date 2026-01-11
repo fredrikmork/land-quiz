@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react'
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom'
-import { ArrowLeft, Landmark, Building2, Flag, Map, BookOpen } from 'lucide-react'
+import { ArrowLeft, Landmark, Building2, Flag, Map, Sparkles } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { getUserStatistics } from '../lib/quizApi'
 import { getCountriesByContinent, countries, type Continent } from '../data/countries'
@@ -41,15 +41,14 @@ const quizModes = [
     gradient: 'var(--gradient-card-4)',
     glowColor: 'var(--glow-card-4)',
   },
-  {
-    key: 'learn-everything',
-    title: 'Lær deg alt',
-    description: 'Se kart, flagg og hovedstad',
-    icon: BookOpen,
-    gradient: 'var(--gradient-card-1)',
-    glowColor: 'var(--glow-card-1)',
-  },
 ]
+
+const learnEverythingMode = {
+  key: 'learn-everything',
+  title: 'Lær deg alt',
+  description: 'Utforsk verden med kart, flagg, hovedsteder og fakta om hvert land',
+  icon: Sparkles,
+}
 
 type ScopeType = 'continent' | 'all' | 'practice'
 
@@ -164,6 +163,12 @@ export function QuizModeSelector() {
                 onMouseLeave={(e) => {
                   e.currentTarget.style.boxShadow = 'none'
                 }}
+                onTouchStart={(e) => {
+                  e.currentTarget.style.boxShadow = `0 8px 32px ${mode.glowColor}, 0 0 20px ${mode.glowColor}`
+                }}
+                onTouchEnd={(e) => {
+                  e.currentTarget.style.boxShadow = 'none'
+                }}
               >
                 <CardContent className="relative z-10 flex items-center gap-4 p-6 text-white">
                   <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
@@ -179,6 +184,48 @@ export function QuizModeSelector() {
           )
         })}
       </div>
+
+      {/* Premium "Lær deg alt" card */}
+      <Link to={getQuizUrl(learnEverythingMode.key)} className="block mt-6">
+        <Card
+          className={cn(
+            "relative overflow-hidden border-0 transition-all duration-normal",
+            "hover:-translate-y-1 hover:scale-[1.01]"
+          )}
+          style={{
+            background: 'linear-gradient(135deg, #5a6bff 0%, #4d8bff 35%, #45a8ff 70%, #3dc4fc 100%)',
+            boxShadow: '0 4px 20px rgba(90, 107, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.boxShadow = '0 8px 40px rgba(90, 107, 255, 0.4), 0 0 30px rgba(69, 168, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25)'
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.boxShadow = '0 4px 20px rgba(90, 107, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+          }}
+          onTouchStart={(e) => {
+            e.currentTarget.style.boxShadow = '0 8px 40px rgba(90, 107, 255, 0.4), 0 0 30px rgba(69, 168, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25)'
+          }}
+          onTouchEnd={(e) => {
+            e.currentTarget.style.boxShadow = '0 4px 20px rgba(90, 107, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+          }}
+        >
+          {/* Decorative border */}
+          <div className="absolute inset-0 rounded-xl border border-white/20" />
+
+          {/* Subtle shine effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+          <CardContent className="relative z-10 flex flex-col md:flex-row items-center gap-4 md:gap-6 p-6 md:p-8">
+            <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center flex-shrink-0 bg-white/20 backdrop-blur-sm rounded-xl shadow-lg border border-white/30">
+              <learnEverythingMode.icon size={36} strokeWidth={1.5} className="text-white" />
+            </div>
+            <div className="flex flex-col gap-2 text-center md:text-left">
+              <h3 className="text-2xl md:text-3xl font-bold text-white">{learnEverythingMode.title}</h3>
+              <p className="text-base text-gray-300">{learnEverythingMode.description}</p>
+            </div>
+          </CardContent>
+        </Card>
+      </Link>
     </div>
   )
 }

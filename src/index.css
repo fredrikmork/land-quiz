@@ -7,36 +7,25 @@
     /* Font settings */
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-    /* shadcn/ui base colors (HSL format) */
-    --background: 222 47% 5%;        /* #0a0a0f */
-    --foreground: 240 10% 96%;       /* #f5f5f7 */
-    --card: 222 33% 11%;             /* #1a1a24 */
-    --card-foreground: 240 10% 96%;
-    --popover: 222 33% 11%;
-    --popover-foreground: 240 10% 96%;
-    --muted: 240 6% 45%;             /* #71717a */
-    --muted-foreground: 240 10% 63%; /* #a1a1aa */
-    --border: 240 6% 15%;            /* #27272a */
-    --input: 240 6% 25%;             /* #3f3f46 */
-    --ring: 0 0% 63%;
-
     /* Border radius */
     --radius: 0.75rem;
-
-    /* Legacy CSS variables for gradual migration */
-    --bg-primary: #0a0a0f;
-    --bg-secondary: #12121a;
-    --bg-card: #1a1a24;
-    --bg-card-hover: #22222e;
-    --text-primary: #f5f5f7;
-    --text-secondary: #a1a1aa;
-    --text-muted: #71717a;
-    --border-color: #27272a;
-    --border-light: #3f3f46;
   }
 
   /* Theme: Sunset (default) */
   [data-theme="sunset"], :root {
+    /* Light mode base colors - warm coral/peach */
+    --background: 15 60% 95%;        /* warm peach */
+    --foreground: 15 20% 20%;        /* dark warm brown */
+    --card: 15 40% 98%;              /* lighter peach */
+    --card-foreground: 15 20% 20%;
+    --popover: 15 40% 98%;
+    --popover-foreground: 15 20% 20%;
+    --muted: 15 30% 88%;
+    --muted-foreground: 15 15% 40%;
+    --border: 15 35% 85%;
+    --input: 15 30% 90%;
+    --ring: 4 86% 70%;
+
     --primary: 4 86% 70%;            /* #ff6b6b */
     --primary-foreground: 0 0% 100%;
     --secondary: 44 97% 67%;         /* #feca57 */
@@ -76,6 +65,19 @@
 
   /* Theme: Ocean */
   [data-theme="ocean"] {
+    /* Light mode base colors - light cyan/aqua */
+    --background: 190 50% 94%;       /* light aqua */
+    --foreground: 200 30% 18%;       /* dark teal */
+    --card: 190 40% 97%;             /* lighter aqua */
+    --card-foreground: 200 30% 18%;
+    --popover: 190 40% 97%;
+    --popover-foreground: 200 30% 18%;
+    --muted: 190 30% 86%;
+    --muted-foreground: 200 20% 40%;
+    --border: 190 35% 82%;
+    --input: 190 30% 88%;
+    --ring: 192 91% 47%;
+
     --primary: 192 91% 47%;          /* #0abde3 */
     --primary-foreground: 0 0% 100%;
     --secondary: 183 100% 50%;       /* #00d2d3 */
@@ -111,6 +113,19 @@
 
   /* Theme: Forest */
   [data-theme="forest"] {
+    /* Light mode base colors - light mint/sage */
+    --background: 145 45% 93%;       /* light mint */
+    --foreground: 150 25% 18%;       /* dark forest green */
+    --card: 145 35% 96%;             /* lighter mint */
+    --card-foreground: 150 25% 18%;
+    --popover: 145 35% 96%;
+    --popover-foreground: 150 25% 18%;
+    --muted: 145 25% 85%;
+    --muted-foreground: 150 15% 40%;
+    --border: 145 30% 82%;
+    --input: 145 25% 88%;
+    --ring: 158 64% 52%;
+
     --primary: 158 64% 52%;          /* #10b981 */
     --primary-foreground: 0 0% 100%;
     --secondary: 142 71% 45%;        /* #22c55e */
@@ -146,6 +161,19 @@
 
   /* Theme: Purple */
   [data-theme="purple"] {
+    /* Light mode base colors - light lavender */
+    --background: 265 45% 95%;       /* light lavender */
+    --foreground: 270 25% 18%;       /* dark purple */
+    --card: 265 35% 97%;             /* lighter lavender */
+    --card-foreground: 270 25% 18%;
+    --popover: 265 35% 97%;
+    --popover-foreground: 270 25% 18%;
+    --muted: 265 25% 88%;
+    --muted-foreground: 270 15% 40%;
+    --border: 265 30% 85%;
+    --input: 265 25% 90%;
+    --ring: 258 90% 66%;
+
     --primary: 258 90% 66%;          /* #8b5cf6 */
     --primary-foreground: 0 0% 100%;
     --secondary: 292 84% 61%;        /* #a855f7 */
@@ -218,15 +246,14 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
+    @apply bg-muted/30;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--border-light);
-    @apply rounded;
+    @apply bg-muted-foreground/30 rounded;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
+    @apply bg-muted-foreground/50;
   }
 }
