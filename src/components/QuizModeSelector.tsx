@@ -8,6 +8,15 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
+const continentIcons: Record<Continent, string> = {
+  Europa: "/europa-white.svg",
+  Asia: "/asia-white.svg",
+  Afrika: "/africa-white.svg",
+  "Nord-Amerika": "/north-america-white.svg",
+  "Sør-Amerika": "/south-america-white.svg",
+  Oseania: "/oseania-white.svg",
+}
+
 const quizModes = [
   {
     key: 'capital-to-country',
@@ -136,12 +145,24 @@ export function QuizModeSelector() {
       </Button>
 
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold bg-gradient-main bg-clip-text text-transparent mb-2">
-          {scopeTitle}
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          {countryCount} land - velg quiz-type
-        </p>
+        <div className="flex items-center justify-center gap-5">
+          {scopeType === 'continent' && continent && (
+            <img
+              src={continentIcons[continent as Continent]}
+              alt=""
+              className="w-16 h-16 md:w-20 md:h-20 object-contain opacity-80"
+              style={{ filter: 'brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(200deg) brightness(100%) contrast(98%)' }}
+            />
+          )}
+          <div>
+            <h1 className="text-4xl font-bold bg-gradient-main bg-clip-text text-transparent mb-1">
+              {scopeTitle}
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              {countryCount} land - velg quiz-type
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
