@@ -369,7 +369,7 @@ export function QuizModeSelector() {
             </div>
             <div className="flex flex-col gap-2 text-center md:text-left">
               <h3 className="text-2xl md:text-3xl font-bold text-[var(--card-text)]">{learnEverythingMode.title}</h3>
-              <p className="text-base text-gray-300">{learnEverythingMode.description}</p>
+              <p className="text-base text-[var(--card-text)] opacity-80">{learnEverythingMode.description}</p>
             </div>
           </CardContent>
         </Card>

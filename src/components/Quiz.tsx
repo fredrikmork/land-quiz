@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
-import { ArrowLeft, RotateCcw, Home, Trophy, Check, X } from 'lucide-react'
+import { ArrowLeft, RotateCcw, Home, Trophy, Check } from 'lucide-react'
 import { useQuiz, QuizMode, QuizScope } from '../hooks/useQuiz'
 import { useAuth } from '../hooks/useAuth'
 import { MapDisplay, InteractiveMapDisplay } from './MapDisplay'
@@ -252,8 +252,8 @@ export function Quiz() {
                   className={cn(
                     "p-4 text-base font-medium transition-all h-auto",
                     !showFeedback && "[@media(hover:hover)]:hover:border-primary [@media(hover:hover)]:hover:-translate-y-0.5",
-                    showFeedback && isCorrect && "bg-green-500 text-white border-green-500",
-                    showFeedback && isSelected && !isCorrect && "bg-red-500 text-white border-red-500"
+                    showFeedback && isCorrect && "bg-green-500 text-white border-green-500 disabled:opacity-100",
+                    showFeedback && isSelected && !isCorrect && "bg-red-500 text-white border-red-500 disabled:opacity-100"
                   )}
                   onClick={() => handleAnswer(option)}
                   disabled={quiz.answered}
@@ -265,27 +265,6 @@ export function Quiz() {
           </div>
         )}
 
-        {/* Feedback Toast */}
-        {quiz.answered && (
-          <div
-            className={cn(
-              "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50",
-              "flex items-center gap-2 md:gap-3 px-4 py-3 md:px-8 md:py-6 rounded-xl shadow-2xl text-white text-lg md:text-2xl font-bold",
-              "animate-in fade-in zoom-in duration-300 max-w-[90vw] text-center",
-              quiz.isCorrect ? "bg-green-500" : "bg-red-500"
-            )}
-          >
-            {quiz.isCorrect ? (
-              <>
-                <Check className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0" /> Riktig!
-              </>
-            ) : (
-              <>
-                <X className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0" /> {currentQuestion.correctAnswer}
-              </>
-            )}
-          </div>
-        )}
       </div>
     </div>
   )

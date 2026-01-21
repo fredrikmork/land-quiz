@@ -73,7 +73,7 @@
     /* Light mode base colors - light cyan/aqua */
     --background: 190 50% 94%;       /* light aqua */
     --foreground: 200 30% 18%;       /* dark teal */
-    --card: 190 40% 97%;             /* lighter aqua */
+    --card: 190 50% 99%;             /* white with hint of aqua */
     --card-foreground: 200 30% 18%;
     --popover: 190 40% 97%;
     --popover-foreground: 200 30% 18%;
@@ -126,7 +126,7 @@
     /* Light mode base colors - light mint/sage */
     --background: 145 45% 93%;       /* light mint */
     --foreground: 150 25% 18%;       /* dark forest green */
-    --card: 145 35% 96%;             /* lighter mint */
+    --card: 145 40% 99%;             /* white with hint of mint */
     --card-foreground: 150 25% 18%;
     --popover: 145 35% 96%;
     --popover-foreground: 150 25% 18%;
@@ -179,7 +179,7 @@
     /* Light mode base colors - light lavender */
     --background: 265 45% 95%;       /* light lavender */
     --foreground: 270 25% 18%;       /* dark purple */
-    --card: 265 35% 97%;             /* lighter lavender */
+    --card: 265 40% 99%;             /* white with hint of lavender */
     --card-foreground: 270 25% 18%;
     --popover: 265 35% 97%;
     --popover-foreground: 270 25% 18%;
