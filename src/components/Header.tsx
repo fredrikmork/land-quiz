@@ -33,7 +33,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="max-w-7xl mx-auto flex h-16 items-center px-4 md:px-8 justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 group">
+        <Link to="/" className="flex items-center gap-3 group rounded-md p-1 hover:bg-accent/10 transition-colors">
           <div className="w-10 h-10 flex items-center justify-center bg-gradient-main rounded-md text-white transition-transform group-hover:scale-105">
             <Globe size={24} />
           </div>
@@ -79,6 +79,15 @@ export function Header() {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Statistics (only when logged in) */}
+          {isAuthenticated && (
+            <Button variant="ghost" size="icon" asChild>
+              <Link to="/stats">
+                <BarChart3 size={20} className="text-primary" />
+              </Link>
+            </Button>
+          )}
+
           {/* Profile / Login */}
           {isAuthenticated ? (
             <DropdownMenu>
@@ -99,12 +108,6 @@ export function Header() {
                   <span className="text-xs text-muted-foreground">{profile?.username}</span>
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link to="/stats" className="flex items-center gap-3 cursor-pointer">
-                    <BarChart3 size={18} />
-                    Statistikk
-                  </Link>
-                </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
                   <LogOut size={18} />
                   Logg ut

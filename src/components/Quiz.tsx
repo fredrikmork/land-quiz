@@ -172,16 +172,16 @@ export function Quiz() {
   return (
     <div className="max-w-4xl mx-auto w-full p-4 md:p-8">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-6 md:mb-8">
+      <div className="grid grid-cols-3 items-center gap-3 mb-6 md:mb-8">
         <Button
           variant="ghost"
           onClick={() => navigate(backUrl)}
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+          className="justify-self-start inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft size={18} />
           <span className="hidden sm:inline">Tilbake</span>
         </Button>
-        <div className="flex-1 min-w-[100px] max-w-[200px] md:max-w-[300px] order-last sm:order-none w-full sm:w-auto mt-2 sm:mt-0">
+        <div className="justify-self-center w-full max-w-[200px] md:max-w-[300px]">
           <span className="text-xs md:text-sm text-muted-foreground block mb-1 md:mb-2 text-center font-medium">
             {quiz.questionNumber} / {quiz.totalQuestions}
           </span>
@@ -190,9 +190,9 @@ export function Quiz() {
             className="h-1.5"
           />
         </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-card rounded-lg border border-border">
-          <Trophy size={16} className="text-primary" />
-          <span className="font-bold text-foreground">{quiz.score}</span>
+        <div className="justify-self-end flex items-center gap-2">
+          <Trophy size={20} className="text-primary" />
+          <span className="text-xl font-bold bg-gradient-main bg-clip-text text-transparent">{quiz.score}</span>
         </div>
       </div>
 
@@ -251,9 +251,9 @@ export function Quiz() {
                   size="lg"
                   className={cn(
                     "p-4 text-base font-medium transition-all h-auto",
-                    !showFeedback && "hover:border-primary hover:-translate-y-0.5",
-                    showFeedback && isCorrect && "bg-green-500 hover:bg-green-500 text-white border-green-500",
-                    showFeedback && isSelected && !isCorrect && "bg-red-500 hover:bg-red-500 text-white border-red-500"
+                    !showFeedback && "[@media(hover:hover)]:hover:border-primary [@media(hover:hover)]:hover:-translate-y-0.5",
+                    showFeedback && isCorrect && "bg-green-500 text-white border-green-500",
+                    showFeedback && isSelected && !isCorrect && "bg-red-500 text-white border-red-500"
                   )}
                   onClick={() => handleAnswer(option)}
                   disabled={quiz.answered}

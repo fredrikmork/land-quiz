@@ -71,8 +71,8 @@ export function Statistics() {
 
   if (loading) {
     return (
-      <div className="max-w-6xl mx-auto w-full p-8">
-        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+      <div className="max-w-6xl mx-auto w-full p-4 md:p-6">
+        <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4">
           <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
           <p className="text-muted-foreground">Laster statistikk...</p>
         </div>
@@ -82,16 +82,16 @@ export function Statistics() {
 
   if (!stats || !stats.overall) {
     return (
-      <div className="max-w-6xl mx-auto w-full p-8">
+      <div className="max-w-6xl mx-auto w-full p-4 md:p-6">
         <Button
           variant="ghost"
           onClick={() => navigate('/')}
-          className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-sm text-muted-foreground hover:text-foreground transition-all"
+          className="inline-flex items-center gap-2 px-4 py-2 mb-4 text-sm text-muted-foreground hover:text-foreground transition-all"
         >
           <ArrowLeft size={18} />
           Tilbake
         </Button>
-        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6 text-center">
+        <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4 text-center">
           <div className="w-24 h-24 flex items-center justify-center bg-gradient-main rounded-full text-white">
             <Trophy size={48} />
           </div>
@@ -103,8 +103,8 @@ export function Statistics() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto w-full p-8">
-      <div className="flex items-center justify-between mb-8">
+    <div className="max-w-6xl mx-auto w-full p-4 md:p-6">
+      <div className="flex items-center justify-between mb-4">
         <Button
           variant="ghost"
           onClick={() => navigate('/')}
@@ -124,59 +124,51 @@ export function Statistics() {
           Oppdater
         </Button>
       </div>
-      <h2 className="text-4xl font-extrabold bg-gradient-main bg-clip-text text-transparent mb-8 text-center">Din statistikk</h2>
+      <h2 className="text-2xl md:text-3xl font-extrabold bg-gradient-main bg-clip-text text-transparent mb-4 text-center">Din statistikk</h2>
 
       {/* Overview Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <Card className="hover:border-border-light transition-all">
-          <CardContent className="p-5 text-center flex flex-col items-center gap-2">
-            <div className="w-10 h-10 flex items-center justify-center bg-gradient-main rounded-md text-white mb-1">
-              <Trophy size={20} />
-            </div>
-            <span className="text-4xl font-bold bg-gradient-main bg-clip-text text-transparent">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-4">
+        <Card>
+          <CardContent className="p-3 md:p-4 text-center flex flex-col items-center gap-1">
+            <Trophy size={18} className="text-primary" />
+            <span className="text-2xl md:text-3xl font-bold bg-gradient-main bg-clip-text text-transparent">
               {stats.historical?.lifetime_correct || 0}
             </span>
-            <span className="text-sm text-muted-foreground">Totalt riktige</span>
+            <span className="text-xs text-muted-foreground">Totalt riktige</span>
           </CardContent>
         </Card>
-        <Card className="hover:border-border-light transition-all">
-          <CardContent className="p-5 text-center flex flex-col items-center gap-2">
-            <div className="w-10 h-10 flex items-center justify-center bg-gradient-main rounded-md text-white mb-1">
-              <Target size={20} />
-            </div>
-            <span className="text-4xl font-bold bg-gradient-main bg-clip-text text-transparent">
+        <Card>
+          <CardContent className="p-3 md:p-4 text-center flex flex-col items-center gap-1">
+            <Target size={18} className="text-primary" />
+            <span className="text-2xl md:text-3xl font-bold bg-gradient-main bg-clip-text text-transparent">
               {stats.overall.overall_accuracy}%
             </span>
-            <span className="text-sm text-muted-foreground">Treffsikkerhet</span>
+            <span className="text-xs text-muted-foreground">Treffsikkerhet</span>
           </CardContent>
         </Card>
-        <Card className="hover:border-border-light transition-all">
-          <CardContent className="p-5 text-center flex flex-col items-center gap-2">
-            <div className="w-10 h-10 flex items-center justify-center bg-gradient-main rounded-md text-white mb-1">
-              <CheckCircle2 size={20} />
-            </div>
-            <span className="text-4xl font-bold bg-gradient-main bg-clip-text text-transparent">
+        <Card>
+          <CardContent className="p-3 md:p-4 text-center flex flex-col items-center gap-1">
+            <CheckCircle2 size={18} className="text-primary" />
+            <span className="text-2xl md:text-3xl font-bold bg-gradient-main bg-clip-text text-transparent">
               {stats.mastered_countries?.length || 0}
             </span>
-            <span className="text-sm text-muted-foreground">Mestrede land</span>
+            <span className="text-xs text-muted-foreground">Mestrede land</span>
           </CardContent>
         </Card>
-        <Card className="hover:border-border-light transition-all">
-          <CardContent className="p-5 text-center flex flex-col items-center gap-2">
-            <div className="w-10 h-10 flex items-center justify-center bg-gradient-main rounded-md text-white mb-1">
-              <Calendar size={20} />
-            </div>
-            <span className="text-4xl font-bold bg-gradient-main bg-clip-text text-transparent">
+        <Card>
+          <CardContent className="p-3 md:p-4 text-center flex flex-col items-center gap-1">
+            <Calendar size={18} className="text-primary" />
+            <span className="text-2xl md:text-3xl font-bold bg-gradient-main bg-clip-text text-transparent">
               {stats.historical?.days_played || 0}
             </span>
-            <span className="text-sm text-muted-foreground">Dager spilt</span>
+            <span className="text-xs text-muted-foreground">Dager spilt</span>
           </CardContent>
         </Card>
       </div>
 
       {/* Tabs */}
       <Tabs defaultValue="overview" value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="w-full">
-        <TabsList className="w-full bg-card rounded-md p-1 mb-8">
+        <TabsList className="w-full bg-card rounded-md p-1 mb-4">
           <TabsTrigger value="overview" className="flex-1">Oversikt</TabsTrigger>
           <TabsTrigger value="continents" className="flex-1">Kontinenter</TabsTrigger>
           <TabsTrigger value="countries" className="flex-1">Land</TabsTrigger>
