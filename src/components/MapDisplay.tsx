@@ -1,15 +1,17 @@
+import { useState, useMemo } from 'react'
 import { ComposableMap, Geographies, Geography, ZoomableGroup, Marker } from 'react-simple-maps'
-import countries from 'i18n-iso-countries'
+import isoCountries from 'i18n-iso-countries'
+import { countries as quizCountries } from '../data/countries'
 
 // Use 50m for more detail (includes more small countries)
 const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json'
 
 // Convert alpha-2 to alpha-3 using i18n-iso-countries
 function getAlpha3(alpha2: string): string {
-  // Special cases for countries not in standard ISO
+  // Special cases for isoCountries not in standard ISO
   if (alpha2 === 'XK') return 'XKX'
   if (alpha2 === 'SM') return 'SMR'
-  return countries.alpha2ToAlpha3(alpha2) || alpha2
+  return isoCountries.alpha2ToAlpha3(alpha2) || alpha2
 }
 
 // Map alpha-3 to numeric codes (world-atlas uses numeric IDs)
@@ -44,8 +46,8 @@ const alpha3ToNumeric: Record<string, string> = {
   VAT: '336', VEN: '862', VNM: '704', YEM: '887', ZMB: '894', ZWE: '716', XKX: '-99',
 }
 
-// Small countries that don't appear on the map - show marker instead
-// Only truly tiny countries that are missing from world-atlas 50m
+// Small isoCountries that don't appear on the map - show marker instead
+// Only truly tiny isoCountries that are missing from world-atlas 50m
 const smallCountryCoords: Record<string, [number, number]> = {
   AND: [1.5, 42.5], MCO: [7.4, 43.7], VAT: [12.45, 41.9], LIE: [9.5, 47.2],
   SMR: [12.45, 43.94], SGP: [103.8, 1.35], BHR: [50.5, 26], MDV: [73, 3.2], SYC: [55.5, -4.7],
@@ -56,7 +58,7 @@ const smallCountryCoords: Record<string, [number, number]> = {
   XKX: [21, 42.5], // Kosovo - not in standard datasets
 }
 
-// Zoom configurations for different countries/regions
+// Zoom configurations for different isoCountries/regions
 const zoomConfig: Record<string, { center: [number, number]; zoom: number }> = {
   // Europe
   ALB: { center: [20, 41], zoom: 7 },
@@ -316,6 +318,151 @@ export function MapDisplay({ countryCode }: MapDisplayProps) {
               <circle r={0.1} fill="#ef4444" />
             </Marker>
           )}
+        </ZoomableGroup>
+      </ComposableMap>
+    </div>
+  )
+}
+
+// Reverse lookup: numeric code to alpha2
+const numericToAlpha2: Record<string, string> = Object.entries(alpha3ToNumeric).reduce((acc, [alpha3, numeric]) => {
+  const alpha2 = isoCountries.alpha3ToAlpha2(alpha3) || (alpha3 === 'XKX' ? 'XK' : alpha3)
+  acc[numeric] = alpha2
+  return acc
+}, {} as Record<string, string>)
+
+interface InteractiveMapDisplayProps {
+  selectedAnswer: string | null
+  correctAnswer: string
+  answered: boolean
+  onSelect: (countryCode: string) => void
+}
+
+export function InteractiveMapDisplay({
+  selectedAnswer,
+  correctAnswer,
+  answered,
+  onSelect,
+}: InteractiveMapDisplayProps) {
+  const [hoveredMarker, setHoveredMarker] = useState<string | null>(null)
+
+  // Set of valid quiz country codes
+  const validCountryCodes = useMemo(() => new Set(quizCountries.map(c => c.code)), [])
+
+  const correctAlpha3 = getAlpha3(correctAnswer)
+  const correctNumeric = alpha3ToNumeric[correctAlpha3]
+  const selectedNumeric = selectedAnswer ? alpha3ToNumeric[getAlpha3(selectedAnswer)] : null
+
+  // Start with world view, user can zoom/pan to find the country
+  const config = { center: [0, 20] as [number, number], zoom: 1.5 }
+
+  const getCountryFill = (numericId: string, isValidQuizCountry: boolean) => {
+    if (answered) {
+      if (numericId === correctNumeric) return '#22c55e' // Green for correct
+      if (numericId === selectedNumeric) return '#ef4444' // Red for wrong selection
+    }
+    // Slightly darker gray for non-quiz areas (like Antarctica)
+    return isValidQuizCountry ? '#d1d5db' : '#c0c5cb'
+  }
+
+  const getCountryStroke = (numericId: string) => {
+    if (answered && (numericId === correctNumeric || numericId === selectedNumeric)) {
+      return '#1f2937'
+    }
+    return '#9ca3af'
+  }
+
+  return (
+    <div className="w-full bg-card rounded-lg border border-border overflow-hidden min-h-[250px] md:min-h-[400px] lg:min-h-[500px] touch-manipulation">
+      <ComposableMap
+        projection="geoMercator"
+        projectionConfig={{
+          scale: 150,
+        }}
+      >
+        <ZoomableGroup center={config.center} zoom={config.zoom} minZoom={1} maxZoom={12}>
+          <Geographies geography={GEO_URL}>
+            {({ geographies }) =>
+              geographies.map((geo) => {
+                const geoId = geo.id?.toString()
+                const alpha2 = numericToAlpha2[geoId || '']
+                const isValidQuizCountry = alpha2 ? validCountryCodes.has(alpha2) : false
+                const fill = getCountryFill(geoId || '', isValidQuizCountry)
+                const stroke = getCountryStroke(geoId || '')
+                const isHighlighted = answered && (geoId === correctNumeric || geoId === selectedNumeric)
+                const isClickable = !answered && isValidQuizCountry
+
+                return (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+                    onClick={() => {
+                      if (isClickable) {
+                        onSelect(alpha2)
+                      }
+                    }}
+                    style={{
+                      default: {
+                        fill,
+                        stroke,
+                        strokeWidth: isHighlighted ? 1.5 : 0.5,
+                        outline: 'none',
+                        cursor: isClickable ? 'pointer' : 'default',
+                      },
+                      hover: {
+                        fill: isClickable ? '#93c5fd' : fill,
+                        stroke: isClickable ? '#3b82f6' : stroke,
+                        strokeWidth: isClickable ? 1 : (isHighlighted ? 1.5 : 0.5),
+                        outline: 'none',
+                        cursor: isClickable ? 'pointer' : 'default',
+                      },
+                      pressed: {
+                        fill: isClickable ? '#3b82f6' : fill,
+                        stroke: isClickable ? '#1e40af' : stroke,
+                        outline: 'none',
+                      },
+                    }}
+                  />
+                )
+              })
+            }
+          </Geographies>
+          {/* Show markers for small isoCountries */}
+          {Object.entries(smallCountryCoords).map(([alpha3, coords]) => {
+            const alpha2 = isoCountries.alpha3ToAlpha2(alpha3) || (alpha3 === 'XKX' ? 'XK' : alpha3)
+            const isCorrect = alpha2 === correctAnswer
+            const isSelected = alpha2 === selectedAnswer
+            const isHovered = hoveredMarker === alpha3
+
+            let fill = '#d1d5db' // Default gray
+            let stroke = '#9ca3af'
+            if (answered) {
+              if (isCorrect) fill = '#22c55e'
+              else if (isSelected) fill = '#ef4444'
+            } else if (isHovered) {
+              fill = '#93c5fd' // Light blue on hover
+              stroke = '#3b82f6'
+            }
+
+            return (
+              <Marker key={alpha3} coordinates={coords}>
+                <circle
+                  r={3}
+                  fill={fill}
+                  stroke={stroke}
+                  strokeWidth={isHovered && !answered ? 1 : 0.5}
+                  style={{ cursor: !answered ? 'pointer' : 'default' }}
+                  onMouseEnter={() => !answered && setHoveredMarker(alpha3)}
+                  onMouseLeave={() => setHoveredMarker(null)}
+                  onClick={() => {
+                    if (!answered) {
+                      onSelect(alpha2)
+                    }
+                  }}
+                />
+              </Marker>
+            )
+          })}
         </ZoomableGroup>
       </ComposableMap>
     </div>

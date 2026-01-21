@@ -3,7 +3,7 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import { ArrowLeft, RotateCcw, Home, Trophy, Check, X } from 'lucide-react'
 import { useQuiz, QuizMode, QuizScope } from '../hooks/useQuiz'
 import { useAuth } from '../hooks/useAuth'
-import { MapDisplay } from './MapDisplay'
+import { MapDisplay, InteractiveMapDisplay } from './MapDisplay'
 import { LearnEverythingMap } from './LearnEverythingMap'
 import { getFlagUrl, type Continent } from '../data/countries'
 import { createQuizSession, saveQuizAttempt, completeQuizSession } from '../lib/quizApi'
@@ -166,6 +166,7 @@ export function Quiz() {
   const { currentQuestion } = quiz
   const isFlag = quizMode === 'flag-to-country'
   const isMap = quizMode === 'map-to-country'
+  const isCountryToMap = quizMode === 'country-to-map'
   const isLearnEverything = quizMode === 'learn-everything'
 
   return (
@@ -203,6 +204,20 @@ export function Quiz() {
 
         {isLearnEverything ? (
           <LearnEverythingMap countryCode={currentQuestion.country.code} />
+        ) : isCountryToMap ? (
+          <>
+            <div className="flex justify-center items-center p-6 md:p-8 bg-card rounded-lg border border-border">
+              <span className="text-2xl md:text-4xl font-bold bg-gradient-main bg-clip-text text-transparent">
+                {currentQuestion.displayValue}
+              </span>
+            </div>
+            <InteractiveMapDisplay
+              selectedAnswer={quiz.selectedAnswer}
+              correctAnswer={currentQuestion.correctAnswer}
+              answered={quiz.answered}
+              onSelect={handleAnswer}
+            />
+          </>
         ) : isMap ? (
           <MapDisplay countryCode={currentQuestion.country.code} />
         ) : isFlag ? (
@@ -221,32 +236,34 @@ export function Quiz() {
           </div>
         )}
 
-        {/* Options */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {currentQuestion.options.map((option, index) => {
-            const isCorrect = option === currentQuestion.correctAnswer
-            const isSelected = option === quiz.selectedAnswer
-            const showFeedback = quiz.answered
+        {/* Options - not shown for country-to-map mode */}
+        {!isCountryToMap && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {currentQuestion.options.map((option, index) => {
+              const isCorrect = option === currentQuestion.correctAnswer
+              const isSelected = option === quiz.selectedAnswer
+              const showFeedback = quiz.answered
 
-            return (
-              <Button
-                key={index}
-                variant="outline"
-                size="lg"
-                className={cn(
-                  "p-4 text-base font-medium transition-all h-auto",
-                  !showFeedback && "hover:border-primary hover:-translate-y-0.5",
-                  showFeedback && isCorrect && "bg-green-500 hover:bg-green-500 text-white border-green-500",
-                  showFeedback && isSelected && !isCorrect && "bg-red-500 hover:bg-red-500 text-white border-red-500"
-                )}
-                onClick={() => handleAnswer(option)}
-                disabled={quiz.answered}
-              >
-                {option}
-              </Button>
-            )
-          })}
-        </div>
+              return (
+                <Button
+                  key={index}
+                  variant="outline"
+                  size="lg"
+                  className={cn(
+                    "p-4 text-base font-medium transition-all h-auto",
+                    !showFeedback && "hover:border-primary hover:-translate-y-0.5",
+                    showFeedback && isCorrect && "bg-green-500 hover:bg-green-500 text-white border-green-500",
+                    showFeedback && isSelected && !isCorrect && "bg-red-500 hover:bg-red-500 text-white border-red-500"
+                  )}
+                  onClick={() => handleAnswer(option)}
+                  disabled={quiz.answered}
+                >
+                  {option}
+                </Button>
+              )
+            })}
+          </div>
+        )}
 
         {/* Feedback Toast */}
         {quiz.answered && (
