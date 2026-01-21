@@ -206,8 +206,8 @@ export function Quiz() {
           <LearnEverythingMap countryCode={currentQuestion.country.code} />
         ) : isCountryToMap ? (
           <>
-            <div className="flex justify-center items-center p-6 md:p-8 bg-card rounded-lg border border-border">
-              <span className="text-2xl md:text-4xl font-bold bg-gradient-main bg-clip-text text-transparent">
+            <div className="flex justify-center items-center p-4 md:p-6 bg-card rounded-lg border border-border">
+              <span className="text-xl md:text-3xl font-bold bg-gradient-main bg-clip-text text-transparent">
                 {currentQuestion.displayValue}
               </span>
             </div>
@@ -221,16 +221,16 @@ export function Quiz() {
         ) : isMap ? (
           <MapDisplay countryCode={currentQuestion.country.code} />
         ) : isFlag ? (
-          <div className="flex justify-center items-center p-4 md:p-8 bg-card rounded-lg border border-border min-h-[200px] md:min-h-[300px]">
+          <div className="flex justify-center items-center p-3 md:p-5 bg-card rounded-lg border border-border">
             <img
               src={getFlagUrl(currentQuestion.country.code, 'large')}
               alt="Flagg"
-              className="max-w-full max-h-[180px] md:max-h-[250px] object-contain rounded shadow-lg"
+              className="max-w-full max-h-[120px] md:max-h-[160px] object-contain rounded shadow-lg"
             />
           </div>
         ) : (
-          <div className="flex justify-center items-center p-6 md:p-12 bg-card rounded-lg border border-border min-h-[150px] md:min-h-[200px]">
-            <span className="text-2xl md:text-4xl font-bold bg-gradient-main bg-clip-text text-transparent">
+          <div className="flex justify-center items-center p-4 md:p-6 bg-card rounded-lg border border-border">
+            <span className="text-xl md:text-3xl font-bold bg-gradient-main bg-clip-text text-transparent">
               {currentQuestion.displayValue}
             </span>
           </div>
