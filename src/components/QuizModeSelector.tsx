@@ -201,7 +201,7 @@ export function QuizModeSelector() {
                   e.currentTarget.style.boxShadow = 'none'
                 }}
               >
-                <CardContent className="relative z-10 flex items-center gap-4 p-6 text-white">
+                <CardContent className="relative z-10 flex items-center gap-4 p-6 text-[var(--card-text)]">
                   <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
                     <Icon size={32} strokeWidth={1.5} />
                   </div>
@@ -242,7 +242,7 @@ export function QuizModeSelector() {
                   e.currentTarget.style.boxShadow = 'none'
                 }}
               >
-                <CardContent className="relative z-10 flex items-center gap-4 p-6 text-white">
+                <CardContent className="relative z-10 flex items-center gap-4 p-6 text-[var(--card-text)]">
                   <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
                     <Icon size={32} strokeWidth={1.5} />
                   </div>
@@ -279,7 +279,7 @@ export function QuizModeSelector() {
               e.currentTarget.style.boxShadow = 'none'
             }}
           >
-            <CardContent className="relative z-10 flex flex-col items-center justify-center gap-4 p-6 text-white h-full text-center">
+            <CardContent className="relative z-10 flex flex-col items-center justify-center gap-4 p-6 text-[var(--card-text)] h-full text-center">
               <div className="w-20 h-20 flex items-center justify-center flex-shrink-0">
                 <countryToMapMode.icon size={48} strokeWidth={1.5} />
               </div>
@@ -318,7 +318,7 @@ export function QuizModeSelector() {
                   e.currentTarget.style.boxShadow = 'none'
                 }}
               >
-                <CardContent className="relative z-10 flex items-center gap-4 p-6 text-white">
+                <CardContent className="relative z-10 flex items-center gap-4 p-6 text-[var(--card-text)]">
                   <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
                     <Icon size={32} strokeWidth={1.5} />
                   </div>
@@ -365,10 +365,10 @@ export function QuizModeSelector() {
 
           <CardContent className="relative z-10 flex flex-col md:flex-row items-center gap-4 md:gap-6 p-6 md:p-8">
             <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center flex-shrink-0 bg-white/20 backdrop-blur-sm rounded-xl shadow-lg border border-white/30">
-              <learnEverythingMode.icon size={36} strokeWidth={1.5} className="text-white" />
+              <learnEverythingMode.icon size={36} strokeWidth={1.5} className="text-[var(--card-text)]" />
             </div>
             <div className="flex flex-col gap-2 text-center md:text-left">
-              <h3 className="text-2xl md:text-3xl font-bold text-white">{learnEverythingMode.title}</h3>
+              <h3 className="text-2xl md:text-3xl font-bold text-[var(--card-text)]">{learnEverythingMode.title}</h3>
               <p className="text-base text-gray-300">{learnEverythingMode.description}</p>
             </div>
           </CardContent>

@@ -11,56 +11,61 @@
     --radius: 0.75rem;
   }
 
-  /* Theme: Sunset (default) */
+  /* Theme: Miami Vice (default) */
   [data-theme="sunset"], :root {
-    /* Light mode base colors - warm coral/peach */
-    --background: 15 60% 95%;        /* warm peach */
-    --foreground: 15 20% 20%;        /* dark warm brown */
-    --card: 15 40% 98%;              /* lighter peach */
-    --card-foreground: 15 20% 20%;
-    --popover: 15 40% 98%;
-    --popover-foreground: 15 20% 20%;
-    --muted: 15 30% 88%;
-    --muted-foreground: 15 15% 40%;
-    --border: 15 35% 85%;
-    --input: 15 30% 90%;
-    --ring: 4 86% 70%;
+    /* Dark mode base colors - deep purple/navy for neon contrast */
+    --background: 260 40% 12%;       /* deep purple-navy */
+    --foreground: 300 100% 95%;      /* light pink-white */
+    --card: 260 35% 18%;             /* slightly lighter purple */
+    --card-foreground: 300 100% 95%;
+    --popover: 260 35% 18%;
+    --popover-foreground: 300 100% 95%;
+    --muted: 260 30% 25%;
+    --muted-foreground: 300 30% 70%;
+    --border: 260 40% 30%;
+    --input: 260 35% 22%;
+    --ring: 328 100% 54%;
 
-    --primary: 4 86% 70%;            /* #ff6b6b */
+    --primary: 328 100% 54%;         /* #ff1493 hot pink */
     --primary-foreground: 0 0% 100%;
-    --secondary: 44 97% 67%;         /* #feca57 */
+    --secondary: 180 100% 50%;       /* #00ffff cyan */
     --secondary-foreground: 0 0% 0%;
-    --accent: 4 86% 70%;
+    --accent: 328 100% 54%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     /* Legacy variables */
-    --gradient-start: #ff6b6b;
-    --gradient-mid: #feca57;
-    --gradient-end: #ff9ff3;
-    --accent-primary: #ff6b6b;
-    --accent-secondary: #feca57;
-    --accent-light: #ffb3b3;
-    --glow-color: rgba(255, 107, 107, 0.3);
+    --gradient-start: #ff1493;
+    --gradient-mid: #00ffff;
+    --gradient-end: #9400d3;
+    --accent-primary: #ff1493;
+    --accent-secondary: #00ffff;
+    --accent-light: #ff69b4;
+    --glow-color: rgba(255, 20, 147, 0.3);
 
     /* Electric Blues gradient for background/header - SAME FOR ALL THEMES */
     --gradient-main: linear-gradient(135deg, #7b84ff 0%, #68a5ff 33%, #5fc6ff 66%, #63e5fc 100%);
 
-    /* Theme-specific button gradient */
-    --gradient-button: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+    /* Theme-specific button gradient - neon pink to magenta */
+    --gradient-button: linear-gradient(135deg, #ff1493 0%, #ff00ff 100%);
 
-    /* Card gradients - keep theme colors */
-    --gradient-card-1: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
-    --gradient-card-2: linear-gradient(135deg, #feca57 0%, #ffdb7d 100%);
-    --gradient-card-3: linear-gradient(135deg, #ff9ff3 0%, #ffb8f8 100%);
-    --gradient-card-4: linear-gradient(135deg, #54a0ff 0%, #7db8ff 100%);
+    /* Card gradients - Miami Vice neon colors */
+    --gradient-card-1: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+    --gradient-card-2: linear-gradient(135deg, #00ffff 0%, #40e0d0 100%);
+    --gradient-card-3: linear-gradient(135deg, #9400d3 0%, #ba55d3 100%);
+    --gradient-card-4: linear-gradient(135deg, #ff00ff 0%, #ff77ff 100%);
 
     /* Glow effects */
-    --glow-card-1: rgba(255, 107, 107, 0.5);
-    --glow-card-2: rgba(254, 202, 87, 0.5);
-    --glow-card-3: rgba(255, 159, 243, 0.5);
-    --glow-card-4: rgba(84, 160, 255, 0.5);
+    --glow-card-1: rgba(255, 20, 147, 0.5);
+    --glow-card-2: rgba(0, 255, 255, 0.5);
+    --glow-card-3: rgba(148, 0, 211, 0.5);
+    --glow-card-4: rgba(255, 0, 255, 0.5);
+
+    /* Text color for bright cards - deep purple for Miami Vice style */
+    --card-text: #1e0a3c;
+    /* Filter to colorize white icons */
+    --card-icon-filter: brightness(0) saturate(100%) invert(6%) sepia(50%) saturate(4000%) hue-rotate(260deg);
   }
 
   /* Theme: Ocean */
@@ -109,6 +114,11 @@
     --glow-card-2: rgba(6, 182, 212, 0.5);
     --glow-card-3: rgba(0, 210, 211, 0.5);
     --glow-card-4: rgba(129, 140, 248, 0.5);
+
+    /* Text color for bright cards - deep teal */
+    --card-text: #134e4a;
+    /* Filter to colorize white icons */
+    --card-icon-filter: brightness(0) saturate(100%) invert(25%) sepia(30%) saturate(1000%) hue-rotate(130deg);
   }
 
   /* Theme: Forest */
@@ -157,6 +167,11 @@
     --glow-card-2: rgba(34, 197, 94, 0.5);
     --glow-card-3: rgba(163, 230, 53, 0.5);
     --glow-card-4: rgba(20, 184, 166, 0.5);
+
+    /* Text color for bright cards - deep forest green */
+    --card-text: #14532d;
+    /* Filter to colorize white icons */
+    --card-icon-filter: brightness(0) saturate(100%) invert(20%) sepia(40%) saturate(1500%) hue-rotate(100deg);
   }
 
   /* Theme: Purple */
@@ -205,6 +220,10 @@
     --glow-card-2: rgba(168, 85, 247, 0.5);
     --glow-card-3: rgba(236, 72, 153, 0.5);
     --glow-card-4: rgba(99, 102, 241, 0.5);
+
+    /* White text works on purple cards */
+    --card-text: #ffffff;
+    --card-icon-filter: none;
   }
 
   * {

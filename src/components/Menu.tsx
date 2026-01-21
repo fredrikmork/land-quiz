@@ -114,19 +114,20 @@ export function Menu() {
                     e.currentTarget.style.boxShadow = 'none'
                   }}
                 >
-                  <CardContent className="relative z-10 flex items-center gap-3 p-4 text-white">
+                  <CardContent className="relative z-10 flex items-center gap-3 p-4 text-[var(--card-text)]">
                     <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
                       <img
                         src={continentIcons[continent.name]}
                         alt=""
                         className="w-full h-full object-contain"
+                        style={{ filter: 'var(--card-icon-filter)' }}
                       />
                     </div>
                     <div className="flex flex-col gap-0.5">
                       <span className="font-semibold text-base">{continent.name}</span>
                       <Badge
                         variant="secondary"
-                        className="w-fit bg-white/20 text-white hover:bg-white/30 border-0"
+                        className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/30 border-0"
                       >
                         {count} land
                       </Badge>
@@ -166,7 +167,7 @@ export function Menu() {
                 e.currentTarget.style.boxShadow = 'none'
               }}
             >
-              <CardContent className="relative z-10 flex items-center gap-4 p-4 md:p-6 text-white">
+              <CardContent className="relative z-10 flex items-center gap-4 p-4 md:p-6 text-[var(--card-text)]">
                 <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
                   <Globe className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />
                 </div>
@@ -177,7 +178,7 @@ export function Menu() {
                   </span>
                   <Badge
                     variant="secondary"
-                    className="w-fit bg-white/20 text-white hover:bg-white/30 border-0 mt-1"
+                    className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/30 border-0 mt-1"
                   >
                     {countries.length} land
                   </Badge>
@@ -219,7 +220,7 @@ export function Menu() {
                   e.currentTarget.style.boxShadow = 'none'
                 }}
               >
-                <CardContent className="relative z-10 flex items-center gap-4 p-4 md:p-6 text-white">
+                <CardContent className="relative z-10 flex items-center gap-4 p-4 md:p-6 text-[var(--card-text)]">
                   <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
                     <BookOpen className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />
                   </div>
@@ -230,7 +231,7 @@ export function Menu() {
                     </span>
                     <Badge
                       variant="secondary"
-                      className="w-fit bg-white/20 text-white hover:bg-white/30 border-0 mt-1"
+                      className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/30 border-0 mt-1"
                     >
                       {practiceCount === null
                         ? "Laster..."
@@ -250,7 +251,7 @@ export function Menu() {
                   background: "var(--gradient-card-4)",
                 }}
               >
-                <CardContent className="relative z-10 flex items-center gap-4 p-4 md:p-6 text-white">
+                <CardContent className="relative z-10 flex items-center gap-4 p-4 md:p-6 text-[var(--card-text)]">
                   <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
                     <BookOpen className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />
                   </div>
@@ -261,7 +262,7 @@ export function Menu() {
                     </span>
                     <Badge
                       variant="secondary"
-                      className="w-fit bg-white/20 text-white hover:bg-white/30 border-0 mt-1"
+                      className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/30 border-0 mt-1"
                     >
                       Logg inn for å bruke
                     </Badge>

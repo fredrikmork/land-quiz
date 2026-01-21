@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 
 const themes: { key: ThemeColor; label: string; colors: string[] }[] = [
-  { key: 'sunset', label: 'Solnedgang', colors: ['#ff6b6b', '#feca57', '#ff9ff3'] },
+  { key: 'sunset', label: 'Miami Vice', colors: ['#ff1493', '#00ffff', '#9400d3'] },
   { key: 'ocean', label: 'Hav', colors: ['#0abde3', '#48dbfb', '#00d2d3'] },
   { key: 'forest', label: 'Skog', colors: ['#10b981', '#34d399', '#a3e635'] },
   { key: 'purple', label: 'Lilla', colors: ['#8b5cf6', '#a855f7', '#ec4899'] },
