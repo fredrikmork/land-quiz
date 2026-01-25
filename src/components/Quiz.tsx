@@ -283,7 +283,8 @@ export function Quiz() {
                   className={cn(
                     "relative flex items-center gap-3 p-4 rounded-xl border-2 text-left transition-all duration-200",
                     "bg-card/50 backdrop-blur border-border/50",
-                    !showFeedback && "[@media(hover:hover)]:hover:border-primary [@media(hover:hover)]:hover:-translate-y-0.5 [@media(hover:hover)]:hover:shadow-lg",
+                    "[@media(hover:hover)]:hover:-translate-y-0.5",
+                    !showFeedback && "[@media(hover:hover)]:hover:border-primary [@media(hover:hover)]:hover:shadow-lg",
                     !showFeedback && "active:scale-[0.98]",
                     showFeedback && isCorrect && "bg-green-500/10 border-green-500 shadow-[0_0_20px_rgba(34,197,94,0.3)]",
                     showFeedback && isSelected && !isCorrect && "bg-red-500/10 border-red-500 shadow-[0_0_20px_rgba(239,68,68,0.3)]",
