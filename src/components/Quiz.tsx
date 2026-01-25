@@ -8,7 +8,6 @@ import { LearnEverythingMap } from './LearnEverythingMap'
 import { getFlagUrl, type Continent } from '../data/countries'
 import { createQuizSession, saveQuizAttempt, completeQuizSession } from '../lib/quizApi'
 import { Button } from '@/components/ui/button'
-import { Progress } from '@/components/ui/progress'
 import { cn } from '@/lib/utils'
 
 export function Quiz() {
@@ -123,37 +122,66 @@ export function Quiz() {
 
   if (quiz.isComplete) {
     const percentage = Math.round((quiz.score / quiz.totalQuestions) * 100)
+    const getEmoji = () => {
+      if (percentage === 100) return '🏆'
+      if (percentage >= 80) return '🌟'
+      if (percentage >= 60) return '💪'
+      if (percentage >= 40) return '📚'
+      return '🎯'
+    }
     return (
       <div className="max-w-4xl mx-auto w-full p-8">
-        <div className="flex flex-col items-center justify-center min-h-[70vh] gap-6 text-center">
-          <div className="w-24 h-24 flex items-center justify-center bg-gradient-main rounded-full text-white">
-            <Trophy size={48} />
+        <div className="flex flex-col items-center justify-center min-h-[70vh] gap-6 text-center relative">
+          {/* Background celebration effect */}
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
+
+          {/* Trophy with ring */}
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-progress rounded-full blur-xl opacity-50 scale-125" />
+            <div className="relative w-28 h-28 flex items-center justify-center bg-gradient-progress rounded-full text-white shadow-lg">
+              <Trophy size={52} />
+            </div>
+            <span className="absolute -bottom-2 -right-2 text-4xl">{getEmoji()}</span>
           </div>
-          <h2 className="text-3xl font-bold text-foreground">Quiz fullført!</h2>
-          <div className="flex items-baseline gap-2">
-            <span className="text-6xl font-black bg-gradient-main bg-clip-text text-transparent">{quiz.score}</span>
-            <span className="text-3xl text-muted-foreground">/</span>
-            <span className="text-4xl text-muted-foreground">{quiz.totalQuestions}</span>
+
+          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Quiz fullført!</h2>
+
+          {/* Score display */}
+          <div className="bg-card/50 backdrop-blur border border-border/50 rounded-2xl px-8 py-6">
+            <div className="flex items-baseline justify-center gap-2 mb-2">
+              <span className="text-6xl md:text-7xl font-black bg-gradient-main bg-clip-text text-transparent">{quiz.score}</span>
+              <span className="text-3xl text-muted-foreground">/</span>
+              <span className="text-4xl text-muted-foreground">{quiz.totalQuestions}</span>
+            </div>
+            <div className="h-2 bg-muted/30 rounded-full overflow-hidden mb-3">
+              <div
+                className="h-full bg-gradient-progress rounded-full transition-all duration-1000"
+                style={{ width: `${percentage}%` }}
+              />
+            </div>
+            <p className="text-2xl font-bold bg-gradient-main bg-clip-text text-transparent">{percentage}% riktig</p>
           </div>
-          <p className="text-2xl font-bold text-foreground">{percentage}% riktig</p>
-          <p className="text-lg text-muted-foreground">
+
+          <p className="text-lg text-muted-foreground max-w-sm">
             {percentage === 100 && 'Perfekt! Du er en mester!'}
             {percentage >= 80 && percentage < 100 && 'Veldig bra!'}
             {percentage >= 60 && percentage < 80 && 'Bra jobbet!'}
             {percentage >= 40 && percentage < 60 && 'Ikke verst, fortsett å øve!'}
             {percentage < 40 && 'Øv mer, du blir bedre!'}
           </p>
+
           {user && (
-            <p className="flex items-center gap-2 text-sm text-green-500">
-              <Check size={16} /> Resultatet er lagret
+            <p className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 text-sm text-green-500 border border-green-500/20">
+              <Check size={14} /> Resultatet er lagret
             </p>
           )}
-          <div className="flex gap-3">
-            <Button onClick={quiz.restart} className="bg-gradient-button hover:shadow-md hover:-translate-y-0.5 transition-all">
+
+          <div className="flex gap-3 mt-2">
+            <Button onClick={quiz.restart} className="bg-gradient-button hover:shadow-lg hover:-translate-y-0.5 transition-all px-6">
               <RotateCcw size={18} />
               Spill igjen
             </Button>
-            <Button variant="outline" onClick={() => navigate('/')}>
+            <Button variant="outline" onClick={() => navigate('/')} className="hover:-translate-y-0.5 transition-all">
               <Home size={18} />
               Til meny
             </Button>
@@ -182,32 +210,36 @@ export function Quiz() {
           <span className="hidden sm:inline">Tilbake</span>
         </Button>
         <div className="justify-self-center w-full max-w-[200px] md:max-w-[300px]">
-          <span className="text-xs md:text-sm text-muted-foreground block mb-1 md:mb-2 text-center font-medium">
-            {quiz.questionNumber} / {quiz.totalQuestions}
+          <span className="text-xs md:text-sm text-muted-foreground block mb-1.5 text-center font-medium">
+            <span className="text-foreground font-bold">{quiz.questionNumber}</span> / {quiz.totalQuestions}
           </span>
-          <Progress
-            value={(quiz.questionNumber / quiz.totalQuestions) * 100}
-            className="h-1.5"
-          />
+          <div className="h-2 bg-muted/30 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-progress rounded-full transition-all duration-300"
+              style={{ width: `${(quiz.questionNumber / quiz.totalQuestions) * 100}%` }}
+            />
+          </div>
         </div>
-        <div className="justify-self-end flex items-center gap-2">
-          <Trophy size={20} className="text-primary" />
-          <span className="text-xl font-bold bg-gradient-main bg-clip-text text-transparent">{quiz.score}</span>
+        <div className="justify-self-end flex items-center gap-2 bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20">
+          <Trophy size={16} className="text-primary" />
+          <span className="text-lg font-bold bg-gradient-main bg-clip-text text-transparent">{quiz.score}</span>
         </div>
       </div>
 
       {/* Content */}
       <div className="space-y-6 md:space-y-8">
-        <p className="text-xl md:text-2xl font-semibold text-center text-foreground mb-6 md:mb-8">
-          {currentQuestion.prompt}
-        </p>
+        <div className="text-center">
+          <p className="text-xl md:text-2xl font-semibold text-foreground">
+            {currentQuestion.prompt}
+          </p>
+        </div>
 
         {isLearnEverything ? (
           <LearnEverythingMap countryCode={currentQuestion.country.code} />
         ) : isCountryToMap ? (
           <>
-            <div className="flex justify-center items-center p-4 md:p-6 bg-card rounded-lg border border-border">
-              <span className="text-xl md:text-3xl font-bold bg-gradient-main bg-clip-text text-transparent">
+            <div className="flex justify-center items-center p-5 md:p-7 bg-card/50 backdrop-blur rounded-xl border border-border/50 shadow-sm">
+              <span className="text-2xl md:text-4xl font-extrabold bg-gradient-main bg-clip-text text-transparent">
                 {currentQuestion.displayValue}
               </span>
             </div>
@@ -221,16 +253,16 @@ export function Quiz() {
         ) : isMap ? (
           <MapDisplay countryCode={currentQuestion.country.code} />
         ) : isFlag ? (
-          <div className="flex justify-center items-center p-3 md:p-5 bg-card rounded-lg border border-border">
+          <div className="flex justify-center items-center p-4 md:p-6 bg-card/50 backdrop-blur rounded-xl border border-border/50 shadow-sm">
             <img
               src={getFlagUrl(currentQuestion.country.code, 'large')}
               alt="Flagg"
-              className="max-w-full max-h-[120px] md:max-h-[160px] object-contain rounded shadow-lg"
+              className="max-w-full max-h-[140px] md:max-h-[180px] object-contain rounded-lg shadow-xl"
             />
           </div>
         ) : (
-          <div className="flex justify-center items-center p-4 md:p-6 bg-card rounded-lg border border-border">
-            <span className="text-xl md:text-3xl font-bold bg-gradient-main bg-clip-text text-transparent">
+          <div className="flex justify-center items-center p-5 md:p-7 bg-card/50 backdrop-blur rounded-xl border border-border/50 shadow-sm">
+            <span className="text-2xl md:text-4xl font-extrabold bg-gradient-main bg-clip-text text-transparent">
               {currentQuestion.displayValue}
             </span>
           </div>
@@ -243,23 +275,43 @@ export function Quiz() {
               const isCorrect = option === currentQuestion.correctAnswer
               const isSelected = option === quiz.selectedAnswer
               const showFeedback = quiz.answered
+              const optionLetters = ['A', 'B', 'C', 'D']
 
               return (
-                <Button
+                <button
                   key={index}
-                  variant="outline"
-                  size="lg"
                   className={cn(
-                    "p-4 text-base font-medium transition-all h-auto",
-                    !showFeedback && "[@media(hover:hover)]:hover:border-primary [@media(hover:hover)]:hover:-translate-y-0.5",
-                    showFeedback && isCorrect && "bg-green-500 text-white border-green-500 disabled:opacity-100",
-                    showFeedback && isSelected && !isCorrect && "bg-red-500 text-white border-red-500 disabled:opacity-100"
+                    "relative flex items-center gap-3 p-4 rounded-xl border-2 text-left transition-all duration-200",
+                    "bg-card/50 backdrop-blur border-border/50",
+                    !showFeedback && "[@media(hover:hover)]:hover:border-primary [@media(hover:hover)]:hover:-translate-y-0.5 [@media(hover:hover)]:hover:shadow-lg",
+                    !showFeedback && "active:scale-[0.98]",
+                    showFeedback && isCorrect && "bg-green-500/10 border-green-500 shadow-[0_0_20px_rgba(34,197,94,0.3)]",
+                    showFeedback && isSelected && !isCorrect && "bg-red-500/10 border-red-500 shadow-[0_0_20px_rgba(239,68,68,0.3)]",
+                    showFeedback && !isCorrect && !isSelected && "opacity-50",
+                    quiz.answered && "cursor-default"
                   )}
-                  onClick={() => handleAnswer(option)}
+                  onClick={() => !quiz.answered && handleAnswer(option)}
                   disabled={quiz.answered}
                 >
-                  {option}
-                </Button>
+                  <span className={cn(
+                    "w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold flex-shrink-0 transition-colors",
+                    !showFeedback && "bg-muted text-muted-foreground",
+                    showFeedback && isCorrect && "bg-green-500 text-white",
+                    showFeedback && isSelected && !isCorrect && "bg-red-500 text-white"
+                  )}>
+                    {optionLetters[index]}
+                  </span>
+                  <span className={cn(
+                    "text-base font-medium transition-colors",
+                    showFeedback && isCorrect && "text-green-600",
+                    showFeedback && isSelected && !isCorrect && "text-red-600"
+                  )}>
+                    {option}
+                  </span>
+                  {showFeedback && isCorrect && (
+                    <Check className="ml-auto text-green-500" size={20} />
+                  )}
+                </button>
               )
             })}
           </div>

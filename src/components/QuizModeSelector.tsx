@@ -153,22 +153,30 @@ export function QuizModeSelector() {
         Tilbake
       </Button>
 
-      <div className="text-center mb-12">
-        <div className="flex items-center justify-center gap-5">
+      <div className="text-center mb-12 relative">
+        {/* Background glow */}
+        <div className="absolute inset-0 -top-10 bg-gradient-to-b from-primary/10 via-transparent to-transparent blur-3xl pointer-events-none" />
+        <div className="relative flex flex-col items-center gap-4">
           {scopeType === 'continent' && continent && (
-            <img
-              src={continentIcons[continent as Continent]}
-              alt=""
-              className="w-16 h-16 md:w-20 md:h-20 object-contain opacity-80"
-              style={{ filter: 'brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(200deg) brightness(100%) contrast(98%)' }}
-            />
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center backdrop-blur-sm">
+              <img
+                src={continentIcons[continent as Continent]}
+                alt=""
+                className="w-12 h-12 md:w-14 md:h-14 object-contain"
+                style={{ filter: 'brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(200deg) brightness(100%) contrast(98%)' }}
+              />
+            </div>
           )}
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-main bg-clip-text text-transparent mb-1">
+            <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-main bg-clip-text text-transparent mb-2">
               {scopeTitle}
             </h1>
             <p className="text-lg text-muted-foreground">
-              {countryCount} land - velg quiz-type
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-muted/50 text-sm font-medium">
+                {countryCount} land
+              </span>
+              <span className="mx-2">·</span>
+              velg quiz-type
             </p>
           </div>
         </div>

@@ -76,18 +76,30 @@ export function Menu() {
   return (
     <div className="max-w-6xl mx-auto w-full p-4 md:p-8">
       {/* Hero Section */}
-      <div className="text-center mb-12">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-main bg-clip-text text-transparent mb-4">
-          Lær verdens land
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          Velg et kontinent eller test deg på alle land
-        </p>
+      <div className="text-center mb-12 relative">
+        {/* Decorative background glow */}
+        <div className="absolute inset-0 -top-20 bg-gradient-to-b from-primary/10 via-transparent to-transparent blur-3xl pointer-events-none" />
+        <div className="relative">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-sm text-primary font-medium mb-6">
+            <Globe size={14} />
+            <span>197 land å utforske</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-main bg-clip-text text-transparent mb-4">
+            Lær verdens land
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-md mx-auto">
+            Velg et kontinent eller test deg på alle land
+          </p>
+        </div>
       </div>
 
       {/* Continents Section */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-muted-foreground mb-6">Kontinenter</h2>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+          <h2 className="text-xl font-bold text-foreground px-2">Kontinenter</h2>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {continents.map((continent) => {
             const count = getCountriesByContinent(continent.name).length
@@ -142,7 +154,11 @@ export function Menu() {
 
       {/* Challenges Section */}
       <section>
-        <h2 className="text-2xl font-bold text-muted-foreground mb-6">Utfordringer</h2>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+          <h2 className="text-xl font-bold text-foreground px-2">Utfordringer</h2>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* All Countries */}
           <Link to="/quiz/all" className="h-full">
