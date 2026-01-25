@@ -7,7 +7,6 @@ import { supabase } from '../lib/supabase'
 import { getCountriesByContinent, countries, type Continent } from '../data/countries'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardContent } from '@/components/ui/card'
-import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -127,93 +126,127 @@ export function Statistics() {
       <h2 className="text-2xl md:text-3xl font-extrabold bg-gradient-main bg-clip-text text-transparent mb-4 text-center">Din statistikk</h2>
 
       {/* Overview Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-4">
-        <Card>
-          <CardContent className="p-3 md:p-4 text-center flex flex-col items-center gap-1">
-            <Trophy size={18} className="text-primary" />
-            <span className="text-2xl md:text-3xl font-bold bg-gradient-main bg-clip-text text-transparent">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6">
+        <Card className="bg-gradient-stat-1 stat-card-glow transition-all duration-300 border-0">
+          <CardContent className="p-4 md:p-5 text-center flex flex-col items-center gap-2">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-orange-400 flex items-center justify-center shadow-lg">
+              <Trophy size={20} className="text-white" />
+            </div>
+            <span className="text-3xl md:text-4xl font-extrabold bg-gradient-main bg-clip-text text-transparent">
               {stats.historical?.lifetime_correct || 0}
             </span>
-            <span className="text-xs text-muted-foreground">Totalt riktige</span>
+            <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Totalt riktige</span>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent className="p-3 md:p-4 text-center flex flex-col items-center gap-1">
-            <Target size={18} className="text-primary" />
-            <span className="text-2xl md:text-3xl font-bold bg-gradient-main bg-clip-text text-transparent">
+        <Card className="bg-gradient-stat-2 stat-card-glow transition-all duration-300 border-0">
+          <CardContent className="p-4 md:p-5 text-center flex flex-col items-center gap-2">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-emerald-400 flex items-center justify-center shadow-lg">
+              <Target size={20} className="text-white" />
+            </div>
+            <span className="text-3xl md:text-4xl font-extrabold bg-gradient-main bg-clip-text text-transparent">
               {stats.overall.overall_accuracy}%
             </span>
-            <span className="text-xs text-muted-foreground">Treffsikkerhet</span>
+            <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Treffsikkerhet</span>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent className="p-3 md:p-4 text-center flex flex-col items-center gap-1">
-            <CheckCircle2 size={18} className="text-primary" />
-            <span className="text-2xl md:text-3xl font-bold bg-gradient-main bg-clip-text text-transparent">
+        <Card className="bg-gradient-stat-3 stat-card-glow transition-all duration-300 border-0">
+          <CardContent className="p-4 md:p-5 text-center flex flex-col items-center gap-2">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 flex items-center justify-center shadow-lg">
+              <CheckCircle2 size={20} className="text-white" />
+            </div>
+            <span className="text-3xl md:text-4xl font-extrabold bg-gradient-main bg-clip-text text-transparent">
               {stats.mastered_countries?.length || 0}
             </span>
-            <span className="text-xs text-muted-foreground">Mestrede land</span>
+            <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Mestrede land</span>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent className="p-3 md:p-4 text-center flex flex-col items-center gap-1">
-            <Calendar size={18} className="text-primary" />
-            <span className="text-2xl md:text-3xl font-bold bg-gradient-main bg-clip-text text-transparent">
+        <Card className="bg-gradient-stat-4 stat-card-glow transition-all duration-300 border-0">
+          <CardContent className="p-4 md:p-5 text-center flex flex-col items-center gap-2">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-yellow-400 flex items-center justify-center shadow-lg">
+              <Calendar size={20} className="text-white" />
+            </div>
+            <span className="text-3xl md:text-4xl font-extrabold bg-gradient-main bg-clip-text text-transparent">
               {stats.historical?.days_played || 0}
             </span>
-            <span className="text-xs text-muted-foreground">Dager spilt</span>
+            <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Dager spilt</span>
           </CardContent>
         </Card>
       </div>
 
       {/* Tabs */}
       <Tabs defaultValue="overview" value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="w-full">
-        <TabsList className="w-full bg-card rounded-md p-1 mb-4">
-          <TabsTrigger value="overview" className="flex-1">Oversikt</TabsTrigger>
-          <TabsTrigger value="continents" className="flex-1">Kontinenter</TabsTrigger>
-          <TabsTrigger value="countries" className="flex-1">Land</TabsTrigger>
+        <TabsList className="w-full bg-card/50 backdrop-blur rounded-lg p-1.5 mb-6 border border-border/50">
+          <TabsTrigger value="overview" className="flex-1 data-[state=active]:bg-gradient-button data-[state=active]:text-white rounded-md transition-all">Oversikt</TabsTrigger>
+          <TabsTrigger value="continents" className="flex-1 data-[state=active]:bg-gradient-button data-[state=active]:text-white rounded-md transition-all">Kontinenter</TabsTrigger>
+          <TabsTrigger value="countries" className="flex-1 data-[state=active]:bg-gradient-button data-[state=active]:text-white rounded-md transition-all">Land</TabsTrigger>
         </TabsList>
 
         {/* Tab Content: Overview */}
         <TabsContent value="overview" className="mt-0">
-          <div className="space-y-8">
+          <div className="grid md:grid-cols-2 gap-6">
             {/* Best Countries */}
-            {stats.best_countries && stats.best_countries.length > 0 ? (
-              <div>
-                <h3 className="text-xl font-bold text-foreground mb-4">Dine beste land</h3>
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center shadow-lg">
+                  <Trophy size={16} className="text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-foreground">Dine beste land</h3>
+              </div>
+              {stats.best_countries && stats.best_countries.length > 0 ? (
                 <div className="space-y-2">
-                  {stats.best_countries.map((country) => (
-                    <Card key={country.country_code}>
-                      <CardContent className="p-4 flex items-center gap-3">
-                        <img src={country.flag_url} alt="" className="w-10 h-7 object-cover rounded shadow-sm" />
-                        <span className="flex-1 text-foreground font-medium">{country.country_name}</span>
-                        <span className="text-green-500 font-bold">{country.accuracy}%</span>
+                  {stats.best_countries.map((country, index) => (
+                    <Card key={country.country_code} className="border-border/50 hover:border-emerald-500/50 transition-all">
+                      <CardContent className="p-3 flex items-center gap-3">
+                        <span className="w-5 text-xs font-bold text-muted-foreground">#{index + 1}</span>
+                        <img src={country.flag_url} alt="" className="w-8 h-6 object-cover rounded shadow-sm" />
+                        <span className="flex-1 text-foreground font-medium text-sm">{country.country_name}</span>
+                        <Badge className="bg-emerald-500/20 text-emerald-500 border-emerald-500/30 hover:bg-emerald-500/30">
+                          {country.accuracy}%
+                        </Badge>
                       </CardContent>
                     </Card>
                   ))}
                 </div>
-              </div>
-            ) : (
-              <p className="text-muted-foreground text-center py-8">Spill flere quizer for å se dine beste land!</p>
-            )}
+              ) : (
+                <Card className="border-dashed">
+                  <CardContent className="p-6 text-center text-muted-foreground text-sm">
+                    Spill flere quizer for å se dine beste land!
+                  </CardContent>
+                </Card>
+              )}
+            </div>
 
             {/* Worst Countries */}
-            {stats.worst_countries && stats.worst_countries.length > 0 && (
-              <div>
-                <h3 className="text-xl font-bold text-foreground mb-4">Land du kan øve på</h3>
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-red-400 flex items-center justify-center shadow-lg">
+                  <Target size={16} className="text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-foreground">Land du kan øve på</h3>
+              </div>
+              {stats.worst_countries && stats.worst_countries.length > 0 ? (
                 <div className="space-y-2">
-                  {stats.worst_countries.map((country) => (
-                    <Card key={country.country_code}>
-                      <CardContent className="p-4 flex items-center gap-3">
-                        <img src={country.flag_url} alt="" className="w-10 h-7 object-cover rounded shadow-sm" />
-                        <span className="flex-1 text-foreground font-medium">{country.country_name}</span>
-                        <span className="text-red-500 font-bold">{country.accuracy}%</span>
+                  {stats.worst_countries.map((country, index) => (
+                    <Card key={country.country_code} className="border-border/50 hover:border-orange-500/50 transition-all">
+                      <CardContent className="p-3 flex items-center gap-3">
+                        <span className="w-5 text-xs font-bold text-muted-foreground">#{index + 1}</span>
+                        <img src={country.flag_url} alt="" className="w-8 h-6 object-cover rounded shadow-sm" />
+                        <span className="flex-1 text-foreground font-medium text-sm">{country.country_name}</span>
+                        <Badge className="bg-orange-500/20 text-orange-500 border-orange-500/30 hover:bg-orange-500/30">
+                          {country.accuracy}%
+                        </Badge>
                       </CardContent>
                     </Card>
                   ))}
                 </div>
-              </div>
-            )}
+              ) : (
+                <Card className="border-dashed">
+                  <CardContent className="p-6 text-center text-muted-foreground text-sm">
+                    Ingen land å øve på ennå!
+                  </CardContent>
+                </Card>
+              )}
+            </div>
           </div>
         </TabsContent>
 
@@ -276,7 +309,8 @@ export function Statistics() {
           ) : (
             <div className="space-y-4">
               {(['Europa', 'Asia', 'Afrika', 'Nord-Amerika', 'Sør-Amerika', 'Oseania'] as Continent[]).map((continentName) => {
-                const totalCountries = getCountriesByContinent(continentName).length
+                const continentCountries = getCountriesByContinent(continentName)
+                const totalCountries = continentCountries.length
                 const countriesWithProgress = stats.country_progress?.filter(
                   (c) => normalizeContinent(c.continent) === continentName && c.modes_correct > 0
                 ).length || 0
@@ -284,26 +318,51 @@ export function Statistics() {
                   (c) => normalizeContinent(c.continent) === continentName && c.is_mastered
                 ).length || 0
                 const progressPercent = Math.round((masteredCountries / totalCountries) * 100)
+                const previewFlags = continentCountries.slice(0, 5)
 
                 return (
                   <Card
                     key={continentName}
-                    className="cursor-pointer hover:border-primary transition-all"
+                    className="cursor-pointer continent-card-hover transition-all duration-300 border-border/50 hover:border-primary"
                     onClick={() => setSelectedContinent(continentName)}
                   >
                     <CardContent className="p-5">
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-4">
                         <div className="flex-1">
-                          <div className="flex items-center justify-between mb-2">
-                            <span className="font-bold text-lg text-foreground">{continentName}</span>
-                            <span className="text-sm text-muted-foreground font-medium">{masteredCountries}/{totalCountries}</span>
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="font-bold text-xl text-foreground">{continentName}</span>
+                            <Badge variant="outline" className="font-semibold">
+                              {masteredCountries}/{totalCountries}
+                            </Badge>
                           </div>
-                          <Progress value={progressPercent} className="h-1.5 mb-2" />
-                          <span className="text-xs text-muted-foreground">
-                            {masteredCountries} land mestret · {countriesWithProgress} påbegynt
-                          </span>
+                          <div className="h-2 bg-muted/30 rounded-full overflow-hidden mb-3">
+                            <div
+                              className="h-full bg-gradient-progress rounded-full transition-all duration-500"
+                              style={{ width: `${progressPercent}%` }}
+                            />
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <div className="flex -space-x-1">
+                              {previewFlags.map((country) => (
+                                <img
+                                  key={country.code}
+                                  src={`https://flagcdn.com/w40/${country.code.toLowerCase()}.png`}
+                                  alt=""
+                                  className="w-6 h-4 object-cover rounded-sm border border-background shadow-sm"
+                                />
+                              ))}
+                              {totalCountries > 5 && (
+                                <div className="w-6 h-4 rounded-sm bg-muted flex items-center justify-center text-[10px] font-medium text-muted-foreground border border-background">
+                                  +{totalCountries - 5}
+                                </div>
+                              )}
+                            </div>
+                            <span className="text-xs text-muted-foreground">
+                              {countriesWithProgress} påbegynt
+                            </span>
+                          </div>
                         </div>
-                        <ChevronRight size={20} className="text-muted-foreground" />
+                        <ChevronRight size={24} className="text-muted-foreground" />
                       </div>
                     </CardContent>
                   </Card>
@@ -318,15 +377,25 @@ export function Statistics() {
           {/* Mastered Countries */}
           {stats.mastered_countries && stats.mastered_countries.length > 0 && (
             <div>
-              <h3 className="text-xl font-bold text-foreground mb-4">Mestrede land (alle 4 moduser)</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-full bg-gradient-progress flex items-center justify-center">
+                  <CheckCircle2 size={16} className="text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground">Mestrede land</h3>
+                <Badge className="bg-gradient-progress text-white border-0">
+                  {stats.mastered_countries.length}
+                </Badge>
+              </div>
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3">
                 {stats.mastered_countries.map((country) => (
-                  <Card key={country.country_code} className="hover:border-primary transition-all">
-                    <CardContent className="p-3 flex flex-col items-center gap-2">
-                      <img src={country.flag_url} alt="" className="w-full h-12 object-cover rounded shadow-sm" />
-                      <span className="text-xs text-center text-foreground font-medium">{country.country_name}</span>
-                    </CardContent>
-                  </Card>
+                  <div key={country.country_code} className="ring-gradient-mastered rounded-lg group">
+                    <Card className="border-0 bg-card h-full transition-all duration-200 group-hover:bg-card/80">
+                      <CardContent className="p-3 flex flex-col items-center gap-2">
+                        <img src={country.flag_url} alt="" className="w-full h-10 object-cover rounded shadow-sm" />
+                        <span className="text-xs text-center text-foreground font-medium line-clamp-1">{country.country_name}</span>
+                      </CardContent>
+                    </Card>
+                  </div>
                 ))}
               </div>
             </div>
@@ -335,29 +404,55 @@ export function Statistics() {
           {/* Country Progress */}
           <div>
             <h3 className="text-xl font-bold text-foreground mb-4">Fremgang per land</h3>
-            <div className="flex justify-between text-xs text-muted-foreground mb-3 px-1">
-              <span>0/4</span>
-              <span>1/4</span>
-              <span>2/4</span>
-              <span>3/4</span>
-              <span>4/4</span>
+            <div className="flex items-center gap-4 mb-4 text-xs">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-3 rounded-sm bg-muted/50" />
+                <span className="text-muted-foreground">0/4</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-3 rounded-sm border-2 border-red-500" />
+                <span className="text-muted-foreground">1/4</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-3 rounded-sm border-2 border-yellow-500" />
+                <span className="text-muted-foreground">2/4</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-3 rounded-sm border-2 border-blue-500" />
+                <span className="text-muted-foreground">3/4</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-3 rounded-sm bg-gradient-progress" />
+                <span className="text-muted-foreground">4/4</span>
+              </div>
             </div>
             {stats.country_progress && (
               <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-2">
                 {stats.country_progress.map((country) => (
                   <div
                     key={country.code}
-                    className={cn(
-                      "relative aspect-[4/3] rounded overflow-hidden border-2 transition-all hover:scale-110 cursor-pointer",
-                      country.modes_correct === 0 && "border-muted opacity-50",
-                      country.modes_correct === 1 && "border-red-500",
-                      country.modes_correct === 2 && "border-yellow-500",
-                      country.modes_correct === 3 && "border-blue-500",
-                      country.modes_correct === 4 && "border-green-500"
-                    )}
+                    className="group relative"
                     title={`${country.name}: ${country.modes_correct}/4 moduser`}
                   >
-                    <img src={country.flag_url} alt={country.name} className="w-full h-full object-cover" />
+                    {country.modes_correct === 4 ? (
+                      <div className="ring-gradient-mastered rounded-md">
+                        <div className="aspect-[4/3] rounded overflow-hidden bg-background flag-hover transition-all duration-200 cursor-pointer">
+                          <img src={country.flag_url} alt={country.name} className="w-full h-full object-cover" />
+                        </div>
+                      </div>
+                    ) : (
+                      <div
+                        className={cn(
+                          "aspect-[4/3] rounded overflow-hidden border-2 flag-hover transition-all duration-200 cursor-pointer",
+                          country.modes_correct === 0 && "border-muted/50 opacity-40 grayscale",
+                          country.modes_correct === 1 && "border-red-500",
+                          country.modes_correct === 2 && "border-yellow-500",
+                          country.modes_correct === 3 && "border-blue-500"
+                        )}
+                      >
+                        <img src={country.flag_url} alt={country.name} className="w-full h-full object-cover" />
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

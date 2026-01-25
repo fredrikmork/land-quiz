@@ -122,3 +122,21 @@ components.json     # shadcn/ui configuration
 - Theme hook: `const { theme, setTheme } = useTheme()`
 - Available themes: 'sunset' | 'ocean' | 'forest' | 'purple'
 - CSS variables automatically update when theme changes
+
+## Skills
+
+### Frontend Designer (`/design`)
+
+Aktiverer en frontend-designer modus for å designe UI før implementering.
+
+**Arbeidsflyt:**
+1. Forstå oppgaven og still oppklarende spørsmål
+2. Hent inspirasjon fra populære nettsider (Linear, Vercel, Stripe, etc.)
+3. Velg fargepalett fra [grabient.com](https://grabient.com/)
+4. Design med shadcn/ui komponenter
+5. Presenter designforslag med wireframe, farger og komponenter
+6. Implementer først etter godkjenning
+
+**Bruk:** Si "bruk /design" eller "designer-modus" for å aktivere skillen.
+
+Se `.claude/skills/frontend-designer.md` for fullstendig dokumentasjon.
