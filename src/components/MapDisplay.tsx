@@ -315,7 +315,7 @@ export function MapDisplay({ countryCode }: MapDisplayProps) {
           </Geographies>
           {smallCountryMarker && (
             <Marker coordinates={smallCountryMarker}>
-              <circle r={0.1} fill="#ef4444" />
+              <circle r={0.75} fill="#ef4444" stroke="#ef4444" strokeWidth={0.125} />
             </Marker>
           )}
         </ZoomableGroup>
@@ -366,8 +366,9 @@ export function InteractiveMapDisplay({
   }
 
   const getCountryStroke = (numericId: string) => {
-    if (answered && (numericId === correctNumeric || numericId === selectedNumeric)) {
-      return '#1f2937'
+    if (answered) {
+      if (numericId === correctNumeric) return '#22c55e' // Green stroke for correct
+      if (numericId === selectedNumeric) return '#ef4444' // Red stroke for wrong
     }
     return '#9ca3af'
   }
@@ -411,14 +412,14 @@ export function InteractiveMapDisplay({
                       },
                       hover: {
                         fill: isClickable ? '#93c5fd' : fill,
-                        stroke: isClickable ? '#3b82f6' : stroke,
+                        stroke: isClickable ? '#93c5fd' : stroke,
                         strokeWidth: isClickable ? 1 : (isHighlighted ? 1.5 : 0.5),
                         outline: 'none',
                         cursor: isClickable ? 'pointer' : 'default',
                       },
                       pressed: {
                         fill: isClickable ? '#3b82f6' : fill,
-                        stroke: isClickable ? '#1e40af' : stroke,
+                        stroke: isClickable ? '#3b82f6' : stroke,
                         outline: 'none',
                       },
                     }}
@@ -437,20 +438,25 @@ export function InteractiveMapDisplay({
             let fill = '#d1d5db' // Default gray
             let stroke = '#9ca3af'
             if (answered) {
-              if (isCorrect) fill = '#22c55e'
-              else if (isSelected) fill = '#ef4444'
+              if (isCorrect) {
+                fill = '#22c55e'
+                stroke = '#22c55e'
+              } else if (isSelected) {
+                fill = '#ef4444'
+                stroke = '#ef4444'
+              }
             } else if (isHovered) {
               fill = '#93c5fd' // Light blue on hover
-              stroke = '#3b82f6'
+              stroke = '#93c5fd'
             }
 
             return (
               <Marker key={alpha3} coordinates={coords}>
                 <circle
-                  r={3}
+                  r={0.75}
                   fill={fill}
                   stroke={stroke}
-                  strokeWidth={isHovered && !answered ? 1 : 0.5}
+                  strokeWidth={isHovered && !answered ? 0.25 : 0.125}
                   style={{ cursor: !answered ? 'pointer' : 'default' }}
                   onMouseEnter={() => !answered && setHoveredMarker(alpha3)}
                   onMouseLeave={() => setHoveredMarker(null)}
