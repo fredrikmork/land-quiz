@@ -299,10 +299,11 @@ export function LearnEverythingMap({ countryCode }: LearnEverythingMapProps) {
             <img
               src={getFlagUrl(countryCode, 'large')}
               alt=""
-              className="w-16 h-10 md:w-20 md:h-12 object-cover rounded-lg shadow-md border border-gray-200"
+              className="w-16 h-10 md:w-20 md:h-12 object-cover rounded-lg shadow-md border border-gray-200 flex-shrink-0"
             />
-            <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
-              {/* Capital and population side by side on mobile */}
+            {/* Mobile: 2 rows, Desktop: 1 row */}
+            <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-6">
+              {/* Capital and population */}
               <div className="flex items-center gap-4">
                 <div className="flex flex-col">
                   <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">Hovedstad</p>
@@ -319,7 +320,7 @@ export function LearnEverythingMap({ countryCode }: LearnEverythingMapProps) {
                   </div>
                 )}
               </div>
-              {/* Area and government - below on mobile, inline on desktop */}
+              {/* Area and government */}
               <div className="flex items-center gap-4 border-t md:border-t-0 md:border-l border-gray-200 pt-2 md:pt-0 md:pl-6">
                 {country.area && (
                   <div className="flex flex-col">
