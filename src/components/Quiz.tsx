@@ -70,12 +70,15 @@ export function Quiz() {
   }, [user, quizMode, quiz.totalQuestions])
 
   // Save attempt when user answers and auto-advance
-  const handleAnswer = async (selected: string) => {
+  const handleAnswer = (selected: string) => {
     const isCorrect = selected === quiz.currentQuestion.correctAnswer
 
-    // Save to database if logged in (skip for learn-everything mode)
+    // Show feedback immediately
+    quiz.answer(selected)
+
+    // Save to database in the background (skip for learn-everything mode)
     if (user && quizMode !== 'learn-everything') {
-      await saveQuizAttempt(
+      saveQuizAttempt(
         user.id,
         sessionId,
         quiz.currentQuestion.country.code,
@@ -83,8 +86,6 @@ export function Quiz() {
         isCorrect
       )
     }
-
-    quiz.answer(selected)
 
     // Auto-advance after a short delay
     setTimeout(() => {
