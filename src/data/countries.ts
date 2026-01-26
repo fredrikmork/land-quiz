@@ -17,10 +17,6 @@ export function getFlagUrl(code: string, size: 'small' | 'medium' | 'large' = 'm
   return `https://flagcdn.com/w${width}/${code.toLowerCase()}.png`
 }
 
-export function getFlagSvgUrl(code: string): string {
-  return `https://flagcdn.com/${code.toLowerCase()}.svg`
-}
-
 export const countries: Country[] = [
   // ============================================
   // EUROPA (44 land)
@@ -256,13 +252,13 @@ export function shuffleArray<T>(array: T[]): T[] {
   return shuffled
 }
 
-export function getRandomCountries(count: number, exclude?: Country): Country[] {
-  const available = exclude ? countries.filter(c => c.code !== exclude.code) : countries
-  return shuffleArray(available).slice(0, count)
-}
-
 export function getCountriesByContinent(continent: Continent): Country[] {
   return countries.filter(c => c.continent === continent)
+}
+
+// Get higher resolution flag URL (80px instead of 40px)
+export function getHighResFlag(flagUrl: string): string {
+  return flagUrl.replace('/w40/', '/w80/')
 }
 
 export const continents: Continent[] = ['Europa', 'Asia', 'Afrika', 'Nord-Amerika', 'Sør-Amerika', 'Oseania']

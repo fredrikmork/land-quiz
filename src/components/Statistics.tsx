@@ -4,7 +4,7 @@ import { Landmark, Building2, Flag, Map, ArrowLeft, Trophy, Target, Calendar, Ch
 import { getUserStatistics, UserStatistics } from '../lib/quizApi'
 import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../lib/supabase'
-import { getCountriesByContinent, countries, type Continent } from '../data/countries'
+import { getCountriesByContinent, countries, getHighResFlag, type Continent } from '../data/countries'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -111,11 +111,6 @@ function CountryProgressGroups({ countryProgress }: { countryProgress: CountryPr
 
   const toggleLevel = (level: number) => {
     setExpandedLevels((prev) => ({ ...prev, [level]: !prev[level] }))
-  }
-
-  // Get higher resolution flag URL
-  const getHighResFlag = (flagUrl: string) => {
-    return flagUrl.replace('/w40/', '/w80/')
   }
 
   return (
@@ -379,7 +374,7 @@ export function Statistics() {
                       <CardContent className="p-3 flex items-center gap-3">
                         <span className="w-5 text-xs font-bold text-muted-foreground">#{index + 1}</span>
                         <div className="w-10 h-7 rounded shadow-sm bg-white flex-shrink-0 overflow-hidden">
-                          <img src={country.flag_url.replace('/w40/', '/w80/')} alt="" className="w-full h-full object-contain" />
+                          <img src={getHighResFlag(country.flag_url)} alt="" className="w-full h-full object-contain" />
                         </div>
                         <span className="flex-1 text-foreground font-medium text-sm">{country.country_name}</span>
                         <Badge className="bg-emerald-500/20 text-emerald-500 border-emerald-500/30 hover:bg-emerald-500/30">
@@ -413,7 +408,7 @@ export function Statistics() {
                       <CardContent className="p-3 flex items-center gap-3">
                         <span className="w-5 text-xs font-bold text-muted-foreground">#{index + 1}</span>
                         <div className="w-10 h-7 rounded shadow-sm bg-white flex-shrink-0 overflow-hidden">
-                          <img src={country.flag_url.replace('/w40/', '/w80/')} alt="" className="w-full h-full object-contain" />
+                          <img src={getHighResFlag(country.flag_url)} alt="" className="w-full h-full object-contain" />
                         </div>
                         <span className="flex-1 text-foreground font-medium text-sm">{country.country_name}</span>
                         <Badge className="bg-orange-500/20 text-orange-500 border-orange-500/30 hover:bg-orange-500/30">
@@ -456,7 +451,7 @@ export function Statistics() {
                         <CardContent className="p-4">
                           <div className="flex items-center gap-3 mb-3">
                             <div className="w-12 h-8 rounded shadow-sm bg-white flex-shrink-0 overflow-hidden">
-                              <img src={country.flag_url.replace('/w40/', '/w80/')} alt="" className="w-full h-full object-contain" />
+                              <img src={getHighResFlag(country.flag_url)} alt="" className="w-full h-full object-contain" />
                             </div>
                             <div className="flex-1">
                               <span className="block font-semibold text-foreground">{country.name}</span>

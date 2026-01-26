@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom"
 import { Globe, BookOpen } from "lucide-react"
 import { useAuth } from "../hooks/useAuth"
-import { useEffect, useState } from "react"
-import { getUserStatistics } from "../lib/quizApi"
+import { usePracticeCountries } from "../hooks/usePracticeCountries"
+import { useCardGlow } from "../hooks/useCardGlow"
 import {
   getCountriesByContinent,
   countries,
   type Continent,
 } from "../data/countries"
+import { continentIcons } from "../data/constants"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
@@ -45,33 +46,13 @@ const continents: { name: Continent; gradient: string; glowColor: string }[] = [
   },
 ]
 
-const continentIcons: Record<Continent, string> = {
-  Europa: "/europa-white.svg",
-  Asia: "/asia-white.svg",
-  Afrika: "/africa-white.svg",
-  "Nord-Amerika": "/north-america-white.svg",
-  "Sør-Amerika": "/south-america-white.svg",
-  Oseania: "/oseania-white.svg",
-}
-
 export function Menu() {
   const { user, isAuthenticated } = useAuth()
-  const [practiceCount, setPracticeCount] = useState<number | null>(null)
+  const { practiceCount, loading: practiceLoading } = usePracticeCountries(user)
 
-  useEffect(() => {
-    async function loadPracticeCount() {
-      if (user) {
-        const stats = await getUserStatistics(user.id)
-        if (stats?.country_progress) {
-          const notMastered = stats.country_progress.filter(
-            (c) => !c.is_mastered
-          ).length
-          setPracticeCount(notMastered)
-        }
-      }
-    }
-    loadPracticeCount()
-  }, [user])
+  // Glow handlers for static cards
+  const allCountriesGlow = useCardGlow("var(--glow-card-3)")
+  const practiceGlow = useCardGlow("var(--glow-card-4)", practiceCount === 0)
 
   return (
     <div className="max-w-6xl mx-auto w-full p-4 md:p-8">
@@ -170,18 +151,7 @@ export function Menu() {
               style={{
                 background: "var(--gradient-card-3)",
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = "0 8px 32px var(--glow-card-3), 0 0 20px var(--glow-card-3)"
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = 'none'
-              }}
-              onTouchStart={(e) => {
-                e.currentTarget.style.boxShadow = "0 8px 32px var(--glow-card-3), 0 0 20px var(--glow-card-3)"
-              }}
-              onTouchEnd={(e) => {
-                e.currentTarget.style.boxShadow = 'none'
-              }}
+              {...allCountriesGlow}
             >
               <CardContent className="relative z-10 flex items-center gap-4 p-4 md:p-6 text-[var(--card-text)]">
                 <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
@@ -219,22 +189,7 @@ export function Menu() {
                 style={{
                   background: "var(--gradient-card-4)",
                 }}
-                onMouseEnter={(e) => {
-                  if (practiceCount !== 0) {
-                    e.currentTarget.style.boxShadow = "0 8px 32px var(--glow-card-4), 0 0 20px var(--glow-card-4)"
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = 'none'
-                }}
-                onTouchStart={(e) => {
-                  if (practiceCount !== 0) {
-                    e.currentTarget.style.boxShadow = "0 8px 32px var(--glow-card-4), 0 0 20px var(--glow-card-4)"
-                  }
-                }}
-                onTouchEnd={(e) => {
-                  e.currentTarget.style.boxShadow = 'none'
-                }}
+                {...practiceGlow}
               >
                 <CardContent className="relative z-10 flex items-center gap-4 p-4 md:p-6 text-[var(--card-text)]">
                   <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
@@ -249,7 +204,7 @@ export function Menu() {
                       variant="secondary"
                       className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/30 border-0 mt-1"
                     >
-                      {practiceCount === null
+                      {practiceLoading
                         ? "Laster..."
                         : practiceCount === 0
                         ? "Alle mestret!"

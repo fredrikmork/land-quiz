@@ -1,21 +1,13 @@
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo, useCallback } from 'react'
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom'
 import { ArrowLeft, Landmark, Building2, Flag, Map, MapPin, Sparkles } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { getUserStatistics } from '../lib/quizApi'
 import { getCountriesByContinent, countries, type Continent } from '../data/countries'
+import { continentIcons } from '../data/constants'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-
-const continentIcons: Record<Continent, string> = {
-  Europa: "/europa-white.svg",
-  Asia: "/asia-white.svg",
-  Afrika: "/africa-white.svg",
-  "Nord-Amerika": "/north-america-white.svg",
-  "Sør-Amerika": "/south-america-white.svg",
-  Oseania: "/oseania-white.svg",
-}
 
 const quizModes = [
   {
@@ -118,7 +110,7 @@ export function QuizModeSelector() {
   }
 
   // Build the quiz URL based on scope
-  function getQuizUrl(modeKey: string): string {
+  const getQuizUrl = useCallback((modeKey: string): string => {
     if (scopeType === 'continent' && continent) {
       return `/quiz/continent/${continent}/${modeKey}`
     } else if (scopeType === 'all') {
@@ -129,7 +121,7 @@ export function QuizModeSelector() {
       return `/quiz/practice/${modeKey}`
     }
     return '/'
-  }
+  }, [scopeType, continent, practiceCountryCodes])
 
   if (loading) {
     return (
