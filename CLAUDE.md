@@ -116,6 +116,37 @@ components.json     # shadcn/ui configuration
 - Progress indicators: Use `<Progress value={percentage} className="h-1.5" />` where value is 0-100
 - Buttons: Use `variant` prop (default, outline, ghost) and `size` prop (default, sm, lg, icon)
 
+### Universell utforming (a11y)
+
+**VIKTIG:** Universell utforming skal alltid være et fokus ved utvikling. Følg disse prinsippene:
+
+#### Tastaturnavigasjon
+- Alle interaktive elementer må være tilgjengelige med tastatur (Tab, Enter, Space, Escape)
+- Bruk `tabIndex={0}` på custom interaktive elementer
+- Legg til `onKeyDown` for Enter/Space på klikkbare elementer som ikke er `<button>` eller `<a>`
+- Deaktiverte elementer skal ha `tabIndex={-1}` for å fjernes fra tab-rekkefølgen
+
+#### Semantisk HTML og ARIA
+- Bruk semantiske HTML-elementer (`<button>`, `<nav>`, `<main>`, `<article>`, etc.)
+- Legg til `aria-label` på ikon-knapper uten synlig tekst
+- Bruk `aria-expanded` på knapper som åpner/lukker innhold
+- Bruk `aria-controls` for å koble knapper til innholdet de styrer
+- Bruk `role="alert"` og `aria-live="polite"` på feilmeldinger
+
+#### Bilder og media
+- Alle meningsfulle bilder må ha beskrivende `alt`-tekst
+- Dekorative bilder skal ha `alt=""`
+- Flagg: `alt={`Flagget til ${country.name}`}`
+
+#### Visuell feedback
+- **Hover-effekter kun på klikkbare elementer** - ikke-interaktive elementer skal ikke ha hover-effekter
+- Nøytraliser default hover med samme farge: `hover:bg-same-color`
+- Fokus-indikatorer må være synlige (ikke fjern `outline`)
+
+#### Skjermlesere
+- Test med VoiceOver (Cmd+F5 på Mac) eller NVDA (Windows)
+- Sørg for at dynamisk innhold annonseres (`aria-live`)
+
 ### Theme System
 
 - Themes are switched via `data-theme` attribute on document root
@@ -140,3 +171,18 @@ Aktiverer en frontend-designer modus for å designe UI før implementering.
 **Bruk:** Si "bruk /design" eller "designer-modus" for å aktivere skillen.
 
 Se `.claude/skills/frontend-designer.md` for fullstendig dokumentasjon.
+
+### Tilgjengelighetsgjennomgang (`/a11y`)
+
+Aktiverer en grundig tilgjengelighetsgjennomgang av koden.
+
+**Arbeidsflyt:**
+1. Identifiser filer/komponenter som skal gjennomgås
+2. Sjekk tastaturnavigasjon, ARIA-attributter, alt-tekster
+3. Verifiser at hover-effekter matcher interaktivitet
+4. Generer rapport med funn og foreslåtte fikser
+5. Implementer fikser etter godkjenning
+
+**Bruk:** Si "bruk /a11y" eller "kjør tilgjengelighetssjekk" for å aktivere skillen.
+
+Se `.claude/skills/accessibility.md` for fullstendig dokumentasjon.
