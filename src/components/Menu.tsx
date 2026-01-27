@@ -120,7 +120,7 @@ export function Menu() {
                       <span className="font-semibold text-base">{continent.name}</span>
                       <Badge
                         variant="secondary"
-                        className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/30 border-0"
+                        className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/20 border-0"
                       >
                         {count} land
                       </Badge>
@@ -164,7 +164,7 @@ export function Menu() {
                   </span>
                   <Badge
                     variant="secondary"
-                    className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/30 border-0 mt-1"
+                    className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/20 border-0 mt-1"
                   >
                     {countries.length} land
                   </Badge>
@@ -204,7 +204,7 @@ export function Menu() {
                     </span>
                     <Badge
                       variant="secondary"
-                      className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/30 border-0 mt-1"
+                      className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/20 border-0 mt-1"
                     >
                       {practiceLoading
                         ? "Laster..."
@@ -235,7 +235,7 @@ export function Menu() {
                     </span>
                     <Badge
                       variant="secondary"
-                      className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/30 border-0 mt-1"
+                      className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/20 border-0 mt-1"
                     >
                       Logg inn for å bruke
                     </Badge>
