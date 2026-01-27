@@ -206,9 +206,10 @@ export function Quiz() {
           variant="ghost"
           onClick={() => navigate(backUrl)}
           className="justify-self-start inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+          aria-label="Tilbake"
         >
           <ArrowLeft size={18} />
-          <span className="hidden sm:inline">Tilbake</span>
+          <span className="hidden sm:inline" aria-hidden="true">Tilbake</span>
         </Button>
         <div className="justify-self-center w-full max-w-[200px] md:max-w-[300px]">
           <span className="text-xs md:text-sm text-muted-foreground block mb-1.5 text-center font-medium">
