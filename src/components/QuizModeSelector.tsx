@@ -127,7 +127,7 @@ export function QuizModeSelector() {
     return (
       <div className="max-w-4xl mx-auto w-full p-8">
         <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" role="status" aria-label="Laster" />
           <p className="text-muted-foreground">Laster...</p>
         </div>
       </div>

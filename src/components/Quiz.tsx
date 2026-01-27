@@ -294,6 +294,8 @@ export function Quiz() {
                   )}
                   onClick={() => !quiz.answered && handleAnswer(option)}
                   disabled={quiz.answered}
+                  aria-label={`Alternativ ${optionLetters[index]}: ${option}`}
+                  aria-pressed={isSelected}
                 >
                   <span className={cn(
                     "w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold flex-shrink-0 transition-colors",

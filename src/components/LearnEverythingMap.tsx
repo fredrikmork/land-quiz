@@ -42,7 +42,11 @@ export function LearnEverythingMap({ countryCode }: LearnEverythingMapProps) {
     <div className="relative w-full max-w-4xl mx-auto">
       {/* Info card - absolute on desktop, relative on mobile */}
       {country && (
-        <div className="md:absolute md:top-4 md:left-1/2 md:-translate-x-1/2 md:z-20 mb-4 md:mb-0 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-2xl border border-gray-200 p-3 md:px-6 md:py-3 backdrop-blur-sm">
+        <div
+          className="md:absolute md:top-4 md:left-1/2 md:-translate-x-1/2 md:z-20 mb-4 md:mb-0 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-2xl border border-gray-200 p-3 md:px-6 md:py-3 backdrop-blur-sm"
+          role="region"
+          aria-label={`Informasjon om ${country.name}`}
+        >
           <div className="flex items-center gap-3 md:gap-6">
             <img
               src={getFlagUrl(countryCode, 'large')}
@@ -101,7 +105,7 @@ export function LearnEverythingMap({ countryCode }: LearnEverythingMapProps) {
             style={{ height: `${zoomPercentage}%` }}
           />
         </div>
-        <span className="text-sm font-bold text-gray-900">
+        <span className="text-sm font-bold text-gray-900" aria-live="polite">
           {Math.round(zoomPercentage)}%
         </span>
       </div>

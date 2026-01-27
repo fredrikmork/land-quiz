@@ -209,6 +209,8 @@ export function InteractiveMapDisplay({
                   aria-label={!answered ? `Velg ${countryName}` : countryName}
                   onMouseEnter={() => !answered && setHoveredMarker(alpha3)}
                   onMouseLeave={() => setHoveredMarker(null)}
+                  onFocus={() => !answered && setHoveredMarker(alpha3)}
+                  onBlur={() => setHoveredMarker(null)}
                   onClick={() => {
                     if (!answered) {
                       onSelect(alpha2)

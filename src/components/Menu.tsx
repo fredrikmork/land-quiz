@@ -85,7 +85,7 @@ export function Menu() {
           {continents.map((continent) => {
             const count = getCountriesByContinent(continent.name).length
             return (
-              <Link key={continent.name} to={`/quiz/continent/${continent.name}`}>
+              <Link key={continent.name} to={`/quiz/continent/${continent.name}`} className="rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
                 <Card
                   className={cn(
                     "relative overflow-hidden border-0 min-h-20 transition-all duration-normal",

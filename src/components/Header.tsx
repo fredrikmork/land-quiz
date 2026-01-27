@@ -92,7 +92,7 @@ export function Header() {
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" size="icon" aria-label="Profilmeny">
                   <Avatar className="h-8 w-8">
                     <AvatarFallback className="bg-gradient-main text-white text-sm">
                       {profile?.display_name?.charAt(0) || profile?.username?.charAt(0) || 'B'}

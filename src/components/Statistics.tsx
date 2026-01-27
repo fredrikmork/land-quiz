@@ -250,7 +250,7 @@ export function Statistics() {
     return (
       <div className="max-w-6xl mx-auto w-full p-4 md:p-6">
         <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" role="status" aria-label="Laster statistikk" />
           <p className="text-muted-foreground">Laster statistikk...</p>
         </div>
       </div>
@@ -353,7 +353,7 @@ export function Statistics() {
 
       {/* Tabs */}
       <Tabs defaultValue="overview" value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="w-full">
-        <TabsList className="w-full bg-card/50 backdrop-blur rounded-lg p-1.5 mb-6 border border-border/50">
+        <TabsList className="w-full bg-card/50 backdrop-blur rounded-lg p-1.5 mb-6 border border-border/50" aria-label="Statistikkvisninger">
           <TabsTrigger value="overview" className="flex-1 data-[state=active]:bg-gradient-button data-[state=active]:text-white rounded-md transition-all">Oversikt</TabsTrigger>
           <TabsTrigger value="continents" className="flex-1 data-[state=active]:bg-gradient-button data-[state=active]:text-white rounded-md transition-all">Kontinenter</TabsTrigger>
           <TabsTrigger value="countries" className="flex-1 data-[state=active]:bg-gradient-button data-[state=active]:text-white rounded-md transition-all">Land</TabsTrigger>
@@ -377,7 +377,7 @@ export function Statistics() {
                       <CardContent className="p-3 flex items-center gap-3">
                         <span className="w-5 text-xs font-bold text-muted-foreground">#{index + 1}</span>
                         <div className="w-10 h-7 rounded shadow-sm bg-white flex-shrink-0 overflow-hidden">
-                          <img src={getHighResFlag(country.flag_url)} alt="" className="w-full h-full object-contain" />
+                          <img src={getHighResFlag(country.flag_url)} alt={`Flagget til ${country.country_name}`} className="w-full h-full object-contain" />
                         </div>
                         <span className="flex-1 text-foreground font-medium text-sm">{country.country_name}</span>
                         <Badge className="bg-emerald-500/20 text-emerald-500 border-emerald-500/30 hover:bg-emerald-500/20">
@@ -411,7 +411,7 @@ export function Statistics() {
                       <CardContent className="p-3 flex items-center gap-3">
                         <span className="w-5 text-xs font-bold text-muted-foreground">#{index + 1}</span>
                         <div className="w-10 h-7 rounded shadow-sm bg-white flex-shrink-0 overflow-hidden">
-                          <img src={getHighResFlag(country.flag_url)} alt="" className="w-full h-full object-contain" />
+                          <img src={getHighResFlag(country.flag_url)} alt={`Flagget til ${country.country_name}`} className="w-full h-full object-contain" />
                         </div>
                         <span className="flex-1 text-foreground font-medium text-sm">{country.country_name}</span>
                         <Badge className="bg-orange-500/20 text-orange-500 border-orange-500/30 hover:bg-orange-500/20">
@@ -454,7 +454,7 @@ export function Statistics() {
                         <CardContent className="p-4">
                           <div className="flex items-center gap-3 mb-3">
                             <div className="w-12 h-8 rounded shadow-sm bg-white flex-shrink-0 overflow-hidden">
-                              <img src={getHighResFlag(country.flag_url)} alt="" className="w-full h-full object-contain" />
+                              <img src={getHighResFlag(country.flag_url)} alt={`Flagget til ${country.name}`} className="w-full h-full object-contain" />
                             </div>
                             <div className="flex-1">
                               <span className="block font-semibold text-foreground">{country.name}</span>
@@ -531,7 +531,7 @@ export function Statistics() {
                                 <div key={country.code} className="w-7 h-5 rounded-sm border border-background shadow-sm bg-white overflow-hidden">
                                   <img
                                     src={`https://flagcdn.com/w80/${country.code.toLowerCase()}.png`}
-                                    alt=""
+                                    alt={country.name}
                                     className="w-full h-full object-contain"
                                   />
                                 </div>
