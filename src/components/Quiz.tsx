@@ -257,7 +257,7 @@ export function Quiz() {
           <div className="flex justify-center items-center p-4 md:p-6 bg-card/50 backdrop-blur rounded-xl border border-border/50 shadow-sm">
             <img
               src={getFlagUrl(currentQuestion.country.code, 'large')}
-              alt="Flagg"
+              alt={`Flagget til ${currentQuestion.country.name}`}
               className="max-w-full max-h-[140px] md:max-h-[180px] object-contain rounded-lg shadow-xl"
             />
           </div>

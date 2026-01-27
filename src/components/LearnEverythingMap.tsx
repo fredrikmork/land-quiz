@@ -46,7 +46,7 @@ export function LearnEverythingMap({ countryCode }: LearnEverythingMapProps) {
           <div className="flex items-center gap-3 md:gap-6">
             <img
               src={getFlagUrl(countryCode, 'large')}
-              alt=""
+              alt={`Flagget til ${country.name}`}
               className="w-16 h-10 md:w-20 md:h-12 object-cover rounded-lg shadow-md border border-gray-200 flex-shrink-0"
             />
             {/* Mobile: 2 rows, Desktop: 1 row */}

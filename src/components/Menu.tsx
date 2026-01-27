@@ -111,7 +111,7 @@ export function Menu() {
                     <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
                       <img
                         src={continentIcons[continent.name]}
-                        alt=""
+                        alt={continent.name}
                         className="w-full h-full object-contain"
                         style={{ filter: 'var(--card-icon-filter)' }}
                       />
@@ -178,6 +178,8 @@ export function Menu() {
             <Link
               to="/quiz/practice"
               className={cn("h-full", practiceCount === 0 && "pointer-events-none")}
+              tabIndex={practiceCount === 0 ? -1 : undefined}
+              aria-disabled={practiceCount === 0 ? "true" : undefined}
               onClick={(e) => practiceCount === 0 && e.preventDefault()}
             >
               <Card

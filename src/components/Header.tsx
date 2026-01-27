@@ -47,7 +47,7 @@ export function Header() {
           {/* Theme Selector */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" aria-label="Velg tema">
                 <Palette
                   size={20}
                   style={{ color: themes.find(t => t.key === theme)?.colors[0] }}
@@ -81,7 +81,7 @@ export function Header() {
 
           {/* Statistics (only when logged in) */}
           {isAuthenticated && (
-            <Button variant="ghost" size="icon" asChild>
+            <Button variant="ghost" size="icon" asChild aria-label="Statistikk">
               <Link to="/stats">
                 <BarChart3 size={20} className="text-primary" />
               </Link>

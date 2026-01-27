@@ -153,7 +153,7 @@ export function QuizModeSelector() {
             <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center backdrop-blur-sm">
               <img
                 src={continentIcons[continent as Continent]}
-                alt=""
+                alt={continent}
                 className="w-12 h-12 md:w-14 md:h-14 object-contain"
                 style={{ filter: 'brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(200deg) brightness(100%) contrast(98%)' }}
               />

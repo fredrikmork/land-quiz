@@ -135,6 +135,8 @@ function CountryProgressGroups({ countryProgress }: { countryProgress: CountryPr
           >
             <button
               onClick={() => toggleLevel(config.level)}
+              aria-expanded={isExpanded}
+              aria-controls={`countries-level-${config.level}`}
               className="w-full p-4 flex items-center justify-between text-left"
             >
               <div className="flex items-center gap-3">
@@ -168,23 +170,24 @@ function CountryProgressGroups({ countryProgress }: { countryProgress: CountryPr
             </button>
 
             {isExpanded && (
-              <CardContent className="pt-0 pb-4 px-4">
+              <CardContent id={`countries-level-${config.level}`} className="pt-0 pb-4 px-4">
                 <div className="flex flex-wrap gap-3">
                   {countriesAtLevel.map((country) => (
                     <div
                       key={country.code}
                       className="group relative"
-                      title={country.name}
+                      tabIndex={0}
+                      aria-label={country.name}
                     >
-                      <div className="w-14 h-10 rounded-md overflow-hidden bg-white shadow-md border border-border/50 hover:shadow-lg hover:scale-105 transition-all duration-200 cursor-pointer">
+                      <div className="w-14 h-10 rounded-md overflow-hidden bg-white shadow-md border border-border/50">
                         <img
                           src={getHighResFlag(country.flag_url)}
                           alt={country.name}
                           className="w-full h-full object-contain"
                         />
                       </div>
-                      {/* Tooltip on hover */}
-                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                      {/* Tooltip on hover/focus */}
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                         {country.name}
                       </div>
                     </div>
@@ -302,7 +305,7 @@ export function Statistics() {
 
       {/* Overview Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6">
-        <Card className="bg-gradient-stat-1 stat-card-glow transition-all duration-300 border-0">
+        <Card className="bg-gradient-stat-1 border-0">
           <CardContent className="p-4 md:p-5 text-center flex flex-col items-center gap-2">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-orange-400 flex items-center justify-center shadow-lg">
               <Trophy size={20} className="text-white" />
@@ -313,7 +316,7 @@ export function Statistics() {
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Totalt riktige</span>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-stat-2 stat-card-glow transition-all duration-300 border-0">
+        <Card className="bg-gradient-stat-2 border-0">
           <CardContent className="p-4 md:p-5 text-center flex flex-col items-center gap-2">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-emerald-400 flex items-center justify-center shadow-lg">
               <Target size={20} className="text-white" />
@@ -324,7 +327,7 @@ export function Statistics() {
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Treffsikkerhet</span>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-stat-3 stat-card-glow transition-all duration-300 border-0">
+        <Card className="bg-gradient-stat-3 border-0">
           <CardContent className="p-4 md:p-5 text-center flex flex-col items-center gap-2">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 flex items-center justify-center shadow-lg">
               <CheckCircle2 size={20} className="text-white" />
@@ -335,7 +338,7 @@ export function Statistics() {
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Mestrede land</span>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-stat-4 stat-card-glow transition-all duration-300 border-0">
+        <Card className="bg-gradient-stat-4 border-0">
           <CardContent className="p-4 md:p-5 text-center flex flex-col items-center gap-2">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-yellow-400 flex items-center justify-center shadow-lg">
               <Calendar size={20} className="text-white" />
@@ -370,14 +373,14 @@ export function Statistics() {
               {stats.best_countries && stats.best_countries.length > 0 ? (
                 <div className="space-y-2">
                   {stats.best_countries.map((country, index) => (
-                    <Card key={country.country_code} className="border-border/50 hover:border-emerald-500/50 transition-all">
+                    <Card key={country.country_code} className="border-border/50">
                       <CardContent className="p-3 flex items-center gap-3">
                         <span className="w-5 text-xs font-bold text-muted-foreground">#{index + 1}</span>
                         <div className="w-10 h-7 rounded shadow-sm bg-white flex-shrink-0 overflow-hidden">
                           <img src={getHighResFlag(country.flag_url)} alt="" className="w-full h-full object-contain" />
                         </div>
                         <span className="flex-1 text-foreground font-medium text-sm">{country.country_name}</span>
-                        <Badge className="bg-emerald-500/20 text-emerald-500 border-emerald-500/30 hover:bg-emerald-500/30">
+                        <Badge className="bg-emerald-500/20 text-emerald-500 border-emerald-500/30 hover:bg-emerald-500/20">
                           {country.accuracy}%
                         </Badge>
                       </CardContent>
@@ -404,14 +407,14 @@ export function Statistics() {
               {stats.worst_countries && stats.worst_countries.length > 0 ? (
                 <div className="space-y-2">
                   {stats.worst_countries.map((country, index) => (
-                    <Card key={country.country_code} className="border-border/50 hover:border-orange-500/50 transition-all">
+                    <Card key={country.country_code} className="border-border/50">
                       <CardContent className="p-3 flex items-center gap-3">
                         <span className="w-5 text-xs font-bold text-muted-foreground">#{index + 1}</span>
                         <div className="w-10 h-7 rounded shadow-sm bg-white flex-shrink-0 overflow-hidden">
                           <img src={getHighResFlag(country.flag_url)} alt="" className="w-full h-full object-contain" />
                         </div>
                         <span className="flex-1 text-foreground font-medium text-sm">{country.country_name}</span>
-                        <Badge className="bg-orange-500/20 text-orange-500 border-orange-500/30 hover:bg-orange-500/30">
+                        <Badge className="bg-orange-500/20 text-orange-500 border-orange-500/30 hover:bg-orange-500/20">
                           {country.accuracy}%
                         </Badge>
                       </CardContent>
@@ -459,7 +462,7 @@ export function Statistics() {
                                 {countries.find(c => c.code === country.code)?.capital}
                               </span>
                             </div>
-                            {country.is_mastered && <Badge className="bg-green-500 hover:bg-green-600">✓</Badge>}
+                            {country.is_mastered && <Badge className="bg-green-500 hover:bg-green-500">✓</Badge>}
                           </div>
                           <div className="grid grid-cols-2 gap-2">
                             {quizModes.map((mode) => {

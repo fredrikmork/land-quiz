@@ -133,12 +133,12 @@ export function Auth() {
             </div>
 
             {error && (
-              <p className="text-sm text-red-500 bg-red-500/10 border border-red-500/20 rounded-md p-3">
+              <p role="alert" aria-live="polite" className="text-sm text-red-500 bg-red-500/10 border border-red-500/20 rounded-md p-3">
                 {error}
               </p>
             )}
             {message && (
-              <p className="text-sm text-green-500 bg-green-500/10 border border-green-500/20 rounded-md p-3">
+              <p role="status" aria-live="polite" className="text-sm text-green-500 bg-green-500/10 border border-green-500/20 rounded-md p-3">
                 {message}
               </p>
             )}

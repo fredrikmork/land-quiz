@@ -194,6 +194,8 @@ export function InteractiveMapDisplay({
               stroke = '#93c5fd'
             }
 
+            const countryName = quizCountries.find(c => c.code === alpha2)?.name || alpha2
+
             return (
               <Marker key={alpha3} coordinates={coords}>
                 <circle
@@ -202,10 +204,19 @@ export function InteractiveMapDisplay({
                   stroke={stroke}
                   strokeWidth={isHovered && !answered ? 0.25 : 0.125}
                   style={{ cursor: !answered ? 'pointer' : 'default' }}
+                  role={!answered ? 'button' : undefined}
+                  tabIndex={!answered ? 0 : -1}
+                  aria-label={!answered ? `Velg ${countryName}` : countryName}
                   onMouseEnter={() => !answered && setHoveredMarker(alpha3)}
                   onMouseLeave={() => setHoveredMarker(null)}
                   onClick={() => {
                     if (!answered) {
+                      onSelect(alpha2)
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if (!answered && (e.key === 'Enter' || e.key === ' ')) {
+                      e.preventDefault()
                       onSelect(alpha2)
                     }
                   }}
