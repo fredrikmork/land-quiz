@@ -36,7 +36,10 @@ export async function createQuizSession(userId: string, quizMode: QuizMode, tota
     .single()
 
   if (error) {
-    console.error('Error creating quiz session:', error)
+    // Suppress logging in production to avoid Lighthouse warnings
+    if (import.meta.env.DEV) {
+      console.error('Error creating quiz session:', error.message, error.details)
+    }
     return null
   }
 
@@ -65,7 +68,9 @@ export async function saveQuizAttempt(
     .single()
 
   if (error) {
-    console.error('Error saving quiz attempt:', error)
+    if (import.meta.env.DEV) {
+      console.error('Error saving quiz attempt:', error.message, error.details)
+    }
     return null
   }
 
@@ -87,7 +92,9 @@ export async function completeQuizSession(sessionId: string, correctAnswers: num
     .single()
 
   if (error) {
-    console.error('Error completing quiz session:', error)
+    if (import.meta.env.DEV) {
+      console.error('Error completing quiz session:', error.message, error.details)
+    }
     return null
   }
 
@@ -155,7 +162,9 @@ export async function getUserStatistics(userId: string): Promise<UserStatistics 
   })
 
   if (error) {
-    console.error('Error fetching user statistics:', error)
+    if (import.meta.env.DEV) {
+      console.error('Error fetching user statistics:', error.message, error.details)
+    }
     return null
   }
 
