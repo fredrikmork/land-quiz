@@ -285,7 +285,7 @@ export function Statistics() {
         <Button
           variant="ghost"
           onClick={() => navigate('/')}
-          className="inline-flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-all"
+          className="inline-flex items-center gap-2 px-4 py-2 text-sm text-foreground hover:text-primary transition-all"
         >
           <ArrowLeft size={18} />
           Tilbake
@@ -380,7 +380,7 @@ export function Statistics() {
                           <img src={getHighResFlag(country.flag_url)} alt={`Flagget til ${country.country_name}`} className="w-full h-full object-contain" />
                         </div>
                         <span className="flex-1 text-foreground font-medium text-sm">{country.country_name}</span>
-                        <Badge className="bg-emerald-500/20 text-emerald-500 border-emerald-500/30 hover:bg-emerald-500/20">
+                        <Badge className="bg-emerald-100 text-emerald-800 border-emerald-200 hover:bg-emerald-100">
                           {country.accuracy}%
                         </Badge>
                       </CardContent>
@@ -414,7 +414,7 @@ export function Statistics() {
                           <img src={getHighResFlag(country.flag_url)} alt={`Flagget til ${country.country_name}`} className="w-full h-full object-contain" />
                         </div>
                         <span className="flex-1 text-foreground font-medium text-sm">{country.country_name}</span>
-                        <Badge className="bg-orange-500/20 text-orange-500 border-orange-500/30 hover:bg-orange-500/20">
+                        <Badge className="bg-orange-100 text-orange-800 border-orange-200 hover:bg-orange-100">
                           {country.accuracy}%
                         </Badge>
                       </CardContent>
