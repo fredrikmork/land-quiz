@@ -206,7 +206,7 @@ export function QuizModeSelector() {
                     <Icon size={32} strokeWidth={1.5} />
                   </div>
                   <div className="flex flex-col gap-1">
-                    <h3 className="text-xl font-bold">{mode.title}</h3>
+                    <h2 className="text-xl font-bold">{mode.title}</h2>
                     <p className="text-sm opacity-90">{mode.description}</p>
                   </div>
                 </CardContent>
@@ -247,7 +247,7 @@ export function QuizModeSelector() {
                     <Icon size={32} strokeWidth={1.5} />
                   </div>
                   <div className="flex flex-col gap-1">
-                    <h3 className="text-xl font-bold">{mode.title}</h3>
+                    <h2 className="text-xl font-bold">{mode.title}</h2>
                     <p className="text-sm opacity-90">{mode.description}</p>
                   </div>
                 </CardContent>
@@ -284,7 +284,7 @@ export function QuizModeSelector() {
                 <countryToMapMode.icon size={48} strokeWidth={1.5} />
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="text-2xl font-bold">{countryToMapMode.title}</h3>
+                <h2 className="text-2xl font-bold">{countryToMapMode.title}</h2>
                 <p className="text-sm opacity-90">{countryToMapMode.description}</p>
               </div>
             </CardContent>
@@ -323,7 +323,7 @@ export function QuizModeSelector() {
                     <Icon size={32} strokeWidth={1.5} />
                   </div>
                   <div className="flex flex-col gap-1">
-                    <h3 className="text-xl font-bold">{mode.title}</h3>
+                    <h2 className="text-xl font-bold">{mode.title}</h2>
                     <p className="text-sm opacity-90">{mode.description}</p>
                   </div>
                 </CardContent>
@@ -368,7 +368,7 @@ export function QuizModeSelector() {
               <learnEverythingMode.icon size={36} strokeWidth={1.5} className="text-[var(--card-text)]" />
             </div>
             <div className="flex flex-col gap-2 text-center md:text-left">
-              <h3 className="text-2xl md:text-3xl font-bold text-[var(--card-text)]">{learnEverythingMode.title}</h3>
+              <h2 className="text-2xl md:text-3xl font-bold text-[var(--card-text)]">{learnEverythingMode.title}</h2>
               <p className="text-base text-[var(--card-text)] opacity-80">{learnEverythingMode.description}</p>
             </div>
           </CardContent>

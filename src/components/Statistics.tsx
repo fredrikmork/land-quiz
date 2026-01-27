@@ -115,7 +115,7 @@ function CountryProgressGroups({ countryProgress }: { countryProgress: CountryPr
 
   return (
     <div className="space-y-4">
-      <h3 className="text-xl font-bold text-foreground">Fremgang per land</h3>
+      <h2 className="text-xl font-bold text-foreground">Fremgang per land</h2>
 
       {progressLevels.map((config) => {
         const countriesAtLevel = groupedCountries[config.level]
@@ -368,7 +368,7 @@ export function Statistics() {
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center shadow-lg">
                   <Trophy size={16} className="text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-foreground">Dine beste land</h3>
+                <h2 className="text-lg font-bold text-foreground">Dine beste land</h2>
               </div>
               {stats.best_countries && stats.best_countries.length > 0 ? (
                 <div className="space-y-2">
@@ -402,7 +402,7 @@ export function Statistics() {
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-red-400 flex items-center justify-center shadow-lg">
                   <Target size={16} className="text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-foreground">Land du kan øve på</h3>
+                <h2 className="text-lg font-bold text-foreground">Land du kan øve på</h2>
               </div>
               {stats.worst_countries && stats.worst_countries.length > 0 ? (
                 <div className="space-y-2">
@@ -444,7 +444,7 @@ export function Statistics() {
                 <ArrowLeft size={16} />
                 Alle kontinenter
               </Button>
-              <h3 className="text-2xl font-bold text-foreground">{selectedContinent}</h3>
+              <h2 className="text-2xl font-bold text-foreground">{selectedContinent}</h2>
               {stats.country_progress && (
                 <div className="space-y-4">
                   {stats.country_progress
