@@ -212,8 +212,8 @@ export function Quiz() {
           <span className="hidden sm:inline" aria-hidden="true">Tilbake</span>
         </Button>
         <div className="justify-self-center w-full max-w-[200px] md:max-w-[300px]">
-          <span className="text-xs md:text-sm text-muted-foreground block mb-1.5 text-center font-medium">
-            <span className="text-foreground font-bold">{quiz.questionNumber}</span> / {quiz.totalQuestions}
+          <span className="text-xs md:text-sm text-foreground block mb-1.5 text-center font-medium">
+            <span className="font-bold">{quiz.questionNumber}</span> / {quiz.totalQuestions}
           </span>
           <div className="h-2 bg-muted/30 rounded-full overflow-hidden">
             <div
