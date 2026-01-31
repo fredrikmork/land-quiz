@@ -174,206 +174,131 @@ export function QuizModeSelector() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* First row: Hovedsteder, Land */}
-        {quizModes.slice(0, 2).map((mode) => {
-          const Icon = mode.icon
-          return (
-            <Link key={mode.key} to={getQuizUrl(mode.key)}>
-              <Card
-                className={cn(
-                  "relative overflow-hidden border-0 transition-all duration-normal h-full",
-                  "hover:-translate-y-1 hover:scale-[1.02]"
-                )}
-                style={{
-                  background: mode.gradient,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 8px 32px ${mode.glowColor}, 0 0 20px ${mode.glowColor}`
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = 'none'
-                }}
-                onTouchStart={(e) => {
-                  e.currentTarget.style.boxShadow = `0 8px 32px ${mode.glowColor}, 0 0 20px ${mode.glowColor}`
-                }}
-                onTouchEnd={(e) => {
-                  e.currentTarget.style.boxShadow = 'none'
-                }}
-              >
-                <CardContent className="relative z-10 flex items-center gap-4 p-6 text-[var(--card-text)]">
-                  <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
-                    <Icon size={32} strokeWidth={1.5} />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <h2 className="text-xl font-bold">{mode.title}</h2>
-                    <p className="text-sm opacity-90">{mode.description}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          )
-        })}
-
-        {/* Flagg - row 2, col 1 */}
-        {(() => {
-          const mode = quizModes[2]
-          const Icon = mode.icon
-          return (
-            <Link key={mode.key} to={getQuizUrl(mode.key)} className="md:col-start-1 md:row-start-2">
-              <Card
-                className={cn(
-                  "relative overflow-hidden border-0 transition-all duration-normal h-full",
-                  "hover:-translate-y-1 hover:scale-[1.02]"
-                )}
-                style={{
-                  background: mode.gradient,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 8px 32px ${mode.glowColor}, 0 0 20px ${mode.glowColor}`
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = 'none'
-                }}
-                onTouchStart={(e) => {
-                  e.currentTarget.style.boxShadow = `0 8px 32px ${mode.glowColor}, 0 0 20px ${mode.glowColor}`
-                }}
-                onTouchEnd={(e) => {
-                  e.currentTarget.style.boxShadow = 'none'
-                }}
-              >
-                <CardContent className="relative z-10 flex items-center gap-4 p-6 text-[var(--card-text)]">
-                  <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
-                    <Icon size={32} strokeWidth={1.5} />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <h2 className="text-xl font-bold">{mode.title}</h2>
-                    <p className="text-sm opacity-90">{mode.description}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          )
-        })()}
-
-        {/* Country-to-map mode - spans 2 rows on desktop, col 2, rows 2-3 */}
-        <Link to={getQuizUrl(countryToMapMode.key)} className="md:col-start-2 md:row-start-2 md:row-span-2">
-          <Card
-            className={cn(
-              "relative overflow-hidden border-0 transition-all duration-normal h-full",
-              "hover:-translate-y-1 hover:scale-[1.02]"
-            )}
-            style={{
-              background: countryToMapMode.gradient,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = `0 8px 32px ${countryToMapMode.glowColor}, 0 0 20px ${countryToMapMode.glowColor}`
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = 'none'
-            }}
-            onTouchStart={(e) => {
-              e.currentTarget.style.boxShadow = `0 8px 32px ${countryToMapMode.glowColor}, 0 0 20px ${countryToMapMode.glowColor}`
-            }}
-            onTouchEnd={(e) => {
-              e.currentTarget.style.boxShadow = 'none'
-            }}
-          >
-            <CardContent className="relative z-10 flex flex-col items-center justify-center gap-4 p-6 text-[var(--card-text)] h-full text-center">
-              <div className="w-20 h-20 flex items-center justify-center flex-shrink-0">
-                <countryToMapMode.icon size={48} strokeWidth={1.5} />
-              </div>
-              <div className="flex flex-col gap-2">
-                <h2 className="text-2xl font-bold">{countryToMapMode.title}</h2>
-                <p className="text-sm opacity-90">{countryToMapMode.description}</p>
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
-
-        {/* Kart - row 3, col 1 */}
-        {(() => {
-          const mode = quizModes[3]
-          const Icon = mode.icon
-          return (
-            <Link key={mode.key} to={getQuizUrl(mode.key)} className="md:col-start-1 md:row-start-3">
-              <Card
-                className={cn(
-                  "relative overflow-hidden border-0 transition-all duration-normal h-full",
-                  "hover:-translate-y-1 hover:scale-[1.02]"
-                )}
-                style={{
-                  background: mode.gradient,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 8px 32px ${mode.glowColor}, 0 0 20px ${mode.glowColor}`
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = 'none'
-                }}
-                onTouchStart={(e) => {
-                  e.currentTarget.style.boxShadow = `0 8px 32px ${mode.glowColor}, 0 0 20px ${mode.glowColor}`
-                }}
-                onTouchEnd={(e) => {
-                  e.currentTarget.style.boxShadow = 'none'
-                }}
-              >
-                <CardContent className="relative z-10 flex items-center gap-4 p-6 text-[var(--card-text)]">
-                  <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
-                    <Icon size={32} strokeWidth={1.5} />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <h2 className="text-xl font-bold">{mode.title}</h2>
-                    <p className="text-sm opacity-90">{mode.description}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          )
-        })()}
+      {/* Teller på statistikk */}
+      <div className="mb-8">
+        <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-4">
+          Teller på statistikk
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {quizModes.map((mode) => {
+            const Icon = mode.icon
+            return (
+              <Link key={mode.key} to={getQuizUrl(mode.key)}>
+                <Card
+                  className={cn(
+                    "relative overflow-hidden border-0 transition-all duration-normal h-full",
+                    "hover:-translate-y-1 hover:scale-[1.02]"
+                  )}
+                  style={{
+                    background: mode.gradient,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = `0 8px 32px ${mode.glowColor}, 0 0 20px ${mode.glowColor}`
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = 'none'
+                  }}
+                  onTouchStart={(e) => {
+                    e.currentTarget.style.boxShadow = `0 8px 32px ${mode.glowColor}, 0 0 20px ${mode.glowColor}`
+                  }}
+                  onTouchEnd={(e) => {
+                    e.currentTarget.style.boxShadow = 'none'
+                  }}
+                >
+                  <CardContent className="relative z-10 flex items-center gap-4 p-6 text-[var(--card-text)]">
+                    <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
+                      <Icon size={32} strokeWidth={1.5} />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <h2 className="text-xl font-bold">{mode.title}</h2>
+                      <p className="text-sm opacity-90">{mode.description}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            )
+          })}
+        </div>
       </div>
 
-      {/* Premium "Lær deg alt" card */}
-      <Link to={getQuizUrl(learnEverythingMode.key)} className="block mt-6">
-        <Card
-          className={cn(
-            "relative overflow-hidden border-0 transition-all duration-normal",
-            "hover:-translate-y-1 hover:scale-[1.01]"
-          )}
-          style={{
-            background: 'linear-gradient(135deg, #5a6bff 0%, #4d8bff 35%, #45a8ff 70%, #3dc4fc 100%)',
-            boxShadow: '0 4px 20px rgba(90, 107, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = '0 8px 40px rgba(90, 107, 255, 0.4), 0 0 30px rgba(69, 168, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25)'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = '0 4px 20px rgba(90, 107, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
-          }}
-          onTouchStart={(e) => {
-            e.currentTarget.style.boxShadow = '0 8px 40px rgba(90, 107, 255, 0.4), 0 0 30px rgba(69, 168, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25)'
-          }}
-          onTouchEnd={(e) => {
-            e.currentTarget.style.boxShadow = '0 4px 20px rgba(90, 107, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
-          }}
-        >
-          {/* Decorative border */}
-          <div className="absolute inset-0 rounded-xl border border-white/20" />
+      {/* Teller ikke på statistikk */}
+      <div>
+        <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-4">
+          Øvingsmoduser
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Pek på kartet */}
+          <Link to={getQuizUrl(countryToMapMode.key)}>
+            <Card
+              className={cn(
+                "relative overflow-hidden border-0 transition-all duration-normal h-full",
+                "hover:-translate-y-1 hover:scale-[1.02]"
+              )}
+              style={{
+                background: countryToMapMode.gradient,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = `0 8px 32px ${countryToMapMode.glowColor}, 0 0 20px ${countryToMapMode.glowColor}`
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = 'none'
+              }}
+              onTouchStart={(e) => {
+                e.currentTarget.style.boxShadow = `0 8px 32px ${countryToMapMode.glowColor}, 0 0 20px ${countryToMapMode.glowColor}`
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.boxShadow = 'none'
+              }}
+            >
+              <CardContent className="relative z-10 flex items-center gap-4 p-6 text-[var(--card-text)]">
+                <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
+                  <countryToMapMode.icon size={32} strokeWidth={1.5} />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <h2 className="text-xl font-bold">{countryToMapMode.title}</h2>
+                  <p className="text-sm opacity-90">{countryToMapMode.description}</p>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
 
-          {/* Subtle shine effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-          <CardContent className="relative z-10 flex flex-col md:flex-row items-center gap-4 md:gap-6 p-6 md:p-8">
-            <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center flex-shrink-0 bg-white/20 backdrop-blur-sm rounded-xl shadow-lg border border-white/30">
-              <learnEverythingMode.icon size={36} strokeWidth={1.5} className="text-[var(--card-text)]" />
-            </div>
-            <div className="flex flex-col gap-2 text-center md:text-left">
-              <h2 className="text-2xl md:text-3xl font-bold text-[var(--card-text)]">{learnEverythingMode.title}</h2>
-              <p className="text-base text-[var(--card-text)] opacity-80">{learnEverythingMode.description}</p>
-            </div>
-          </CardContent>
-        </Card>
-      </Link>
+          {/* Lær deg alt */}
+          <Link to={getQuizUrl(learnEverythingMode.key)}>
+            <Card
+              className={cn(
+                "relative overflow-hidden border-0 transition-all duration-normal h-full",
+                "hover:-translate-y-1 hover:scale-[1.02]"
+              )}
+              style={{
+                background: 'linear-gradient(135deg, #5a6bff 0%, #4d8bff 35%, #45a8ff 70%, #3dc4fc 100%)',
+                boxShadow: '0 4px 20px rgba(90, 107, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = '0 8px 40px rgba(90, 107, 255, 0.4), 0 0 30px rgba(69, 168, 255, 0.3)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '0 4px 20px rgba(90, 107, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+              }}
+              onTouchStart={(e) => {
+                e.currentTarget.style.boxShadow = '0 8px 40px rgba(90, 107, 255, 0.4), 0 0 30px rgba(69, 168, 255, 0.3)'
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.boxShadow = '0 4px 20px rgba(90, 107, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+              }}
+            >
+              <CardContent className="relative z-10 flex items-center gap-4 p-6 text-[var(--card-text)]">
+                <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
+                  <learnEverythingMode.icon size={32} strokeWidth={1.5} />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <h2 className="text-xl font-bold">{learnEverythingMode.title}</h2>
+                  <p className="text-sm opacity-90">{learnEverythingMode.description}</p>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        </div>
+      </div>
     </div>
   )
 }
