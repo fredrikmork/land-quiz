@@ -179,13 +179,11 @@ function CountryProgressGroups({ countryProgress }: { countryProgress: CountryPr
                       tabIndex={0}
                       aria-label={country.name}
                     >
-                      <div className="w-14 h-10 rounded-md overflow-hidden shadow-md border border-border/50">
-                        <img
-                          src={getHighResFlag(country.flag_url)}
-                          alt={country.name}
-                          className="w-full h-full object-contain"
-                        />
-                      </div>
+                      <img
+                        src={getHighResFlag(country.flag_url)}
+                        alt={country.name}
+                        className="h-10 w-auto object-contain"
+                      />
                       {/* Tooltip on hover/focus */}
                       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                         {country.name}
@@ -397,9 +395,7 @@ export function Statistics() {
                     <Card key={country.country_code} className="border-border/50">
                       <CardContent className="p-3 flex items-center gap-3">
                         <span className="w-5 text-xs font-bold text-muted-foreground">#{index + 1}</span>
-                        <div className="w-10 h-7 rounded shadow-sm flex-shrink-0 overflow-hidden">
-                          <img src={getHighResFlag(country.flag_url)} alt={`Flagget til ${country.country_name}`} className="w-full h-full object-contain" />
-                        </div>
+                        <img src={getHighResFlag(country.flag_url)} alt={`Flagget til ${country.country_name}`} className="h-7 w-auto object-contain flex-shrink-0" />
                         <span className="flex-1 text-foreground font-medium text-sm">{country.country_name}</span>
                         <Badge className="bg-emerald-100 text-emerald-800 border-emerald-200 hover:bg-emerald-100">
                           {country.accuracy}%
@@ -431,9 +427,7 @@ export function Statistics() {
                     <Card key={country.country_code} className="border-border/50">
                       <CardContent className="p-3 flex items-center gap-3">
                         <span className="w-5 text-xs font-bold text-muted-foreground">#{index + 1}</span>
-                        <div className="w-10 h-7 rounded shadow-sm flex-shrink-0 overflow-hidden">
-                          <img src={getHighResFlag(country.flag_url)} alt={`Flagget til ${country.country_name}`} className="w-full h-full object-contain" />
-                        </div>
+                        <img src={getHighResFlag(country.flag_url)} alt={`Flagget til ${country.country_name}`} className="h-7 w-auto object-contain flex-shrink-0" />
                         <span className="flex-1 text-foreground font-medium text-sm">{country.country_name}</span>
                         <Badge className="bg-orange-100 text-orange-800 border-orange-200 hover:bg-orange-100">
                           {country.accuracy}%
@@ -482,9 +476,7 @@ export function Statistics() {
                       >
                         <CardContent className="p-4">
                           <div className="flex items-center gap-3 mb-3">
-                            <div className="w-12 h-8 rounded shadow-sm flex-shrink-0 overflow-hidden">
-                              <img src={getHighResFlag(country.flag_url)} alt={`Flagget til ${country.name}`} className="w-full h-full object-contain" />
-                            </div>
+                            <img src={getHighResFlag(country.flag_url)} alt={`Flagget til ${country.name}`} className="h-8 w-auto object-contain flex-shrink-0" />
                             <div className="flex-1">
                               <span className={cn(
                                 "block font-semibold",
@@ -583,18 +575,17 @@ export function Statistics() {
                             />
                           </div>
                           <div className="flex items-center justify-between">
-                            <div className="flex -space-x-1">
+                            <div className="flex items-center -space-x-1">
                               {previewFlags.map((country) => (
-                                <div key={country.code} className="w-7 h-5 rounded-sm border border-background shadow-sm overflow-hidden">
-                                  <img
-                                    src={`https://flagcdn.com/w80/${country.code.toLowerCase()}.png`}
-                                    alt={country.name}
-                                    className="w-full h-full object-contain"
-                                  />
-                                </div>
+                                <img
+                                  key={country.code}
+                                  src={`https://flagcdn.com/w80/${country.code.toLowerCase()}.png`}
+                                  alt={country.name}
+                                  className="h-5 w-auto object-contain"
+                                />
                               ))}
                               {totalCountries > 5 && (
-                                <div className="w-6 h-4 rounded-sm bg-muted flex items-center justify-center text-[10px] font-medium text-muted-foreground border border-background">
+                                <div className="w-6 h-4 rounded-sm bg-muted flex items-center justify-center text-[10px] font-medium text-muted-foreground ml-1">
                                   +{totalCountries - 5}
                                 </div>
                               )}
