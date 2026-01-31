@@ -360,7 +360,7 @@ export function Statistics() {
         </TabsList>
 
         {/* Tab Content: Overview */}
-        <TabsContent value="overview" className="mt-0">
+        <TabsContent value="overview" className="mt-0 min-h-[400px]">
           <div className="grid md:grid-cols-2 gap-6">
             {/* Best Countries */}
             <div>
@@ -433,7 +433,7 @@ export function Statistics() {
         </TabsContent>
 
         {/* Tab Content: Continents */}
-        <TabsContent value="continents" className="mt-0">
+        <TabsContent value="continents" className="mt-0 min-h-[400px]">
           {selectedContinent ? (
             <div className="space-y-6">
               <Button
@@ -558,7 +558,7 @@ export function Statistics() {
         </TabsContent>
 
         {/* Tab Content: Countries */}
-        <TabsContent value="countries" className="mt-0 space-y-4">
+        <TabsContent value="countries" className="mt-0 min-h-[400px] space-y-4">
           <CountryProgressGroups
             countryProgress={stats.country_progress || []}
           />

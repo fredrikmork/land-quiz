@@ -5,7 +5,8 @@
 @layer base {
   html {
     /* Prevent layout shift when scrollbar appears/disappears */
-    scrollbar-gutter: stable;
+    overflow-y: scroll; /* Fallback: always show scrollbar */
+    scrollbar-gutter: stable; /* Modern browsers: reserve space */
   }
 
   :root {
