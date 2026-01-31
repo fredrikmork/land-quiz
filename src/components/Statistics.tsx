@@ -503,11 +503,17 @@ export function Statistics() {
                 ).length || 0
                 const progressPercent = Math.round((masteredCountries / totalCountries) * 100)
                 const previewFlags = continentCountries.slice(0, 5)
+                const isCompleted = masteredCountries === totalCountries
 
                 return (
                   <Card
                     key={continentName}
-                    className="cursor-pointer continent-card-hover transition-all duration-300 border-border/50 hover:border-primary"
+                    className={cn(
+                      "cursor-pointer continent-card-hover transition-all duration-300",
+                      isCompleted
+                        ? "border-emerald-500/50 bg-emerald-500/5"
+                        : "border-border/50 hover:border-primary"
+                    )}
                     onClick={() => setSelectedContinent(continentName)}
                   >
                     <CardContent className="p-5">
@@ -515,13 +521,23 @@ export function Statistics() {
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-3">
                             <span className="font-bold text-xl text-foreground">{continentName}</span>
-                            <Badge variant="outline" className="font-semibold">
+                            <Badge
+                              variant="outline"
+                              className={cn(
+                                "font-semibold gap-1",
+                                isCompleted && "border-emerald-500/50 text-emerald-500"
+                              )}
+                            >
+                              {isCompleted && <CheckCircle2 size={12} />}
                               {masteredCountries}/{totalCountries}
                             </Badge>
                           </div>
                           <div className="h-2 bg-muted/30 rounded-full overflow-hidden mb-3">
                             <div
-                              className="h-full bg-gradient-progress rounded-full transition-all duration-500"
+                              className={cn(
+                                "h-full rounded-full transition-all duration-500",
+                                isCompleted ? "bg-emerald-500" : "bg-gradient-progress"
+                              )}
                               style={{ width: `${progressPercent}%` }}
                             />
                           </div>
@@ -542,12 +558,15 @@ export function Statistics() {
                                 </div>
                               )}
                             </div>
-                            <span className="text-xs text-muted-foreground">
-                              {countriesWithProgress} påbegynt
+                            <span className={cn(
+                              "text-xs",
+                              isCompleted ? "text-emerald-500" : "text-muted-foreground"
+                            )}>
+                              {isCompleted ? `${masteredCountries} mestret` : `${countriesWithProgress} påbegynt`}
                             </span>
                           </div>
                         </div>
-                        <ChevronRight size={24} className="text-muted-foreground" />
+                        <ChevronRight size={24} className={isCompleted ? "text-emerald-500" : "text-muted-foreground"} />
                       </div>
                     </CardContent>
                   </Card>
