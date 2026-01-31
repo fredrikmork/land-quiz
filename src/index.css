@@ -19,17 +19,17 @@
 
   /* Theme: Sunset (default) - vibrant coral/rose */
   [data-theme="sunset"], :root {
-    /* Dark mode base colors */
-    --background: 350 30% 10%;       /* warm dark */
-    --foreground: 350 20% 94%;       /* warm white */
-    --card: 350 25% 14%;             /* slightly lighter */
-    --card-foreground: 350 20% 94%;
-    --popover: 350 25% 14%;
-    --popover-foreground: 350 20% 94%;
-    --muted: 350 20% 20%;
-    --muted-foreground: 350 15% 65%;
-    --border: 350 25% 25%;
-    --input: 350 20% 16%;
+    /* Dark mode base colors - neutral dark, accents carry the theme */
+    --background: 0 0% 7%;           /* pure neutral dark */
+    --foreground: 0 0% 95%;          /* pure white */
+    --card: 350 5% 11%;              /* hint of warmth */
+    --card-foreground: 0 0% 95%;
+    --popover: 350 5% 11%;
+    --popover-foreground: 0 0% 95%;
+    --muted: 350 4% 16%;
+    --muted-foreground: 0 0% 65%;
+    --border: 350 6% 20%;
+    --input: 350 5% 13%;
     --ring: 350 85% 60%;
 
     --primary: 350 85% 60%;          /* #e84a6f vibrant rose */
@@ -52,6 +52,8 @@
 
     /* Theme-specific button gradient */
     --gradient-button: linear-gradient(135deg, #e84a6f 0%, #d43a5f 100%);
+    --gradient-highlight: linear-gradient(135deg, #e84a6f 0%, #f0728a 50%, #e8845a 100%);
+    --glow-highlight: rgba(232, 74, 111, 0.4);
 
     /* Card gradients - rose to peach palette */
     --gradient-card-1: linear-gradient(135deg, #e84a6f 0%, #f0728a 100%);
@@ -67,8 +69,9 @@
 
     /* Text color for cards */
     --card-text: #2a1518;
-    /* Filter to colorize white icons */
+    /* Filter to colorize icons */
     --card-icon-filter: brightness(0) saturate(100%) invert(8%) sepia(30%) saturate(2000%) hue-rotate(320deg);
+    --icon-filter-primary: brightness(0) saturate(100%) invert(45%) sepia(80%) saturate(2000%) hue-rotate(320deg) brightness(95%);
   }
 
   /* Theme: Ocean - fresh turquoise */
@@ -104,6 +107,8 @@
     --glow-color: rgba(34, 166, 179, 0.25);
 
     --gradient-button: linear-gradient(135deg, #22a6b3 0%, #1a8a95 100%);
+    --gradient-highlight: linear-gradient(135deg, #22a6b3 0%, #38c9b9 50%, #2e9cca 100%);
+    --glow-highlight: rgba(34, 166, 179, 0.4);
 
     /* Card gradients - teal to sky palette */
     --gradient-card-1: linear-gradient(135deg, #22a6b3 0%, #4dbdc7 100%);
@@ -118,8 +123,9 @@
 
     /* Text color for cards */
     --card-text: #0f3d42;
-    /* Filter to colorize white icons */
+    /* Filter to colorize icons */
     --card-icon-filter: brightness(0) saturate(100%) invert(18%) sepia(35%) saturate(1200%) hue-rotate(150deg);
+    --icon-filter-primary: brightness(0) saturate(100%) invert(55%) sepia(70%) saturate(500%) hue-rotate(140deg) brightness(95%);
   }
 
   /* Theme: Forest - fresh emerald */
@@ -155,6 +161,8 @@
     --glow-color: rgba(42, 157, 110, 0.25);
 
     --gradient-button: linear-gradient(135deg, #2a9d6e 0%, #1f8058 100%);
+    --gradient-highlight: linear-gradient(135deg, #2a9d6e 0%, #45c98a 50%, #3db36d 100%);
+    --glow-highlight: rgba(42, 157, 110, 0.4);
 
     /* Card gradients - emerald palette */
     --gradient-card-1: linear-gradient(135deg, #2a9d6e 0%, #4cb888 100%);
@@ -169,8 +177,9 @@
 
     /* Text color for cards */
     --card-text: #0f2e20;
-    /* Filter to colorize white icons */
+    /* Filter to colorize icons */
     --card-icon-filter: brightness(0) saturate(100%) invert(12%) sepia(40%) saturate(1500%) hue-rotate(120deg);
+    --icon-filter-primary: brightness(0) saturate(100%) invert(50%) sepia(80%) saturate(600%) hue-rotate(100deg) brightness(95%);
   }
 
   /* Theme: Purple - vibrant violet */
@@ -206,6 +215,8 @@
     --glow-color: rgba(124, 77, 255, 0.25);
 
     --gradient-button: linear-gradient(135deg, #7c4dff 0%, #6236e0 100%);
+    --gradient-highlight: linear-gradient(135deg, #7c4dff 0%, #a855f7 50%, #9061f9 100%);
+    --glow-highlight: rgba(124, 77, 255, 0.4);
 
     /* Card gradients - violet palette */
     --gradient-card-1: linear-gradient(135deg, #7c4dff 0%, #9d7aff 100%);
@@ -221,6 +232,7 @@
     /* Text color for cards */
     --card-text: #ffffff;
     --card-icon-filter: none;
+    --icon-filter-primary: brightness(0) saturate(100%) invert(40%) sepia(90%) saturate(2000%) hue-rotate(240deg) brightness(100%);
   }
 
   * {

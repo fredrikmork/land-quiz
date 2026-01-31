@@ -45,7 +45,7 @@ export function Header() {
         {/* Actions */}
         <div className="flex items-center gap-2">
           {/* Theme Selector */}
-          <DropdownMenu>
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" aria-label="Velg tema">
                 <Palette
@@ -90,7 +90,7 @@ export function Header() {
 
           {/* Profile / Login */}
           {isAuthenticated ? (
-            <DropdownMenu>
+            <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" aria-label="Profilmeny">
                   <Avatar className="h-8 w-8">

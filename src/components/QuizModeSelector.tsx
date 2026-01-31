@@ -155,7 +155,7 @@ export function QuizModeSelector() {
                 src={continentIcons[continent as Continent]}
                 alt={continent}
                 className="w-12 h-12 md:w-14 md:h-14 object-contain"
-                style={{ filter: 'brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(200deg) brightness(100%) contrast(98%)' }}
+                style={{ filter: 'var(--icon-filter-primary)' }}
               />
             </div>
           )}
@@ -270,20 +270,19 @@ export function QuizModeSelector() {
                 "hover:-translate-y-1 hover:scale-[1.02]"
               )}
               style={{
-                background: 'linear-gradient(135deg, #5a6bff 0%, #4d8bff 35%, #45a8ff 70%, #3dc4fc 100%)',
-                boxShadow: '0 4px 20px rgba(90, 107, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                background: 'var(--gradient-highlight)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 8px 40px rgba(90, 107, 255, 0.4), 0 0 30px rgba(69, 168, 255, 0.3)'
+                e.currentTarget.style.boxShadow = '0 8px 32px var(--glow-highlight), 0 0 20px var(--glow-highlight)'
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(90, 107, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                e.currentTarget.style.boxShadow = 'none'
               }}
               onTouchStart={(e) => {
-                e.currentTarget.style.boxShadow = '0 8px 40px rgba(90, 107, 255, 0.4), 0 0 30px rgba(69, 168, 255, 0.3)'
+                e.currentTarget.style.boxShadow = '0 8px 32px var(--glow-highlight), 0 0 20px var(--glow-highlight)'
               }}
               onTouchEnd={(e) => {
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(90, 107, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                e.currentTarget.style.boxShadow = 'none'
               }}
             >
               <CardContent className="relative z-10 flex items-center gap-4 p-6 text-[var(--card-text)]">
