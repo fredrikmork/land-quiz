@@ -160,7 +160,7 @@ export function QuizModeSelector() {
             </div>
           )}
           <div>
-            <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-main bg-clip-text text-transparent mb-2">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-primary mb-2">
               {scopeTitle}
             </h1>
             <p className="text-lg text-muted-foreground">

@@ -62,7 +62,7 @@ export function Auth() {
 
       <Card className="border-border shadow-lg">
         <CardHeader className="text-center pb-4">
-          <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-gradient-main rounded-full text-white">
+          <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-primary rounded-full text-primary-foreground">
             {mode === 'login' ? <LogIn size={28} /> : <UserPlus size={28} />}
           </div>
           <CardTitle className="text-2xl font-bold">

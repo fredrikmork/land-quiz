@@ -11,217 +11,208 @@
     --radius: 0.75rem;
   }
 
-  /* Theme: Miami Vice (default) */
+  /* Theme: Sunset (default) - vibrant coral/rose */
   [data-theme="sunset"], :root {
-    /* Dark mode base colors - deep purple/navy for neon contrast */
-    --background: 260 40% 12%;       /* deep purple-navy */
-    --foreground: 300 100% 95%;      /* light pink-white */
-    --card: 260 35% 18%;             /* slightly lighter purple */
-    --card-foreground: 300 100% 95%;
-    --popover: 260 35% 18%;
-    --popover-foreground: 300 100% 95%;
-    --muted: 260 30% 25%;
-    --muted-foreground: 300 30% 70%;
-    --border: 260 40% 30%;
-    --input: 260 35% 22%;
-    --ring: 328 100% 54%;
+    /* Dark mode base colors */
+    --background: 350 30% 10%;       /* warm dark */
+    --foreground: 350 20% 94%;       /* warm white */
+    --card: 350 25% 14%;             /* slightly lighter */
+    --card-foreground: 350 20% 94%;
+    --popover: 350 25% 14%;
+    --popover-foreground: 350 20% 94%;
+    --muted: 350 20% 20%;
+    --muted-foreground: 350 15% 65%;
+    --border: 350 25% 25%;
+    --input: 350 20% 16%;
+    --ring: 350 85% 60%;
 
-    --primary: 328 100% 54%;         /* #ff1493 hot pink */
+    --primary: 350 85% 60%;          /* #e84a6f vibrant rose */
     --primary-foreground: 0 0% 100%;
-    --secondary: 180 100% 50%;       /* #00ffff cyan */
-    --secondary-foreground: 0 0% 0%;
-    --accent: 328 100% 54%;
+    --secondary: 20 80% 65%;         /* #e8845a warm orange */
+    --secondary-foreground: 0 0% 100%;
+    --accent: 350 85% 60%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     /* Legacy variables */
-    --gradient-start: #ff1493;
-    --gradient-mid: #00ffff;
-    --gradient-end: #9400d3;
-    --accent-primary: #ff1493;
-    --accent-secondary: #00ffff;
-    --accent-light: #ff69b4;
-    --glow-color: rgba(255, 20, 147, 0.3);
+    --gradient-start: #e84a6f;
+    --gradient-mid: #e8845a;
+    --gradient-end: #d4627a;
+    --accent-primary: #e84a6f;
+    --accent-secondary: #e8845a;
+    --accent-light: #f0728a;
+    --glow-color: rgba(232, 74, 111, 0.3);
 
-    /* Electric Blues gradient for background/header - SAME FOR ALL THEMES */
-    --gradient-main: linear-gradient(135deg, #7b84ff 0%, #68a5ff 33%, #5fc6ff 66%, #63e5fc 100%);
+    /* Theme-specific button gradient */
+    --gradient-button: linear-gradient(135deg, #e84a6f 0%, #d43a5f 100%);
 
-    /* Theme-specific button gradient - neon pink to magenta */
-    --gradient-button: linear-gradient(135deg, #ff1493 0%, #ff00ff 100%);
-
-    /* Card gradients - Miami Vice neon colors */
-    --gradient-card-1: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
-    --gradient-card-2: linear-gradient(135deg, #00ffff 0%, #40e0d0 100%);
-    --gradient-card-3: linear-gradient(135deg, #9400d3 0%, #ba55d3 100%);
-    --gradient-card-4: linear-gradient(135deg, #ff00ff 0%, #ff77ff 100%);
+    /* Card gradients - rose to peach palette */
+    --gradient-card-1: linear-gradient(135deg, #e84a6f 0%, #f0728a 100%);
+    --gradient-card-2: linear-gradient(135deg, #e8845a 0%, #f0a078 100%);
+    --gradient-card-3: linear-gradient(135deg, #d4627a 0%, #e88a9a 100%);
+    --gradient-card-4: linear-gradient(135deg, #c85a70 0%, #e07888 100%);
 
     /* Glow effects */
-    --glow-card-1: rgba(255, 20, 147, 0.5);
-    --glow-card-2: rgba(0, 255, 255, 0.5);
-    --glow-card-3: rgba(148, 0, 211, 0.5);
-    --glow-card-4: rgba(255, 0, 255, 0.5);
+    --glow-card-1: rgba(232, 74, 111, 0.3);
+    --glow-card-2: rgba(232, 132, 90, 0.3);
+    --glow-card-3: rgba(212, 98, 122, 0.3);
+    --glow-card-4: rgba(200, 90, 112, 0.3);
 
-    /* Text color for bright cards - deep purple for Miami Vice style */
-    --card-text: #1e0a3c;
+    /* Text color for cards */
+    --card-text: #2a1518;
     /* Filter to colorize white icons */
-    --card-icon-filter: brightness(0) saturate(100%) invert(6%) sepia(50%) saturate(4000%) hue-rotate(260deg);
+    --card-icon-filter: brightness(0) saturate(100%) invert(8%) sepia(30%) saturate(2000%) hue-rotate(320deg);
   }
 
-  /* Theme: Ocean */
+  /* Theme: Ocean - fresh turquoise */
   [data-theme="ocean"] {
-    /* Light mode base colors - light cyan/aqua */
-    --background: 190 50% 94%;       /* light aqua */
-    --foreground: 200 30% 18%;       /* dark teal */
-    --card: 190 50% 99%;             /* white with hint of aqua */
-    --card-foreground: 200 30% 18%;
-    --popover: 190 40% 97%;
-    --popover-foreground: 200 30% 18%;
-    --muted: 190 30% 86%;
-    --muted-foreground: 200 20% 40%;
-    --border: 190 35% 82%;
-    --input: 190 30% 88%;
-    --ring: 192 91% 47%;
+    /* Light mode base colors */
+    --background: 190 40% 94%;       /* light aqua */
+    --foreground: 200 35% 18%;       /* dark teal */
+    --card: 190 35% 99%;             /* white with aqua hint */
+    --card-foreground: 200 35% 18%;
+    --popover: 190 30% 97%;
+    --popover-foreground: 200 35% 18%;
+    --muted: 190 25% 86%;
+    --muted-foreground: 200 20% 42%;
+    --border: 190 30% 82%;
+    --input: 190 25% 88%;
+    --ring: 185 70% 45%;
 
-    --primary: 192 91% 47%;          /* #0abde3 */
+    --primary: 185 70% 45%;          /* #22a6b3 fresh teal */
     --primary-foreground: 0 0% 100%;
-    --secondary: 183 100% 50%;       /* #00d2d3 */
+    --secondary: 195 65% 50%;        /* #2e9cca sky blue */
     --secondary-foreground: 0 0% 100%;
-    --accent: 192 91% 47%;
+    --accent: 185 70% 45%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --gradient-start: #0abde3;
-    --gradient-mid: #48dbfb;
-    --gradient-end: #00d2d3;
-    --accent-primary: #0abde3;
-    --accent-secondary: #00d2d3;
-    --accent-light: #67e8f9;
-    --glow-color: rgba(10, 189, 227, 0.3);
+    --gradient-start: #22a6b3;
+    --gradient-mid: #2e9cca;
+    --gradient-end: #38c9b9;
+    --accent-primary: #22a6b3;
+    --accent-secondary: #2e9cca;
+    --accent-light: #5dced4;
+    --glow-color: rgba(34, 166, 179, 0.25);
 
-    /* Electric Blues gradient - SAME FOR ALL THEMES */
-    --gradient-main: linear-gradient(135deg, #7b84ff 0%, #68a5ff 33%, #5fc6ff 66%, #63e5fc 100%);
+    --gradient-button: linear-gradient(135deg, #22a6b3 0%, #1a8a95 100%);
 
-    --gradient-button: linear-gradient(135deg, #0abde3 0%, #0891b2 100%);
+    /* Card gradients - teal to sky palette */
+    --gradient-card-1: linear-gradient(135deg, #22a6b3 0%, #4dbdc7 100%);
+    --gradient-card-2: linear-gradient(135deg, #2e9cca 0%, #5cb8db 100%);
+    --gradient-card-3: linear-gradient(135deg, #38c9b9 0%, #65dcd0 100%);
+    --gradient-card-4: linear-gradient(135deg, #2896b5 0%, #50b0c8 100%);
 
-    --gradient-card-1: linear-gradient(135deg, #0abde3 0%, #22d3ee 100%);
-    --gradient-card-2: linear-gradient(135deg, #06b6d4 0%, #67e8f9 100%);
-    --gradient-card-3: linear-gradient(135deg, #00d2d3 0%, #5eead4 100%);
-    --gradient-card-4: linear-gradient(135deg, #818cf8 0%, #a5b4fc 100%);
+    --glow-card-1: rgba(34, 166, 179, 0.3);
+    --glow-card-2: rgba(46, 156, 202, 0.3);
+    --glow-card-3: rgba(56, 201, 185, 0.3);
+    --glow-card-4: rgba(40, 150, 181, 0.3);
 
-    --glow-card-1: rgba(10, 189, 227, 0.5);
-    --glow-card-2: rgba(6, 182, 212, 0.5);
-    --glow-card-3: rgba(0, 210, 211, 0.5);
-    --glow-card-4: rgba(129, 140, 248, 0.5);
-
-    /* Text color for bright cards - deep teal */
-    --card-text: #134e4a;
+    /* Text color for cards */
+    --card-text: #0f3d42;
     /* Filter to colorize white icons */
-    --card-icon-filter: brightness(0) saturate(100%) invert(25%) sepia(30%) saturate(1000%) hue-rotate(130deg);
+    --card-icon-filter: brightness(0) saturate(100%) invert(18%) sepia(35%) saturate(1200%) hue-rotate(150deg);
   }
 
-  /* Theme: Forest */
+  /* Theme: Forest - fresh emerald */
   [data-theme="forest"] {
-    /* Light mode base colors - light mint/sage */
-    --background: 145 45% 93%;       /* light mint */
-    --foreground: 150 25% 18%;       /* dark forest green */
-    --card: 145 40% 99%;             /* white with hint of mint */
-    --card-foreground: 150 25% 18%;
-    --popover: 145 35% 96%;
-    --popover-foreground: 150 25% 18%;
-    --muted: 145 25% 85%;
-    --muted-foreground: 150 15% 40%;
-    --border: 145 30% 82%;
-    --input: 145 25% 88%;
-    --ring: 158 64% 52%;
+    /* Light mode base colors */
+    --background: 150 35% 93%;       /* light mint */
+    --foreground: 160 35% 16%;       /* dark forest */
+    --card: 150 30% 99%;             /* white with mint hint */
+    --card-foreground: 160 35% 16%;
+    --popover: 150 25% 97%;
+    --popover-foreground: 160 35% 16%;
+    --muted: 150 20% 85%;
+    --muted-foreground: 160 15% 40%;
+    --border: 150 25% 82%;
+    --input: 150 20% 88%;
+    --ring: 158 60% 42%;
 
-    --primary: 158 64% 52%;          /* #10b981 */
+    --primary: 158 60% 42%;          /* #2a9d6e fresh emerald */
     --primary-foreground: 0 0% 100%;
-    --secondary: 142 71% 45%;        /* #22c55e */
+    --secondary: 145 55% 48%;        /* #3db36d lime-ish green */
     --secondary-foreground: 0 0% 100%;
-    --accent: 158 64% 52%;
+    --accent: 158 60% 42%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --gradient-start: #10b981;
-    --gradient-mid: #34d399;
-    --gradient-end: #a3e635;
-    --accent-primary: #10b981;
-    --accent-secondary: #34d399;
-    --accent-light: #6ee7b7;
-    --glow-color: rgba(16, 185, 129, 0.3);
+    --gradient-start: #2a9d6e;
+    --gradient-mid: #3db36d;
+    --gradient-end: #45c98a;
+    --accent-primary: #2a9d6e;
+    --accent-secondary: #3db36d;
+    --accent-light: #5cc98a;
+    --glow-color: rgba(42, 157, 110, 0.25);
 
-    /* Electric Blues gradient - SAME FOR ALL THEMES */
-    --gradient-main: linear-gradient(135deg, #7b84ff 0%, #68a5ff 33%, #5fc6ff 66%, #63e5fc 100%);
+    --gradient-button: linear-gradient(135deg, #2a9d6e 0%, #1f8058 100%);
 
-    --gradient-button: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    /* Card gradients - emerald palette */
+    --gradient-card-1: linear-gradient(135deg, #2a9d6e 0%, #4cb888 100%);
+    --gradient-card-2: linear-gradient(135deg, #3db36d 0%, #62c88a 100%);
+    --gradient-card-3: linear-gradient(135deg, #45c98a 0%, #6ddaa5 100%);
+    --gradient-card-4: linear-gradient(135deg, #30a878 0%, #52be92 100%);
 
-    --gradient-card-1: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-    --gradient-card-2: linear-gradient(135deg, #22c55e 0%, #86efac 100%);
-    --gradient-card-3: linear-gradient(135deg, #a3e635 0%, #d9f99d 100%);
-    --gradient-card-4: linear-gradient(135deg, #14b8a6 0%, #5eead4 100%);
+    --glow-card-1: rgba(42, 157, 110, 0.3);
+    --glow-card-2: rgba(61, 179, 109, 0.3);
+    --glow-card-3: rgba(69, 201, 138, 0.3);
+    --glow-card-4: rgba(48, 168, 120, 0.3);
 
-    --glow-card-1: rgba(16, 185, 129, 0.5);
-    --glow-card-2: rgba(34, 197, 94, 0.5);
-    --glow-card-3: rgba(163, 230, 53, 0.5);
-    --glow-card-4: rgba(20, 184, 166, 0.5);
-
-    /* Text color for bright cards - deep forest green */
-    --card-text: #14532d;
+    /* Text color for cards */
+    --card-text: #0f2e20;
     /* Filter to colorize white icons */
-    --card-icon-filter: brightness(0) saturate(100%) invert(20%) sepia(40%) saturate(1500%) hue-rotate(100deg);
+    --card-icon-filter: brightness(0) saturate(100%) invert(12%) sepia(40%) saturate(1500%) hue-rotate(120deg);
   }
 
-  /* Theme: Purple */
+  /* Theme: Purple - vibrant violet */
   [data-theme="purple"] {
-    /* Light mode base colors - light lavender */
-    --background: 265 45% 95%;       /* light lavender */
-    --foreground: 270 25% 18%;       /* dark purple */
-    --card: 265 40% 99%;             /* white with hint of lavender */
-    --card-foreground: 270 25% 18%;
-    --popover: 265 35% 97%;
-    --popover-foreground: 270 25% 18%;
-    --muted: 265 25% 88%;
-    --muted-foreground: 270 15% 40%;
-    --border: 265 30% 85%;
-    --input: 265 25% 90%;
-    --ring: 258 90% 66%;
+    /* Light mode base colors */
+    --background: 265 35% 95%;       /* light violet */
+    --foreground: 270 30% 18%;       /* dark purple */
+    --card: 265 30% 99%;             /* white with violet hint */
+    --card-foreground: 270 30% 18%;
+    --popover: 265 25% 97%;
+    --popover-foreground: 270 30% 18%;
+    --muted: 265 20% 87%;
+    --muted-foreground: 270 15% 42%;
+    --border: 265 25% 84%;
+    --input: 265 20% 89%;
+    --ring: 262 70% 55%;
 
-    --primary: 258 90% 66%;          /* #8b5cf6 */
+    --primary: 262 70% 55%;          /* #7c4dff vibrant violet */
     --primary-foreground: 0 0% 100%;
-    --secondary: 292 84% 61%;        /* #a855f7 */
+    --secondary: 280 60% 58%;        /* #a855f7 orchid */
     --secondary-foreground: 0 0% 100%;
-    --accent: 258 90% 66%;
+    --accent: 262 70% 55%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --gradient-start: #8b5cf6;
+    --gradient-start: #7c4dff;
     --gradient-mid: #a855f7;
-    --gradient-end: #ec4899;
-    --accent-primary: #8b5cf6;
+    --gradient-end: #9061f9;
+    --accent-primary: #7c4dff;
     --accent-secondary: #a855f7;
-    --accent-light: #c4b5fd;
-    --glow-color: rgba(139, 92, 246, 0.3);
+    --accent-light: #9d7aff;
+    --glow-color: rgba(124, 77, 255, 0.25);
 
-    /* Electric Blues gradient - SAME FOR ALL THEMES */
-    --gradient-main: linear-gradient(135deg, #7b84ff 0%, #68a5ff 33%, #5fc6ff 66%, #63e5fc 100%);
+    --gradient-button: linear-gradient(135deg, #7c4dff 0%, #6236e0 100%);
 
-    --gradient-button: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-
-    --gradient-card-1: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+    /* Card gradients - violet palette */
+    --gradient-card-1: linear-gradient(135deg, #7c4dff 0%, #9d7aff 100%);
     --gradient-card-2: linear-gradient(135deg, #a855f7 0%, #c084fc 100%);
-    --gradient-card-3: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
-    --gradient-card-4: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+    --gradient-card-3: linear-gradient(135deg, #9061f9 0%, #ab85fb 100%);
+    --gradient-card-4: linear-gradient(135deg, #8055e8 0%, #9d78f0 100%);
 
-    --glow-card-1: rgba(139, 92, 246, 0.5);
-    --glow-card-2: rgba(168, 85, 247, 0.5);
-    --glow-card-3: rgba(236, 72, 153, 0.5);
-    --glow-card-4: rgba(99, 102, 241, 0.5);
+    --glow-card-1: rgba(124, 77, 255, 0.3);
+    --glow-card-2: rgba(168, 85, 247, 0.3);
+    --glow-card-3: rgba(144, 97, 249, 0.3);
+    --glow-card-4: rgba(128, 85, 232, 0.3);
 
-    /* White text works on purple cards */
+    /* Text color for cards */
     --card-text: #ffffff;
     --card-icon-filter: none;
   }
@@ -277,30 +268,30 @@
   }
 }
 
-/* Statistics page gradients */
+/* Statistics page gradients - now uses theme colors */
 @layer utilities {
   .bg-gradient-progress {
-    background: linear-gradient(90deg, #07aeea 0%, #2bf598 100%);
+    background: var(--gradient-button);
   }
 
   .bg-gradient-stat-1 {
-    background: linear-gradient(135deg, rgba(250, 218, 97, 0.15) 0%, rgba(255, 145, 136, 0.15) 100%);
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--secondary) / 0.1) 100%);
   }
 
   .bg-gradient-stat-2 {
-    background: linear-gradient(135deg, rgba(7, 174, 234, 0.15) 0%, rgba(43, 245, 152, 0.15) 100%);
+    background: linear-gradient(135deg, hsl(var(--secondary) / 0.1) 0%, hsl(var(--primary) / 0.08) 100%);
   }
 
   .bg-gradient-stat-3 {
-    background: linear-gradient(135deg, rgba(65, 89, 208, 0.15) 0%, rgba(200, 79, 192, 0.15) 100%);
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.08) 0%, hsl(var(--secondary) / 0.12) 100%);
   }
 
   .bg-gradient-stat-4 {
-    background: linear-gradient(135deg, rgba(255, 90, 205, 0.15) 0%, rgba(250, 218, 97, 0.15) 100%);
+    background: linear-gradient(135deg, hsl(var(--secondary) / 0.12) 0%, hsl(var(--primary) / 0.1) 100%);
   }
 
   .ring-gradient-mastered {
-    background: linear-gradient(135deg, #07aeea, #2bf598);
+    background: var(--gradient-button);
     padding: 2px;
   }
 

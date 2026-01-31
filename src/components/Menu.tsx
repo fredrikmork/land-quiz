@@ -65,7 +65,7 @@ export function Menu() {
             <Globe size={14} />
             <span>197 land å utforske</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-main bg-clip-text text-transparent mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary mb-4">
             Lær verdens land
           </h1>
           <p className="text-lg text-muted-foreground max-w-md mx-auto">

@@ -269,7 +269,7 @@ export function Statistics() {
           Tilbake
         </Button>
         <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4 text-center">
-          <div className="w-24 h-24 flex items-center justify-center bg-gradient-main rounded-full text-white">
+          <div className="w-24 h-24 flex items-center justify-center bg-primary rounded-full text-primary-foreground">
             <Trophy size={48} />
           </div>
           <h2 className="text-3xl font-bold text-foreground">Ingen statistikk enda</h2>
@@ -301,7 +301,7 @@ export function Statistics() {
           Oppdater
         </Button>
       </div>
-      <h2 className="text-2xl md:text-3xl font-extrabold bg-gradient-main bg-clip-text text-transparent mb-4 text-center">Din statistikk</h2>
+      <h2 className="text-2xl md:text-3xl font-extrabold text-primary mb-4 text-center">Din statistikk</h2>
 
       {/* Overview Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6">
@@ -310,7 +310,7 @@ export function Statistics() {
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-orange-400 flex items-center justify-center shadow-lg">
               <Trophy size={20} className="text-white" />
             </div>
-            <span className="text-3xl md:text-4xl font-extrabold bg-gradient-main bg-clip-text text-transparent">
+            <span className="text-3xl md:text-4xl font-extrabold text-primary">
               {stats.historical?.lifetime_correct || 0}
             </span>
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Totalt riktige</span>
@@ -321,7 +321,7 @@ export function Statistics() {
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-emerald-400 flex items-center justify-center shadow-lg">
               <Target size={20} className="text-white" />
             </div>
-            <span className="text-3xl md:text-4xl font-extrabold bg-gradient-main bg-clip-text text-transparent">
+            <span className="text-3xl md:text-4xl font-extrabold text-primary">
               {stats.overall.overall_accuracy}%
             </span>
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Treffsikkerhet</span>
@@ -332,7 +332,7 @@ export function Statistics() {
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 flex items-center justify-center shadow-lg">
               <CheckCircle2 size={20} className="text-white" />
             </div>
-            <span className="text-3xl md:text-4xl font-extrabold bg-gradient-main bg-clip-text text-transparent">
+            <span className="text-3xl md:text-4xl font-extrabold text-primary">
               {stats.mastered_countries?.length || 0}
             </span>
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Mestrede land</span>
@@ -343,7 +343,7 @@ export function Statistics() {
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-yellow-400 flex items-center justify-center shadow-lg">
               <Calendar size={20} className="text-white" />
             </div>
-            <span className="text-3xl md:text-4xl font-extrabold bg-gradient-main bg-clip-text text-transparent">
+            <span className="text-3xl md:text-4xl font-extrabold text-primary">
               {stats.historical?.days_played || 0}
             </span>
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Dager spilt</span>

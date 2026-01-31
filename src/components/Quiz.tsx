@@ -105,7 +105,7 @@ export function Quiz() {
     return (
       <div className="max-w-4xl mx-auto w-full p-8">
         <div className="flex flex-col items-center justify-center min-h-[70vh] gap-6 text-center">
-          <div className="w-24 h-24 flex items-center justify-center bg-gradient-main rounded-full text-white">
+          <div className="w-24 h-24 flex items-center justify-center bg-primary rounded-full text-white">
             <Trophy size={48} />
           </div>
           <h2 className="text-3xl font-bold text-foreground">Ingen land å øve på!</h2>
@@ -150,7 +150,7 @@ export function Quiz() {
           {/* Score display */}
           <div className="bg-card/50 backdrop-blur border border-border/50 rounded-2xl px-8 py-6">
             <div className="flex items-baseline justify-center gap-2 mb-2">
-              <span className="text-6xl md:text-7xl font-black bg-gradient-main bg-clip-text text-transparent">{quiz.score}</span>
+              <span className="text-6xl md:text-7xl font-black text-primary">{quiz.score}</span>
               <span className="text-3xl text-muted-foreground">/</span>
               <span className="text-4xl text-muted-foreground">{quiz.totalQuestions}</span>
             </div>
@@ -160,7 +160,7 @@ export function Quiz() {
                 style={{ width: `${percentage}%` }}
               />
             </div>
-            <p className="text-2xl font-bold bg-gradient-main bg-clip-text text-transparent">{percentage}% riktig</p>
+            <p className="text-2xl font-bold text-primary">{percentage}% riktig</p>
           </div>
 
           <p className="text-lg text-muted-foreground max-w-sm">
@@ -224,7 +224,7 @@ export function Quiz() {
         </div>
         <div className="justify-self-end flex items-center gap-2 bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20">
           <Trophy size={16} className="text-primary" />
-          <span className="text-lg font-bold bg-gradient-main bg-clip-text text-transparent">{quiz.score}</span>
+          <span className="text-lg font-bold text-primary">{quiz.score}</span>
         </div>
       </div>
 
@@ -241,7 +241,7 @@ export function Quiz() {
         ) : isCountryToMap ? (
           <>
             <div className="flex justify-center items-center p-5 md:p-7 bg-card/50 backdrop-blur rounded-xl border border-border/50 shadow-sm">
-              <span className="text-2xl md:text-4xl font-extrabold bg-gradient-main bg-clip-text text-transparent">
+              <span className="text-2xl md:text-4xl font-extrabold text-primary">
                 {currentQuestion.displayValue}
               </span>
             </div>
@@ -264,7 +264,7 @@ export function Quiz() {
           </div>
         ) : (
           <div className="flex justify-center items-center p-5 md:p-7 bg-card/50 backdrop-blur rounded-xl border border-border/50 shadow-sm">
-            <span className="text-2xl md:text-4xl font-extrabold bg-gradient-main bg-clip-text text-transparent">
+            <span className="text-2xl md:text-4xl font-extrabold text-primary">
               {currentQuestion.displayValue}
             </span>
           </div>

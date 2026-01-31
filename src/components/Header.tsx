@@ -13,10 +13,10 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 
 const themes: { key: ThemeColor; label: string; colors: string[] }[] = [
-  { key: 'sunset', label: 'Miami Vice', colors: ['#ff1493', '#00ffff', '#9400d3'] },
-  { key: 'ocean', label: 'Hav', colors: ['#0abde3', '#48dbfb', '#00d2d3'] },
-  { key: 'forest', label: 'Skog', colors: ['#10b981', '#34d399', '#a3e635'] },
-  { key: 'purple', label: 'Lilla', colors: ['#8b5cf6', '#a855f7', '#ec4899'] },
+  { key: 'sunset', label: 'Solnedgang', colors: ['#e84a6f', '#e8845a', '#d4627a'] },
+  { key: 'ocean', label: 'Hav', colors: ['#22a6b3', '#2e9cca', '#38c9b9'] },
+  { key: 'forest', label: 'Skog', colors: ['#2a9d6e', '#3db36d', '#45c98a'] },
+  { key: 'purple', label: 'Lilla', colors: ['#7c4dff', '#a855f7', '#9061f9'] },
 ]
 
 export function Header() {
@@ -34,10 +34,10 @@ export function Header() {
       <div className="max-w-7xl mx-auto flex h-16 items-center px-4 md:px-8 justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group rounded-md p-1 hover:bg-accent/10 transition-colors">
-          <div className="w-10 h-10 flex items-center justify-center bg-gradient-main rounded-md text-white transition-transform group-hover:scale-105">
+          <div className="w-10 h-10 flex items-center justify-center bg-primary rounded-md text-primary-foreground transition-transform group-hover:scale-105">
             <Globe size={24} />
           </div>
-          <span className="text-lg md:text-xl font-bold bg-gradient-main bg-clip-text text-transparent">
+          <span className="text-lg md:text-xl font-bold text-primary">
             LandQuiz
           </span>
         </Link>
@@ -94,7 +94,7 @@ export function Header() {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" aria-label="Profilmeny">
                   <Avatar className="h-8 w-8">
-                    <AvatarFallback className="bg-gradient-main text-white text-sm">
+                    <AvatarFallback className="bg-primary text-primary-foreground text-sm">
                       {profile?.display_name?.charAt(0) || profile?.username?.charAt(0) || 'B'}
                     </AvatarFallback>
                   </Avatar>
