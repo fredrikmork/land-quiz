@@ -450,19 +450,35 @@ export function Statistics() {
                   {stats.country_progress
                     .filter((c) => normalizeContinent(c.continent) === selectedContinent)
                     .map((country) => (
-                      <Card key={country.code}>
+                      <Card
+                        key={country.code}
+                        className={cn(
+                          "transition-all",
+                          country.is_mastered
+                            ? "border-emerald-500/50 bg-emerald-500/5"
+                            : "border-border/50"
+                        )}
+                      >
                         <CardContent className="p-4">
                           <div className="flex items-center gap-3 mb-3">
                             <div className="w-12 h-8 rounded shadow-sm bg-white flex-shrink-0 overflow-hidden">
                               <img src={getHighResFlag(country.flag_url)} alt={`Flagget til ${country.name}`} className="w-full h-full object-contain" />
                             </div>
                             <div className="flex-1">
-                              <span className="block font-semibold text-foreground">{country.name}</span>
+                              <span className={cn(
+                                "block font-semibold",
+                                country.is_mastered ? "text-emerald-500" : "text-foreground"
+                              )}>{country.name}</span>
                               <span className="text-sm text-muted-foreground">
                                 {countries.find(c => c.code === country.code)?.capital}
                               </span>
                             </div>
-                            {country.is_mastered && <Badge className="bg-green-500 hover:bg-green-500">✓</Badge>}
+                            {country.is_mastered && (
+                              <Badge variant="outline" className="border-emerald-500/50 text-emerald-500 gap-1">
+                                <CheckCircle2 size={12} />
+                                Mestret
+                              </Badge>
+                            )}
                           </div>
                           <div className="grid grid-cols-2 gap-2">
                             {quizModes.map((mode) => {
@@ -475,7 +491,11 @@ export function Statistics() {
                                   key={mode.key}
                                   className={cn(
                                     "flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-all",
-                                    isCompleted ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
+                                    isCompleted
+                                      ? country.is_mastered
+                                        ? "bg-emerald-500/20 text-emerald-500"
+                                        : "bg-primary/20 text-primary"
+                                      : "bg-muted text-muted-foreground"
                                   )}
                                 >
                                   <Icon size={14} />
