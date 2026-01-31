@@ -1,10 +1,10 @@
 import { useState, useMemo, useCallback } from 'react'
 import { ComposableMap, Geographies, Geography, ZoomableGroup, Marker } from 'react-simple-maps'
-import isoCountries from 'i18n-iso-countries'
 import { countries as quizCountries } from '../data/countries'
 import {
   GEO_URL,
   getAlpha3,
+  getAlpha2,
   alpha3ToNumeric,
   smallCountryCoords,
   zoomConfig,
@@ -174,7 +174,7 @@ export function InteractiveMapDisplay({
           </Geographies>
           {/* Show markers for small isoCountries */}
           {Object.entries(smallCountryCoords).map(([alpha3, coords]) => {
-            const alpha2 = isoCountries.alpha3ToAlpha2(alpha3) || (alpha3 === 'XKX' ? 'XK' : alpha3)
+            const alpha2 = getAlpha2(alpha3)
             const isCorrect = alpha2 === correctAnswer
             const isSelected = alpha2 === selectedAnswer
             const isHovered = hoveredMarker === alpha3
