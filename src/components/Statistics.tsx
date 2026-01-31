@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Landmark, Building2, Flag, Map, ArrowLeft, Trophy, Target, Calendar, CheckCircle2, ChevronRight, RefreshCw, ChevronDown, Circle, CircleDot } from 'lucide-react'
 import { getUserStatistics, UserStatistics } from '../lib/quizApi'
 import { useAuth } from '../hooks/useAuth'
@@ -204,12 +204,33 @@ function CountryProgressGroups({ countryProgress }: { countryProgress: CountryPr
 
 export function Statistics() {
   const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams()
   const { user } = useAuth()
   const [stats, setStats] = useState<UserStatistics | null>(null)
   const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'overview' | 'continents' | 'countries'>('overview')
-  const [selectedContinent, setSelectedContinent] = useState<string | null>(null)
   const [completedModes, setCompletedModes] = useState<Record<string, string[]>>({})
+
+  // Read tab and continent from URL params
+  const tabParam = searchParams.get('tab')
+  const activeTab: 'overview' | 'continents' | 'countries' =
+    tabParam === 'continents' || tabParam === 'countries' ? tabParam : 'overview'
+  const selectedContinent = searchParams.get('c')
+
+  const setActiveTab = (tab: 'overview' | 'continents' | 'countries') => {
+    if (tab === 'overview') {
+      setSearchParams({})
+    } else {
+      setSearchParams({ tab })
+    }
+  }
+
+  const setSelectedContinent = (continent: string | null) => {
+    if (continent) {
+      setSearchParams({ tab: 'continents', c: continent })
+    } else {
+      setSearchParams({ tab: 'continents' })
+    }
+  }
 
   useEffect(() => {
     if (user) {
