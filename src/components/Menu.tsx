@@ -2,7 +2,6 @@ import { Link } from "react-router-dom"
 import { Globe, BookOpen } from "lucide-react"
 import { useAuth } from "../hooks/useAuth"
 import { usePracticeCountries } from "../hooks/usePracticeCountries"
-import { useCardGlow } from "../hooks/useCardGlow"
 import {
   getCountriesByContinent,
   countries,
@@ -10,49 +9,20 @@ import {
 } from "../data/countries"
 import { continentIcons } from "../data/constants"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
-const continents: { name: Continent; gradient: string; glowColor: string }[] = [
-  {
-    name: "Europa",
-    gradient: "var(--gradient-card-1)",
-    glowColor: "var(--glow-card-1)",
-  },
-  {
-    name: "Asia",
-    gradient: "var(--gradient-card-2)",
-    glowColor: "var(--glow-card-2)",
-  },
-  {
-    name: "Afrika",
-    gradient: "var(--gradient-card-3)",
-    glowColor: "var(--glow-card-3)",
-  },
-  {
-    name: "Nord-Amerika",
-    gradient: "var(--gradient-card-4)",
-    glowColor: "var(--glow-card-4)",
-  },
-  {
-    name: "Sør-Amerika",
-    gradient: "var(--gradient-card-1)",
-    glowColor: "var(--glow-card-1)",
-  },
-  {
-    name: "Oseania",
-    gradient: "var(--gradient-card-2)",
-    glowColor: "var(--glow-card-2)",
-  },
+const continents: { name: Continent; accentColor: string }[] = [
+  { name: "Europa", accentColor: "var(--accent-primary)" },
+  { name: "Asia", accentColor: "var(--accent-secondary)" },
+  { name: "Afrika", accentColor: "var(--accent-primary)" },
+  { name: "Nord-Amerika", accentColor: "var(--accent-secondary)" },
+  { name: "Sør-Amerika", accentColor: "var(--accent-primary)" },
+  { name: "Oseania", accentColor: "var(--accent-secondary)" },
 ]
 
 export function Menu() {
   const { user, isAuthenticated } = useAuth()
   const { practiceCount, loading: practiceLoading } = usePracticeCountries(user)
-
-  // Glow handlers for static cards
-  const allCountriesGlow = useCardGlow("var(--glow-card-3)")
-  const practiceGlow = useCardGlow("var(--glow-card-4)", practiceCount === 0)
 
   return (
     <div className="max-w-6xl mx-auto w-full p-4 md:p-8">
@@ -81,49 +51,33 @@ export function Menu() {
           <h2 className="text-xl font-bold text-foreground px-2">Kontinenter</h2>
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {continents.map((continent) => {
             const count = getCountriesByContinent(continent.name).length
             return (
-              <Link key={continent.name} to={`/quiz/continent/${continent.name}`} className="rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+              <Link key={continent.name} to={`/quiz/continent/${continent.name}`} className="group">
                 <Card
                   className={cn(
-                    "relative overflow-hidden border-0 min-h-20 transition-all duration-normal",
-                    "hover:-translate-y-1 hover:scale-[1.02]"
+                    "relative overflow-hidden transition-all duration-200",
+                    "bg-card border-2 border-primary/30",
+                    "hover:border-primary/60 hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.25)]"
                   )}
-                  style={{
-                    background: continent.gradient,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = `0 8px 32px ${continent.glowColor}, 0 0 20px ${continent.glowColor}`
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = 'none'
-                  }}
-                  onTouchStart={(e) => {
-                    e.currentTarget.style.boxShadow = `0 8px 32px ${continent.glowColor}, 0 0 20px ${continent.glowColor}`
-                  }}
-                  onTouchEnd={(e) => {
-                    e.currentTarget.style.boxShadow = 'none'
-                  }}
                 >
-                  <CardContent className="relative z-10 flex items-center gap-3 p-4 text-[var(--card-text)]">
-                    <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
+                  <CardContent className="flex items-center gap-4 p-5">
+                    <div
+                      className="w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-110"
+                      style={{ background: `color-mix(in srgb, ${continent.accentColor} 15%, transparent)` }}
+                    >
                       <img
                         src={continentIcons[continent.name]}
-                        alt={continent.name}
-                        className="w-full h-full object-contain"
-                        style={{ filter: 'var(--card-icon-filter)' }}
+                        alt=""
+                        className="w-10 h-10 object-contain"
+                        style={{ filter: 'var(--icon-filter-primary)' }}
                       />
                     </div>
-                    <div className="flex flex-col gap-0.5">
-                      <span className="font-semibold text-base">{continent.name}</span>
-                      <Badge
-                        variant="secondary"
-                        className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/20 border-0"
-                      >
-                        {count} land
-                      </Badge>
+                    <div className="flex flex-col">
+                      <span className="font-semibold text-foreground">{continent.name}</span>
+                      <span className="text-sm text-muted-foreground">{count} land</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -140,34 +94,31 @@ export function Menu() {
           <h2 className="text-xl font-bold text-foreground px-2">Utfordringer</h2>
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* All Countries */}
-          <Link to="/quiz/all" className="h-full">
+          <Link to="/quiz/all" className="group h-full">
             <Card
               className={cn(
-                "relative overflow-hidden border-0 transition-all duration-normal h-full",
-                "hover:-translate-y-1 hover:scale-[1.02]"
+                "relative overflow-hidden transition-all duration-200 h-full",
+                "bg-card border-2 border-primary/30",
+                "hover:border-primary/60 hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.25)]"
               )}
-              style={{
-                background: "var(--gradient-card-3)",
-              }}
-              {...allCountriesGlow}
             >
-              <CardContent className="relative z-10 flex items-center gap-4 p-4 md:p-6 text-[var(--card-text)]">
-                <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
-                  <Globe className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />
+              <CardContent className="flex items-center gap-4 p-5">
+                <div
+                  className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-110"
+                  style={{ background: 'color-mix(in srgb, var(--accent-primary) 15%, transparent)' }}
+                >
+                  <Globe className="w-7 h-7 text-primary" strokeWidth={1.5} />
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="font-bold text-lg">Alle land</span>
-                  <span className="text-sm opacity-90">
-                    193 FN-medlemmer + 4 anerkjente stater
+                  <span className="font-bold text-lg text-foreground">Alle land</span>
+                  <span className="text-sm text-muted-foreground">
+                    Test deg på hele verden
                   </span>
-                  <Badge
-                    variant="secondary"
-                    className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/20 border-0 mt-1"
-                  >
+                  <span className="text-xs text-muted-foreground/70 mt-1">
                     {countries.length} land
-                  </Badge>
+                  </span>
                 </div>
               </CardContent>
             </Card>
@@ -177,68 +128,63 @@ export function Menu() {
           {isAuthenticated ? (
             <Link
               to="/quiz/practice"
-              className={cn("h-full", practiceCount === 0 && "pointer-events-none")}
+              className={cn("group h-full", practiceCount === 0 && "pointer-events-none")}
               tabIndex={practiceCount === 0 ? -1 : undefined}
               aria-disabled={practiceCount === 0 ? "true" : undefined}
               onClick={(e) => practiceCount === 0 && e.preventDefault()}
             >
               <Card
                 className={cn(
-                  "relative overflow-hidden border-0 transition-all duration-normal h-full",
-                  practiceCount !== 0 && "hover:-translate-y-1 hover:scale-[1.02]",
-                  practiceCount === 0 && "opacity-60"
+                  "relative overflow-hidden transition-all duration-200 h-full",
+                  "bg-card border-2 border-primary/30",
+                  practiceCount !== 0 && "hover:border-primary/60 hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.25)]",
+                  practiceCount === 0 && "opacity-50"
                 )}
-                style={{
-                  background: "var(--gradient-card-4)",
-                }}
-                {...practiceGlow}
               >
-                <CardContent className="relative z-10 flex items-center gap-4 p-4 md:p-6 text-[var(--card-text)]">
-                  <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
-                    <BookOpen className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />
+                <CardContent className="flex items-center gap-4 p-5">
+                  <div
+                    className={cn(
+                      "w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-200",
+                      practiceCount !== 0 && "group-hover:scale-110"
+                    )}
+                    style={{ background: 'color-mix(in srgb, var(--accent-secondary) 15%, transparent)' }}
+                  >
+                    <BookOpen className="w-7 h-7 text-primary" strokeWidth={1.5} />
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span className="font-bold text-lg">Umestrede land</span>
-                    <span className="text-sm opacity-90">
-                      Øv på landene du ikke ennå har mestret
+                    <span className="font-bold text-lg text-foreground">Øvingsmodus</span>
+                    <span className="text-sm text-muted-foreground">
+                      Fokuser på land du ikke har mestret
                     </span>
-                    <Badge
-                      variant="secondary"
-                      className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/20 border-0 mt-1"
-                    >
+                    <span className="text-xs text-muted-foreground/70 mt-1">
                       {practiceLoading
                         ? "Laster..."
                         : practiceCount === 0
-                        ? "Alle mestret!"
-                        : `${practiceCount} land`}
-                    </Badge>
+                        ? "Alle land mestret!"
+                        : `${practiceCount} land gjenstår`}
+                    </span>
                   </div>
                 </CardContent>
               </Card>
             </Link>
           ) : (
-            <div className="pointer-events-none h-full">
-              <Card
-                className="relative overflow-hidden border-0 opacity-60 h-full"
-                style={{
-                  background: "var(--gradient-card-4)",
-                }}
-              >
-                <CardContent className="relative z-10 flex items-center gap-4 p-4 md:p-6 text-[var(--card-text)]">
-                  <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
-                    <BookOpen className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />
+            <div className="h-full">
+              <Card className="relative overflow-hidden border-2 border-primary/30 opacity-50 h-full bg-card">
+                <CardContent className="flex items-center gap-4 p-5">
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ background: 'color-mix(in srgb, var(--accent-secondary) 15%, transparent)' }}
+                  >
+                    <BookOpen className="w-7 h-7 text-primary" strokeWidth={1.5} />
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span className="font-bold text-lg">Umestrede land</span>
-                    <span className="text-sm opacity-90">
-                      Øv på landene du ikke ennå har mestret
+                    <span className="font-bold text-lg text-foreground">Øvingsmodus</span>
+                    <span className="text-sm text-muted-foreground">
+                      Fokuser på land du ikke har mestret
                     </span>
-                    <Badge
-                      variant="secondary"
-                      className="w-fit bg-white/20 text-[var(--card-text)] hover:bg-white/20 border-0 mt-1"
-                    >
+                    <span className="text-xs text-muted-foreground/70 mt-1">
                       Logg inn for å bruke
-                    </Badge>
+                    </span>
                   </div>
                 </CardContent>
               </Card>

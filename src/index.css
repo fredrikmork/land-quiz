@@ -33,6 +33,7 @@
     --ring: 350 85% 60%;
 
     --primary: 350 85% 60%;          /* #e84a6f vibrant rose */
+    --primary-rgb: 232, 74, 111;
     --primary-foreground: 0 0% 100%;
     --secondary: 20 80% 65%;         /* #e8845a warm orange */
     --secondary-foreground: 0 0% 100%;
@@ -90,6 +91,7 @@
     --ring: 185 70% 45%;
 
     --primary: 185 70% 45%;          /* #22a6b3 fresh teal */
+    --primary-rgb: 34, 166, 179;
     --primary-foreground: 0 0% 100%;
     --secondary: 195 65% 50%;        /* #2e9cca sky blue */
     --secondary-foreground: 0 0% 100%;
@@ -144,6 +146,7 @@
     --ring: 158 60% 42%;
 
     --primary: 158 60% 42%;          /* #2a9d6e fresh emerald */
+    --primary-rgb: 42, 157, 110;
     --primary-foreground: 0 0% 100%;
     --secondary: 145 55% 48%;        /* #3db36d lime-ish green */
     --secondary-foreground: 0 0% 100%;
@@ -198,6 +201,7 @@
     --ring: 262 70% 55%;
 
     --primary: 262 70% 55%;          /* #7c4dff vibrant violet */
+    --primary-rgb: 124, 77, 255;
     --primary-foreground: 0 0% 100%;
     --secondary: 280 60% 58%;        /* #a855f7 orchid */
     --secondary-foreground: 0 0% 100%;
