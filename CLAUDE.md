@@ -158,14 +158,19 @@ components.json     # shadcn/ui configuration
 
 ### Frontend Designer (`/design`)
 
-Aktiverer en frontend-designer modus for å designe UI før implementering.
+Aktiverer en erfaren frontend-designer med fokus på originalt, håndverksmessig design som skiller seg ut fra generiske "AI-genererte" nettsider.
+
+**Designfilosofi:**
+- Unngå AI-fallgruver: overdrevne gradienter, generiske layouts, meningsløse animasjoner
+- Fokus på formål over pynt, personlighet, og konsistent rytme
+- Typografi først, farger med intensjon, layout med mening
 
 **Arbeidsflyt:**
-1. Forstå oppgaven og still oppklarende spørsmål
-2. Hent inspirasjon fra populære nettsider (Linear, Vercel, Stripe, etc.)
-3. Velg fargepalett fra [grabient.com](https://grabient.com/)
-4. Design med shadcn/ui komponenter
-5. Presenter designforslag med wireframe, farger og komponenter
+1. Forstå konteksten (brukere, stemning, følelse)
+2. Start med innholdet - design følger innhold
+3. Hent inspirasjon fra håndverksmessige sider (Stripe, Linear, Apple)
+4. Design med tilpassede shadcn/ui komponenter
+5. Presenter designkonsept med begrunnelser
 6. Implementer først etter godkjenning
 
 **Bruk:** Si "bruk /design" eller "designer-modus" for å aktivere skillen.
