@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Landmark, Building2, Flag, Map, ArrowLeft, Trophy, Target, Calendar, CheckCircle2, ChevronRight, RefreshCw, ChevronDown, Circle, CircleDot } from 'lucide-react'
 import { getUserStatistics, UserStatistics } from '../lib/quizApi'
 import { useAuth } from '../hooks/useAuth'
-import { supabase } from '../lib/supabase'
 import { getCountriesByContinent, countries, getHighResFlag, type Continent } from '../data/countries'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardContent } from '@/components/ui/card'
@@ -242,24 +241,17 @@ export function Statistics() {
     const data = await getUserStatistics(user.id)
     setStats(data)
 
-    // Fetch which specific modes are completed for each country
-    const { data: attempts } = await supabase
-      .from('quiz_attempts')
-      .select('country_code, quiz_mode')
-      .eq('user_id', user.id)
-      .eq('is_correct', true)
-
-    if (attempts) {
+    // Build completedModes from RPC response (single source of truth)
+    if (data?.country_progress) {
       const modesByCountry: Record<string, string[]> = {}
-      attempts.forEach((attempt: any) => {
-        if (!modesByCountry[attempt.country_code]) {
-          modesByCountry[attempt.country_code] = []
-        }
-        if (!modesByCountry[attempt.country_code].includes(attempt.quiz_mode)) {
-          modesByCountry[attempt.country_code].push(attempt.quiz_mode)
+      data.country_progress.forEach((country) => {
+        if (country.completed_modes && country.completed_modes.length > 0) {
+          modesByCountry[country.code] = country.completed_modes
         }
       })
       setCompletedModes(modesByCountry)
+    } else {
+      setCompletedModes({})
     }
 
     setLoading(false)

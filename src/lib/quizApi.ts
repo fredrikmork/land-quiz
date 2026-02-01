@@ -151,6 +151,7 @@ export interface UserStatistics {
     continent: string
     modes_correct: number
     is_mastered: boolean
+    completed_modes: string[]
   }> | null
 }
 

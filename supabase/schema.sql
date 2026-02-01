@@ -311,10 +311,14 @@ begin
           'https://flagcdn.com/w80/' || lower(c.code) || '.png' as flag_url,
           c.continent,
           coalesce(modes.modes_correct, 0) as modes_correct,
-          case when coalesce(modes.modes_correct, 0) = 4 then true else false end as is_mastered
+          case when coalesce(modes.modes_correct, 0) = 4 then true else false end as is_mastered,
+          coalesce(modes.completed_modes, '[]'::json) as completed_modes
         from countries c
         left join (
-          select country_code, count(distinct quiz_mode) as modes_correct
+          select
+            country_code,
+            count(distinct quiz_mode) as modes_correct,
+            json_agg(distinct quiz_mode) as completed_modes
           from quiz_attempts
           where user_id = p_user_id and is_correct = true
           group by country_code
