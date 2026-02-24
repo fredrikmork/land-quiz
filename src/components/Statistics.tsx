@@ -240,15 +240,6 @@ export function Statistics() {
     setLoading(true)
     const data = await getUserStatistics(user.id)
 
-    // Override continent from local data (authoritative source) to fix DB inconsistencies
-    if (data?.country_progress) {
-      const countryMap: Record<string, string> = Object.fromEntries(countries.map((c) => [c.code, c.continent]))
-      data.country_progress = data.country_progress.map((cp) => ({
-        ...cp,
-        continent: countryMap[cp.code] || cp.continent,
-      }))
-    }
-
     setStats(data)
 
     // Build completedModes from RPC response (single source of truth)
