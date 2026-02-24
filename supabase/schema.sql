@@ -144,7 +144,7 @@ create policy "Users can insert own attempts"
 -- ============================================
 
 -- Statistikk per land for en bruker
-create or replace view user_country_stats as
+create or replace view user_country_stats with (security_invoker = true) as
 select
   user_id,
   country_code,
@@ -156,7 +156,7 @@ from quiz_attempts
 group by user_id, country_code, quiz_mode;
 
 -- Statistikk per kontinent for en bruker
-create or replace view user_continent_stats as
+create or replace view user_continent_stats with (security_invoker = true) as
 select
   qa.user_id,
   c.continent,
@@ -168,7 +168,7 @@ join countries c on c.code = qa.country_code
 group by qa.user_id, c.continent;
 
 -- Overordnet statistikk for en bruker
-create or replace view user_overall_stats as
+create or replace view user_overall_stats with (security_invoker = true) as
 select
   user_id,
   count(*) as total_attempts,
@@ -180,7 +180,7 @@ from quiz_attempts
 group by user_id;
 
 -- Land som er "mestret" (riktig i alle 4 moduser minst én gang)
-create or replace view user_mastered_countries as
+create or replace view user_mastered_countries with (security_invoker = true) as
 select
   user_id,
   country_code,
@@ -191,7 +191,7 @@ group by user_id, country_code
 having count(distinct quiz_mode) = 4;
 
 -- Beste og verste land per bruker
-create or replace view user_best_worst_countries as
+create or replace view user_best_worst_countries with (security_invoker = true) as
 with country_accuracy as (
   select
     user_id,
@@ -217,7 +217,7 @@ select
 from country_accuracy;
 
 -- Historisk score (totalt antall riktige gjennom tidene)
-create or replace view user_historical_score as
+create or replace view user_historical_score with (security_invoker = true) as
 select
   user_id,
   sum(case when is_correct then 1 else 0 end) as lifetime_correct,
@@ -229,7 +229,7 @@ from quiz_attempts
 group by user_id;
 
 -- Leaderboard
-create or replace view leaderboard as
+create or replace view leaderboard with (security_invoker = true) as
 select
   p.id as user_id,
   p.display_name,
