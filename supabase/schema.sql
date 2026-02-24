@@ -18,12 +18,15 @@ create table if not exists profiles (
 
 -- Trigger for å oppdatere updated_at
 create or replace function update_updated_at_column()
-returns trigger as $$
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
 begin
   new.updated_at = now();
   return new;
 end;
-$$ language plpgsql;
+$$;
 
 create trigger update_profiles_updated_at
   before update on profiles
@@ -31,7 +34,11 @@ create trigger update_profiles_updated_at
 
 -- Automatisk opprett profil når bruker registrerer seg
 create or replace function handle_new_user()
-returns trigger as $$
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
 begin
   insert into public.profiles (id, username, display_name)
   values (
@@ -41,7 +48,7 @@ begin
   );
   return new;
 end;
-$$ language plpgsql security definer;
+$$;
 
 create trigger on_auth_user_created
   after insert on auth.users
@@ -252,32 +259,36 @@ order by lifetime_correct desc;
 
 -- Hent detaljert statistikk for en bruker
 create or replace function get_user_statistics(p_user_id uuid)
-returns json as $$
+returns json
+language plpgsql
+security definer
+set search_path = ''
+as $$
 declare
   result json;
 begin
   select json_build_object(
     'overall', (
       select row_to_json(t) from (
-        select * from user_overall_stats where user_id = p_user_id
+        select * from public.user_overall_stats where user_id = p_user_id
       ) t
     ),
     'historical', (
       select row_to_json(t) from (
-        select * from user_historical_score where user_id = p_user_id
+        select * from public.user_historical_score where user_id = p_user_id
       ) t
     ),
     'continents', (
       select json_agg(row_to_json(t)) from (
-        select * from user_continent_stats where user_id = p_user_id order by accuracy_percent desc
+        select * from public.user_continent_stats where user_id = p_user_id order by accuracy_percent desc
       ) t
     ),
     'best_countries', (
       select json_agg(row_to_json(t)) from (
         select bw.*, c.name as country_name,
           'https://flagcdn.com/w80/' || lower(c.code) || '.png' as flag_url
-        from user_best_worst_countries bw
-        join countries c on c.code = bw.country_code
+        from public.user_best_worst_countries bw
+        join public.countries c on c.code = bw.country_code
         where bw.user_id = p_user_id and bw.category = 'best'
         order by bw.accuracy desc
         limit 5
@@ -287,8 +298,8 @@ begin
       select json_agg(row_to_json(t)) from (
         select bw.*, c.name as country_name,
           'https://flagcdn.com/w80/' || lower(c.code) || '.png' as flag_url
-        from user_best_worst_countries bw
-        join countries c on c.code = bw.country_code
+        from public.user_best_worst_countries bw
+        join public.countries c on c.code = bw.country_code
         where bw.user_id = p_user_id and bw.category = 'worst'
         order by bw.accuracy asc
         limit 5
@@ -298,8 +309,8 @@ begin
       select json_agg(row_to_json(t)) from (
         select mc.*, c.name as country_name,
           'https://flagcdn.com/w80/' || lower(c.code) || '.png' as flag_url
-        from user_mastered_countries mc
-        join countries c on c.code = mc.country_code
+        from public.user_mastered_countries mc
+        join public.countries c on c.code = mc.country_code
         where mc.user_id = p_user_id
       ) t
     ),
@@ -313,13 +324,13 @@ begin
           coalesce(modes.modes_correct, 0) as modes_correct,
           case when coalesce(modes.modes_correct, 0) = 4 then true else false end as is_mastered,
           coalesce(modes.completed_modes, '[]'::json) as completed_modes
-        from countries c
+        from public.countries c
         left join (
           select
             country_code,
             count(distinct quiz_mode) as modes_correct,
             json_agg(distinct quiz_mode) as completed_modes
-          from quiz_attempts
+          from public.quiz_attempts
           where user_id = p_user_id and is_correct = true
           group by country_code
         ) modes on modes.country_code = c.code
@@ -330,7 +341,7 @@ begin
 
   return result;
 end;
-$$ language plpgsql security definer;
+$$;
 
 -- ============================================
 -- 8. INSERT COUNTRIES DATA
