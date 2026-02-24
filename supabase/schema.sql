@@ -432,7 +432,7 @@ insert into countries (name, capital, code, continent) values
 ('Thailand', 'Bangkok', 'TH', 'Asia'),
 ('Timor-Leste', 'Dili', 'TL', 'Asia'),
 ('Turkmenistan', 'Asjkhabad', 'TM', 'Asia'),
-('Tyrkia', 'Ankara', 'TR', 'Asia'),
+('Tyrkia', 'Ankara', 'TR', 'Europa'),
 ('Usbekistan', 'Tasjkent', 'UZ', 'Asia'),
 ('Vietnam', 'Hanoi', 'VN', 'Asia')
 on conflict (code) do nothing;
